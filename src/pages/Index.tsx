@@ -5,7 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CourseCard from "@/components/CourseCard";
 import { courses } from "@/data/courses";
-import heroImage from "@/assets/hero-image.jpeg";
+import heroImage from "@/assets/hero-image copy.jpeg";
 import { useState } from "react";
 
 const Index = () => {
@@ -54,10 +54,11 @@ const Index = () => {
                   onError={() => setImageError(true)}
                 />
               ) : (
-                <div className="flex items-center justify-center rounded-2xl shadow-elegant w-full aspect-video bg-gradient-hero border-2 border-primary/20">
+                <div className="flex items-center justify-center rounded-2xl shadow-elegant w-full aspect-video bg-gradient-to-br from-primary/10 via-primary/5 to-secondary/10 border-2 border-primary/20">
                   <div className="text-center">
                     <GraduationCap className="h-32 w-32 mx-auto text-primary mb-4" strokeWidth={1.5} />
                     <p className="text-2xl font-semibold text-foreground">Learn & Grow</p>
+                    <p className="text-sm text-muted-foreground mt-2">Your Journey Starts Here</p>
                   </div>
                 </div>
               )}
