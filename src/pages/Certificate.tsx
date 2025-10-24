@@ -42,10 +42,10 @@ const Certificate = () => {
             <CardContent className="p-12">
               <div className="text-center">
                 <div className="mb-8">
-                  <img 
-                    src={badgeIcon} 
-                    alt="LearnHub Certificate" 
-                    className="w-24 h-24 mx-auto mb-6"
+                  <img
+                    src={badgeIcon}
+                    alt="LearnHub Certificate"
+                    className="w-24 h-24 mx-auto mb-6 drop-shadow-lg"
                   />
                   <div className="inline-block px-8 py-3 rounded-lg mb-6" style={{ 
                     background: 'var(--gradient-primary)'
