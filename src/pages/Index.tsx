@@ -44,7 +44,7 @@ const Index = () => {
             </div>
             <div className="animate-scale-in lg:block">
               <img
-                src="/src/assets/WhatsApp Image 2025-10-24 at 20.48.32.jpeg"
+                src="/src/assets/hero-image.jpeg"
                 alt="People learning online"
                 className="rounded-2xl shadow-elegant w-full object-cover aspect-video"
               />
