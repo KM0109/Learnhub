@@ -54,7 +54,7 @@ const CourseDetail = () => {
       
       <main>
         {/* Hero Section */}
-        <section className="bg-gradient-hero py-8">
+        <section className="bg-gradient-hero py-6 pb-0">
           <div className="container">
             <div className="grid lg:grid-cols-3 gap-8">
               <div className="lg:col-span-2">
@@ -156,7 +156,7 @@ const CourseDetail = () => {
         </section>
 
         {/* Course Content */}
-        <section className="container py-12">
+        <section className="container pt-6 pb-12">
           <div className="max-w-4xl">
             <h2 className="text-2xl font-bold mb-6">Course Content</h2>
             <Card>
