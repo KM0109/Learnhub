@@ -30,14 +30,20 @@ const Enroll = () => {
   const handleEnroll = (e: React.FormEvent) => {
     e.preventDefault();
     setIsProcessing(true);
-    
+
     // Simulate payment processing
     setTimeout(() => {
       setIsProcessing(false);
-      toast.success("Payment processed successfully!");
+      if (course.price === 0) {
+        toast.success("Successfully enrolled in free course!");
+      } else {
+        toast.success("Payment processed successfully!");
+      }
       navigate(`/enrollment-success/${course.id}`);
     }, 2000);
   };
+
+  const isFree = course.price === 0;
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -45,7 +51,9 @@ const Enroll = () => {
       
       <main className="container py-12">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-3xl font-bold mb-8">Complete Your Enrollment</h1>
+          <h1 className="text-3xl font-bold mb-8">
+            {isFree ? "Complete Your Free Enrollment" : "Complete Your Enrollment"}
+          </h1>
           
           <div className="grid lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2">
@@ -53,52 +61,66 @@ const Enroll = () => {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <CreditCard className="h-5 w-5" />
-                    Payment Information
+                    {isFree ? "Enrollment Information" : "Payment Information"}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <form onSubmit={handleEnroll} className="space-y-6">
-                    <div className="space-y-2">
-                      <Label htmlFor="cardName">Cardholder Name</Label>
-                      <Input id="cardName" placeholder="John Doe" />
-                    </div>
-                    
-                    <div className="space-y-2">
-                      <Label htmlFor="cardNumber">Card Number</Label>
-                      <Input id="cardNumber" placeholder="1234 5678 9012 3456" />
-                    </div>
-                    
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="expiry">Expiry Date</Label>
-                        <Input id="expiry" placeholder="MM/YY" />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="cvv">CVV</Label>
-                        <Input id="cvv" placeholder="123" type="password" maxLength={3} />
-                      </div>
-                    </div>
+                    {!isFree && (
+                      <>
+                        <div className="space-y-2">
+                          <Label htmlFor="cardName">Cardholder Name</Label>
+                          <Input id="cardName" placeholder="John Doe" required />
+                        </div>
 
-                    <Separator />
+                        <div className="space-y-2">
+                          <Label htmlFor="cardNumber">Card Number</Label>
+                          <Input id="cardNumber" placeholder="1234 5678 9012 3456" required />
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-4">
+                          <div className="space-y-2">
+                            <Label htmlFor="expiry">Expiry Date</Label>
+                            <Input id="expiry" placeholder="MM/YY" required />
+                          </div>
+                          <div className="space-y-2">
+                            <Label htmlFor="cvv">CVV</Label>
+                            <Input id="cvv" placeholder="123" type="password" maxLength={3} required />
+                          </div>
+                        </div>
+
+                        <Separator />
+                      </>
+                    )}
 
                     <div className="space-y-2">
                       <Label htmlFor="email">Email Address</Label>
-                      <Input id="email" type="email" placeholder="your@email.com" />
+                      <Input id="email" type="email" placeholder="your@email.com" required />
                     </div>
 
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <Lock className="h-4 w-4" />
-                      <span>Your payment information is secure and encrypted</span>
-                    </div>
+                    {isFree && (
+                      <div className="bg-success/10 border border-success/20 rounded-lg p-4">
+                        <p className="text-sm font-medium text-success">
+                          This is a free course! No payment required.
+                        </p>
+                      </div>
+                    )}
 
-                    <Button 
-                      type="submit" 
-                      variant="hero" 
-                      size="lg" 
+                    {!isFree && (
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <Lock className="h-4 w-4" />
+                        <span>Your payment information is secure and encrypted</span>
+                      </div>
+                    )}
+
+                    <Button
+                      type="submit"
+                      variant="hero"
+                      size="lg"
                       className="w-full"
                       disabled={isProcessing}
                     >
-                      {isProcessing ? "Processing..." : `Pay $${course.price} & Enroll`}
+                      {isProcessing ? "Processing..." : isFree ? "Enroll for Free" : `Pay $${course.price} & Enroll`}
                     </Button>
                   </form>
                 </CardContent>
@@ -121,19 +143,21 @@ const Enroll = () => {
                   <div className="space-y-2">
                     <div className="flex justify-between text-sm">
                       <span className="text-muted-foreground">Course Price</span>
-                      <span>${course.price}</span>
+                      <span>{isFree ? "FREE" : `$${course.price}`}</span>
                     </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Tax</span>
-                      <span>$0.00</span>
-                    </div>
+                    {!isFree && (
+                      <div className="flex justify-between text-sm">
+                        <span className="text-muted-foreground">Tax</span>
+                        <span>$0.00</span>
+                      </div>
+                    )}
                   </div>
-                  
+
                   <Separator />
-                  
+
                   <div className="flex justify-between font-bold text-lg">
                     <span>Total</span>
-                    <span className="text-primary">${course.price}</span>
+                    <span className="text-primary">{isFree ? "FREE" : `$${course.price}`}</span>
                   </div>
 
                   <div className="bg-secondary p-4 rounded-lg space-y-2 text-sm">

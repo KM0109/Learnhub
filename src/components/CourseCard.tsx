@@ -87,7 +87,11 @@ const CourseCard = ({ course, showProgress = false }: CourseCardProps) => {
             <Zap className="h-4 w-4 text-accent flex-shrink-0" />
             <span className="text-sm font-semibold text-accent">{course.totalXp} XP</span>
           </div>
-          <p className="font-bold text-lg text-primary">${course.price}</p>
+          {course.price === 0 ? (
+            <p className="font-bold text-lg text-success">FREE</p>
+          ) : (
+            <p className="font-bold text-lg text-primary">${course.price}</p>
+          )}
         </CardFooter>
       </Card>
     </Link>

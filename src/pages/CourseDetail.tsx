@@ -238,11 +238,18 @@ const CourseDetail = () => {
                       <img src={course.thumbnail} alt={course.title} className="w-full h-full object-cover" />
                     </div>
                     <div className="text-center mb-4">
-                      <span className="text-4xl font-bold text-primary">${course.price}</span>
+                      {course.price === 0 ? (
+                        <div>
+                          <span className="text-4xl font-bold text-success">FREE</span>
+                          <p className="text-sm text-muted-foreground mt-1">No payment required</p>
+                        </div>
+                      ) : (
+                        <span className="text-4xl font-bold text-primary">${course.price}</span>
+                      )}
                     </div>
                     <Link to={`/enroll/${course.id}`} className="block mb-3">
                       <Button variant="hero" size="lg" className="w-full">
-                        Enroll Now
+                        {course.price === 0 ? "Enroll for Free" : "Enroll Now"}
                       </Button>
                     </Link>
                     <Button
