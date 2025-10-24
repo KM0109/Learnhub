@@ -171,8 +171,8 @@ const Navbar = () => {
                 Support
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <div className="px-2 py-2 flex items-center justify-between">
-                <span className="text-sm font-medium">Theme</span>
+              <div className="px-2 py-1.5 flex items-center justify-between cursor-default">
+                <span className="text-sm">Theme</span>
                 <ThemeToggle />
               </div>
               <DropdownMenuSeparator />
