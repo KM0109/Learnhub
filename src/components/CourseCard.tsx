@@ -1,0 +1,91 @@
+import { Link } from "react-router-dom";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Star, Users, Clock, Heart } from "lucide-react";
+import { Course } from "@/types/course";
+import { Progress } from "@/components/ui/progress";
+import { toast } from "sonner";
+import { useState } from "react";
+
+interface CourseCardProps {
+  course: Course;
+  showProgress?: boolean;
+}
+
+const CourseCard = ({ course, showProgress = false }: CourseCardProps) => {
+  const [isWishlisted, setIsWishlisted] = useState(course.wishlisted || false);
+
+  const handleWishlistToggle = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsWishlisted(!isWishlisted);
+    toast.success(isWishlisted ? "Removed from wishlist" : "Added to wishlist");
+  };
+
+  return (
+    <Link to={`/course/${course.id}`}>
+      <Card className="group overflow-hidden transition-all hover:shadow-elegant animate-fade-in cursor-pointer h-full flex flex-col">
+        <div className="aspect-video overflow-hidden relative flex-shrink-0">
+          <img 
+            src={course.thumbnail} 
+            alt={course.title}
+            className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
+          />
+          <Badge className="absolute top-3 right-3 bg-primary/90 text-primary-foreground backdrop-blur shadow-card">
+            {course.level}
+          </Badge>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="absolute top-3 left-3 h-9 w-9 rounded-full bg-background/80 backdrop-blur hover:bg-background"
+            onClick={handleWishlistToggle}
+          >
+            <Heart 
+              className={`h-5 w-5 transition-colors ${
+                isWishlisted ? "fill-red-500 text-red-500" : "text-muted-foreground"
+              }`}
+            />
+          </Button>
+        </div>
+        <CardContent className="p-5 flex flex-col flex-1">
+          <div className="flex items-center gap-2 text-xs text-muted-foreground mb-2">
+            <span className="text-primary font-semibold">{course.category}</span>
+          </div>
+          <h3 className="font-semibold text-lg mb-2 line-clamp-2 group-hover:text-primary transition-colors">
+            {course.title}
+          </h3>
+          <p className="text-sm text-muted-foreground line-clamp-2 mb-4 flex-1">
+            {course.description}
+          </p>
+          <div className="flex items-center gap-4 text-xs text-muted-foreground mb-3">
+            <div className="flex items-center gap-1">
+              <Star className="h-3.5 w-3.5 fill-accent text-accent" />
+              <span className="font-medium text-foreground">{course.rating}</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <Users className="h-3.5 w-3.5" />
+              <span>{course.students.toLocaleString()}</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <Clock className="h-3.5 w-3.5" />
+              <span>{course.duration}</span>
+            </div>
+          </div>
+          {showProgress && course.progress !== undefined && (
+            <div className="mb-3">
+              <Progress value={course.progress} className="h-2" />
+              <p className="text-xs text-muted-foreground mt-1">{course.progress}% complete</p>
+            </div>
+          )}
+        </CardContent>
+        <CardFooter className="p-5 pt-0 flex items-center justify-between mt-auto">
+          <p className="text-sm text-muted-foreground">by {course.instructor}</p>
+          <p className="font-bold text-lg text-primary">${course.price}</p>
+        </CardFooter>
+      </Card>
+    </Link>
+  );
+};
+
+export default CourseCard;
