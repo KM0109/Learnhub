@@ -3,9 +3,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Award, Download, Share2 } from "lucide-react";
+import { Award, Download, Share2, Medal } from "lucide-react";
 import { courses } from "@/data/courses";
-import badgeIcon from "@/assets/badge-icon.png";
 
 const Certificate = () => {
   const { id } = useParams();
@@ -42,11 +41,9 @@ const Certificate = () => {
             <CardContent className="p-12">
               <div className="text-center">
                 <div className="mb-8">
-                  <img 
-                    src={badgeIcon} 
-                    alt="LearnHub Certificate" 
-                    className="w-24 h-24 mx-auto mb-6"
-                  />
+                  <div className="w-24 h-24 mx-auto mb-6 rounded-full bg-gradient-to-br from-yellow-400 via-yellow-500 to-yellow-600 flex items-center justify-center shadow-lg">
+                    <Medal className="w-14 h-14 text-yellow-100" />
+                  </div>
                   <div className="inline-block px-8 py-3 rounded-lg mb-6" style={{ 
                     background: 'var(--gradient-primary)'
                   }}>

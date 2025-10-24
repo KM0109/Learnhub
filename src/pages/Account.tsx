@@ -9,7 +9,6 @@ import { Separator } from "@/components/ui/separator";
 import BadgeCard from "@/components/BadgeCard";
 import MilestoneCard from "@/components/MilestoneCard";
 import { mockUserProfile } from "@/data/gamification";
-import defaultAvatar from "@/assets/default-avatar.png";
 import { Link } from "react-router-dom";
 import {
   Award,
@@ -22,7 +21,8 @@ import {
   Zap,
   Star,
   Target,
-  FileCheck
+  FileCheck,
+  User
 } from "lucide-react";
 
 const Account = () => {
@@ -40,11 +40,9 @@ const Account = () => {
           <CardContent className="p-6">
             <div className="flex flex-col md:flex-row gap-6 items-start">
               <div className="relative flex-shrink-0">
-                <img 
-                  src={defaultAvatar} 
-                  alt={user.name}
-                  className="w-24 h-24 md:w-32 md:h-32 rounded-full border-4 border-primary shadow-card"
-                />
+                <div className="w-24 h-24 md:w-32 md:h-32 rounded-full border-4 border-primary shadow-card bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
+                  <User className="w-12 h-12 md:w-16 md:h-16 text-primary" />
+                </div>
                 <div className="absolute -bottom-2 -right-2 bg-primary text-primary-foreground w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center font-bold text-base md:text-lg shadow-card">
                   {user.level}
                 </div>

@@ -5,7 +5,6 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CourseCard from "@/components/CourseCard";
 import { courses } from "@/data/courses";
-import heroImage from "@/assets/hero-learning.jpg";
 
 const Index = () => {
   const featuredCourses = courses.slice(0, 3);
@@ -44,11 +43,9 @@ const Index = () => {
               </div>
             </div>
             <div className="animate-scale-in lg:block">
-              <img 
-                src={heroImage} 
-                alt="Students learning online" 
-                className="rounded-2xl shadow-elegant w-full"
-              />
+              <div className="rounded-2xl shadow-elegant w-full bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center aspect-video">
+                <GraduationCap className="w-32 h-32 text-primary/40" />
+              </div>
             </div>
           </div>
         </div>
