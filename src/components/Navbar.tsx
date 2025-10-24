@@ -55,7 +55,7 @@ const Navbar = () => {
             <SheetContent side="left" className="w-[280px]">
               <SheetHeader>
                 <SheetTitle className="flex items-center gap-2">
-                  <GraduationCap className="h-6 w-6 text-primary" />
+                  <img src="/LearnHub-Logo.svg" alt="LearnHub" className="h-7 w-7" />
                   <span className="bg-gradient-primary bg-clip-text text-transparent">LearnHub</span>
                 </SheetTitle>
               </SheetHeader>
@@ -113,7 +113,7 @@ const Navbar = () => {
           </Sheet>
 
         <Link to="/" className="flex items-center gap-2 font-bold text-lg sm:text-xl">
-          <GraduationCap className="h-6 w-6 sm:h-7 sm:w-7 text-primary" />
+          <img src="/LearnHub-Logo.svg" alt="LearnHub" className="h-8 w-8 sm:h-9 sm:w-9" />
           <span className="bg-gradient-primary bg-clip-text text-transparent">LearnHub</span>
         </Link>
         
