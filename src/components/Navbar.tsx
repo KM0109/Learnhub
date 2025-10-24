@@ -15,12 +15,11 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { GraduationCap, Search, User, LogOut, LayoutDashboard, HeadphonesIcon, Heart, ShoppingBag, FileCheck, Menu, BookOpen, Sun, Moon } from "lucide-react";
-import { useTheme } from "@/components/theme-provider";
+import { GraduationCap, Search, User, LogOut, LayoutDashboard, HeadphonesIcon, Heart, ShoppingBag, FileCheck, Menu, BookOpen } from "lucide-react";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const { theme, setTheme } = useTheme();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -41,10 +40,6 @@ const Navbar = () => {
 
   const closeMobileMenu = () => {
     setMobileMenuOpen(false);
-  };
-
-  const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
   };
 
   return (
@@ -176,19 +171,10 @@ const Navbar = () => {
                 Support
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={toggleTheme} className="hover:bg-primary/10 hover:text-primary focus:bg-primary/10 focus:text-primary">
-                {theme === "dark" ? (
-                  <>
-                    <Sun className="h-4 w-4 mr-2" />
-                    Light Mode
-                  </>
-                ) : (
-                  <>
-                    <Moon className="h-4 w-4 mr-2" />
-                    Dark Mode
-                  </>
-                )}
-              </DropdownMenuItem>
+              <div className="px-2 py-2 flex items-center justify-between">
+                <span className="text-sm font-medium">Theme</span>
+                <ThemeToggle />
+              </div>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={handleLogout} className="text-destructive hover:bg-destructive hover:text-destructive-foreground focus:bg-destructive focus:text-destructive-foreground">
                 <LogOut className="h-4 w-4 mr-2" />
