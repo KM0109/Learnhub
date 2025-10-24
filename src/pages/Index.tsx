@@ -6,9 +6,11 @@ import Footer from "@/components/Footer";
 import CourseCard from "@/components/CourseCard";
 import { courses } from "@/data/courses";
 import heroImage from "@/assets/hero-image.jpeg";
+import { useState } from "react";
 
 const Index = () => {
   const featuredCourses = courses.slice(0, 3);
+  const [imageError, setImageError] = useState(false);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -44,11 +46,21 @@ const Index = () => {
               </div>
             </div>
             <div className="animate-scale-in lg:block">
-              <img
-                src={heroImage}
-                alt="People learning online"
-                className="rounded-2xl shadow-elegant w-full object-cover aspect-video"
-              />
+              {!imageError ? (
+                <img
+                  src={heroImage}
+                  alt="People learning online"
+                  className="rounded-2xl shadow-elegant w-full object-cover aspect-video"
+                  onError={() => setImageError(true)}
+                />
+              ) : (
+                <div className="flex items-center justify-center rounded-2xl shadow-elegant w-full aspect-video bg-gradient-hero border-2 border-primary/20">
+                  <div className="text-center">
+                    <GraduationCap className="h-32 w-32 mx-auto text-primary mb-4" strokeWidth={1.5} />
+                    <p className="text-2xl font-semibold text-foreground">Learn & Grow</p>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>

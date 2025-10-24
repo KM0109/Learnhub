@@ -32,7 +32,7 @@ export function ThemeToggle() {
       onClick={toggleTheme}
       className={cn(
         "relative inline-flex h-6 w-12 items-center rounded-full transition-colors duration-300",
-        isDark ? "bg-slate-700" : "bg-orange-400"
+        isDark ? "bg-slate-700" : "bg-yellow-400"
       )}
       aria-label="Toggle theme"
     >
