@@ -1,4 +1,5 @@
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import CourseCard from "@/components/CourseCard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
@@ -114,7 +115,7 @@ const Dashboard = () => {
                       <h4 className="font-semibold mb-1">{course.title}</h4>
                       <p className="text-sm text-muted-foreground">Completed</p>
                     </div>
-                    <Link to="/certificates">
+                    <Link to={`/certificate/${course.id}`}>
                       <Button variant="outline" size="sm">View</Button>
                     </Link>
                   </div>
@@ -156,6 +157,7 @@ const Dashboard = () => {
           </CardContent>
         </Card>
       </main>
+      <Footer />
     </div>
   );
 };

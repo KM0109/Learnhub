@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { GraduationCap, TrendingUp, Award, BookOpen } from "lucide-react";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import CourseCard from "@/components/CourseCard";
 import { courses } from "@/data/courses";
 import heroImage from "@/assets/hero-learning.jpg";
@@ -125,12 +126,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-12 bg-card border-t">
-        <div className="container text-center text-muted-foreground">
-          <p>&copy; 2024 LearnHub. All rights reserved.</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };

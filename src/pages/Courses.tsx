@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import CourseCard from "@/components/CourseCard";
 import { courses } from "@/data/courses";
 import { Input } from "@/components/ui/input";
@@ -85,6 +86,7 @@ const Courses = () => {
           </div>
         )}
       </main>
+      <Footer />
     </div>
   );
 };

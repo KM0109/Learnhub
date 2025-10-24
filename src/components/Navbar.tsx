@@ -60,54 +60,60 @@ const Navbar = () => {
                 </SheetTitle>
               </SheetHeader>
               <div className="flex flex-col gap-4 mt-8">
-                <Link 
-                  to="/courses" 
+                <Link
+                  to="/courses"
                   onClick={closeMobileMenu}
                   className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-primary/10 transition-colors"
                 >
                   <BookOpen className="h-5 w-5" />
                   <span className="font-medium">Courses</span>
                 </Link>
-                <Link 
-                  to="/dashboard" 
+                <Link
+                  to="/dashboard"
                   onClick={closeMobileMenu}
                   className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-primary/10 transition-colors"
                 >
                   <LayoutDashboard className="h-5 w-5" />
                   <span className="font-medium">Dashboard</span>
                 </Link>
-                <Link 
-                  to="/wishlist" 
+                <Link
+                  to="/wishlist"
                   onClick={closeMobileMenu}
                   className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-primary/10 transition-colors"
                 >
                   <Heart className="h-5 w-5" />
                   <span className="font-medium">Wishlist</span>
                 </Link>
-                <Link 
-                  to="/orders" 
+                <Link
+                  to="/orders"
                   onClick={closeMobileMenu}
                   className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-primary/10 transition-colors"
                 >
                   <ShoppingBag className="h-5 w-5" />
                   <span className="font-medium">Orders</span>
                 </Link>
-                <Link 
-                  to="/certificates" 
+                <Link
+                  to="/certificates"
                   onClick={closeMobileMenu}
                   className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-primary/10 transition-colors"
                 >
                   <FileCheck className="h-5 w-5" />
                   <span className="font-medium">Certificates</span>
                 </Link>
-                <Link 
-                  to="/support" 
+                <Link
+                  to="/support"
                   onClick={closeMobileMenu}
                   className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-primary/10 transition-colors"
                 >
                   <HeadphonesIcon className="h-5 w-5" />
                   <span className="font-medium">Support</span>
                 </Link>
+                <div className="border-t mt-4 pt-4">
+                  <div className="flex items-center justify-between px-4 py-2">
+                    <span className="text-sm font-medium">Theme</span>
+                    <ThemeToggle />
+                  </div>
+                </div>
               </div>
             </SheetContent>
           </Sheet>

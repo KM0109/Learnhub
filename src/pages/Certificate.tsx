@@ -1,5 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Award, Download, Share2 } from "lucide-react";
@@ -115,6 +116,7 @@ const Certificate = () => {
           </div>
         </div>
       </main>
+      <Footer />
     </div>
   );
 };

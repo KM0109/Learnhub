@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -42,12 +43,14 @@ const Certificates = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {completedCourses.map((course) => (
               <Card key={course.id} className="overflow-hidden hover:shadow-elegant transition-all animate-fade-in">
-                <div className="p-8 text-center" style={{ 
+                <div className="p-8 text-center" style={{
                   background: 'var(--gradient-primary)'
                 }}>
-                  <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600 flex items-center justify-center shadow-lg">
-                    <Award className="h-12 w-12 text-yellow-900" strokeWidth={2.5} />
-                  </div>
+                  <img
+                    src={badgeIcon}
+                    alt="LearnHub Certificate"
+                    className="w-20 h-20 mx-auto mb-4"
+                  />
                   <Badge className="bg-white/20 text-primary-foreground backdrop-blur border-0">
                     LearnHub Certificate
                   </Badge>
@@ -125,6 +128,7 @@ const Certificates = () => {
           </div>
         )}
       </main>
+      <Footer />
     </div>
   );
 };
