@@ -4,6 +4,7 @@ export interface Lesson {
   duration: number; // in minutes
   completed?: boolean;
   type: 'video' | 'reading' | 'quiz';
+  xp: number;
 }
 
 export interface Course {
@@ -24,4 +25,5 @@ export interface Course {
   wishlisted?: boolean;
   purchased?: boolean;
   completionDate?: string;
+  totalXp: number;
 }

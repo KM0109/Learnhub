@@ -108,6 +108,14 @@ const Navbar = () => {
                   <HeadphonesIcon className="h-5 w-5" />
                   <span className="font-medium">Support</span>
                 </Link>
+                <Link
+                  to="/account"
+                  onClick={closeMobileMenu}
+                  className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-primary/10 transition-colors"
+                >
+                  <User className="h-5 w-5" />
+                  <span className="font-medium">Account</span>
+                </Link>
                 <div className="border-t mt-4 pt-4">
                   <div className="flex items-center justify-between px-4 py-2">
                     <span className="text-sm font-medium">Theme</span>
@@ -129,6 +137,9 @@ const Navbar = () => {
           </Link>
           <Link to="/dashboard" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
             Dashboard
+          </Link>
+          <Link to="/account" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
+            Account
           </Link>
         </div>
 

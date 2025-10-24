@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Star, Users, Clock, PlayCircle, FileText, CheckCircle, Award, Heart } from "lucide-react";
+import { Star, Users, Clock, PlayCircle, FileText, CheckCircle, Award, Heart, Zap } from "lucide-react";
 import { courses } from "@/data/courses";
 import { Progress } from "@/components/ui/progress";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -133,30 +133,40 @@ const CourseDetail = () => {
             <h2 className="text-2xl font-bold mb-6">Course Content</h2>
             <Card>
               <CardContent className="p-6">
-                <Accordion type="single" collapsible className="w-full">
+                <Accordion type="single" collapsible className="w-full" defaultValue="lessons">
                   <AccordionItem value="lessons">
                     <AccordionTrigger className="text-lg font-semibold">
                       <div className="flex items-center gap-3">
                         <span>Course Curriculum</span>
                         <Badge variant="outline">{course.lessons.length} lessons</Badge>
+                        <Badge variant="outline" className="flex items-center gap-1">
+                          <Zap className="h-3 w-3" />
+                          {course.totalXp} XP
+                        </Badge>
                       </div>
                     </AccordionTrigger>
                     <AccordionContent>
                       <div className="space-y-3 pt-3">
                         {course.lessons.map((lesson, index) => (
                           <div key={lesson.id} className="flex items-center justify-between p-3 rounded-lg hover:bg-secondary transition-colors">
-                            <div className="flex items-center gap-3">
+                            <div className="flex items-center gap-3 flex-1">
                               {lesson.type === 'video' ? (
                                 <PlayCircle className="h-5 w-5 text-primary" />
                               ) : (
                                 <FileText className="h-5 w-5 text-primary" />
                               )}
-                              <div>
+                              <div className="flex-1">
                                 <p className="font-medium">{index + 1}. {lesson.title}</p>
                                 <p className="text-xs text-muted-foreground capitalize">{lesson.type}</p>
                               </div>
                             </div>
-                            <span className="text-sm text-muted-foreground">{lesson.duration} min</span>
+                            <div className="flex items-center gap-4">
+                              <span className="text-sm text-muted-foreground">{lesson.duration} min</span>
+                              <Badge variant="secondary" className="flex items-center gap-1">
+                                <Zap className="h-3 w-3 text-accent" />
+                                {lesson.xp}
+                              </Badge>
+                            </div>
                           </div>
                         ))}
                       </div>

@@ -57,10 +57,12 @@ const Account = () => {
                       Member since {new Date(user.joinedDate).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
                     </p>
                   </div>
-                  <Button variant="outline" size="sm" className="flex-shrink-0">
-                    <Edit className="h-4 w-4 mr-2" />
-                    Edit Profile
-                  </Button>
+                  <Link to="/profile">
+                    <Button variant="outline" size="sm" className="flex-shrink-0">
+                      <Edit className="h-4 w-4 mr-2" />
+                      Edit Profile
+                    </Button>
+                  </Link>
                 </div>
 
                 <div className="space-y-3">
@@ -87,7 +89,7 @@ const Account = () => {
                       </div>
                       <div className="min-w-0">
                         <p className="text-xl font-bold">{user.streak}</p>
-                        <p className="text-xs text-muted-foreground">Day Streak</p>
+                        <p className="text-xs text-muted-foreground">Week Streak</p>
                       </div>
                     </div>
 
@@ -146,9 +148,9 @@ const Account = () => {
               <TrendingUp className="h-5 w-5 text-primary" />
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold text-primary">{user.longestStreak} days</div>
+              <div className="text-3xl font-bold text-primary">{user.longestStreak} weeks</div>
               <p className="text-xs text-muted-foreground mt-1">
-                Current: {user.streak} days
+                Current: {user.streak} weeks
               </p>
             </CardContent>
           </Card>
@@ -255,10 +257,10 @@ const Account = () => {
                   <div className="flex items-center gap-4 p-4 rounded-lg bg-secondary">
                     <div className="text-4xl">👑</div>
                     <div className="flex-1">
-                      <h4 className="font-semibold">100 Day Streak</h4>
+                      <h4 className="font-semibold">52 Week Streak</h4>
                       <p className="text-sm text-muted-foreground">Master Learner badge</p>
                     </div>
-                    <Badge>100 Days</Badge>
+                    <Badge>52 Weeks</Badge>
                   </div>
                 </div>
               </CardContent>

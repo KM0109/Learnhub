@@ -13,6 +13,7 @@ import Dashboard from "./pages/Dashboard";
 import Certificate from "./pages/Certificate";
 import Certificates from "./pages/Certificates";
 import Account from "./pages/Account";
+import Profile from "./pages/Profile";
 import Wishlist from "./pages/Wishlist";
 import Orders from "./pages/Orders";
 import OrderDetail from "./pages/OrderDetail";
@@ -38,6 +39,7 @@ const App = () => (
             <Route path="/certificate/:id" element={<Certificate />} />
             <Route path="/certificates" element={<Certificates />} />
             <Route path="/account" element={<Account />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="/wishlist" element={<Wishlist />} />
             <Route path="/orders" element={<Orders />} />
             <Route path="/order/:orderId" element={<OrderDetail />} />
