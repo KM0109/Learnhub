@@ -72,10 +72,6 @@ const CourseCard = ({ course, showProgress = false }: CourseCardProps) => {
               <span className="font-medium">{course.duration}</span>
             </div>
           </div>
-          <div className="flex items-center gap-1.5 mb-3 px-2 py-1.5 bg-accent/10 rounded-md w-fit">
-            <Zap className="h-4 w-4 text-accent flex-shrink-0" />
-            <span className="text-sm font-semibold text-accent">{course.totalXp} XP</span>
-          </div>
           {showProgress && course.progress !== undefined && (
             <div className="mb-3">
               <Progress value={course.progress} className="h-2" />
@@ -84,7 +80,10 @@ const CourseCard = ({ course, showProgress = false }: CourseCardProps) => {
           )}
         </CardContent>
         <CardFooter className="p-5 pt-0 flex items-center justify-between mt-auto">
-          <p className="text-sm text-muted-foreground">by {course.instructor}</p>
+          <div className="flex items-center gap-1.5 px-2 py-1.5 bg-accent/10 rounded-md">
+            <Zap className="h-4 w-4 text-accent flex-shrink-0" />
+            <span className="text-sm font-semibold text-accent">{course.totalXp} XP</span>
+          </div>
           <p className="font-bold text-lg text-primary">${course.price}</p>
         </CardFooter>
       </Card>

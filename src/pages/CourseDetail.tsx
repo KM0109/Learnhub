@@ -59,9 +59,10 @@ const CourseDetail = () => {
             <div className="grid lg:grid-cols-3 gap-8">
               <div className="lg:col-span-2">
                 <Badge className="mb-3">{course.category}</Badge>
-                <h1 className="text-4xl font-bold mb-3">{course.title}</h1>
+                <h1 className="text-4xl font-bold mb-2">{course.title}</h1>
+                <p className="text-muted-foreground mb-3">by <span className="font-semibold text-foreground">{course.instructor}</span></p>
                 <p className="text-lg text-muted-foreground mb-4">{course.description}</p>
-                
+
                 <div className="flex flex-wrap items-center gap-6 mb-4">
                   <div className="flex items-center gap-2">
                     <Star className="h-5 w-5 fill-accent text-accent" />
@@ -77,8 +78,6 @@ const CourseDetail = () => {
                   </div>
                   <Badge variant="outline">{course.level}</Badge>
                 </div>
-
-                <p className="text-muted-foreground">Instructor: <span className="font-semibold text-foreground">{course.instructor}</span></p>
               </div>
 
               <div>
@@ -123,13 +122,6 @@ const CourseDetail = () => {
                         <span className="font-semibold">{course.lessons.length}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-muted-foreground">Certificate</span>
-                        <span className="font-semibold flex items-center gap-1">
-                          <Award className="h-4 w-4 text-accent" />
-                          Yes
-                        </span>
-                      </div>
-                      <div className="flex justify-between">
                         <span className="text-muted-foreground">Total XP</span>
                         <span className="font-semibold flex items-center gap-1">
                           <Zap className="h-4 w-4 text-accent" />
@@ -138,36 +130,23 @@ const CourseDetail = () => {
                       </div>
                     </div>
                     <Separator className="my-4" />
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <div>
-                          <Button
-                            variant="outline"
-                            size="lg"
-                            className="w-full"
-                            onClick={handleDownloadPDF}
-                            disabled={!isCourseCompleted}
-                          >
-                            {isCourseCompleted ? (
-                              <>
-                                <Download className="h-5 w-5 mr-2" />
-                                Download PDF Summary
-                              </>
-                            ) : (
-                              <>
-                                <Lock className="h-5 w-5 mr-2" />
-                                PDF Summary Locked
-                              </>
-                            )}
-                          </Button>
+                    <div className="space-y-3 text-sm mb-4">
+                      <h4 className="font-semibold text-base">Certificate Status</h4>
+                      <div className="flex items-center justify-between p-3 bg-secondary/50 rounded-lg">
+                        <div className="flex items-center gap-2">
+                          <Award className={`h-5 w-5 ${isCourseCompleted ? 'text-success' : 'text-muted-foreground'}`} />
+                          <span className="font-medium">Certificate</span>
                         </div>
-                      </TooltipTrigger>
-                      {!isCourseCompleted && (
-                        <TooltipContent>
-                          <p>Complete the course to unlock the PDF summary</p>
-                        </TooltipContent>
-                      )}
-                    </Tooltip>
+                        {isCourseCompleted ? (
+                          <Badge className="bg-success text-success-foreground">Unlocked</Badge>
+                        ) : (
+                          <Badge variant="secondary">
+                            <Lock className="h-3 w-3 mr-1" />
+                            Locked
+                          </Badge>
+                        )}
+                      </div>
+                    </div>
                   </CardContent>
                 </Card>
               </div>
@@ -243,6 +222,83 @@ const CourseDetail = () => {
                   <div className="flex gap-3">
                     <CheckCircle className="h-5 w-5 text-success shrink-0 mt-0.5" />
                     <p className="text-sm">Learn best practices and current standards</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="mt-8">
+              <CardContent className="p-6">
+                <h3 className="text-xl font-semibold mb-4">What You'll Get</h3>
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between p-4 bg-secondary/30 rounded-lg">
+                    <div className="flex items-center gap-3">
+                      <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${
+                        isCourseCompleted ? 'bg-success/10' : 'bg-muted'
+                      }`}>
+                        <FileText className={`h-6 w-6 ${isCourseCompleted ? 'text-success' : 'text-muted-foreground'}`} />
+                      </div>
+                      <div>
+                        <p className="font-semibold">PDF Course Summary</p>
+                        <p className="text-sm text-muted-foreground">Comprehensive course notes and key takeaways</p>
+                      </div>
+                    </div>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <div>
+                          <Button
+                            variant={isCourseCompleted ? "default" : "secondary"}
+                            size="sm"
+                            onClick={handleDownloadPDF}
+                            disabled={!isCourseCompleted}
+                          >
+                            {isCourseCompleted ? (
+                              <>
+                                <Download className="h-4 w-4 mr-2" />
+                                Download
+                              </>
+                            ) : (
+                              <>
+                                <Lock className="h-4 w-4 mr-2" />
+                                Locked
+                              </>
+                            )}
+                          </Button>
+                        </div>
+                      </TooltipTrigger>
+                      {!isCourseCompleted && (
+                        <TooltipContent>
+                          <p>Complete the course to unlock</p>
+                        </TooltipContent>
+                      )}
+                    </Tooltip>
+                  </div>
+
+                  <div className="flex items-center justify-between p-4 bg-secondary/30 rounded-lg">
+                    <div className="flex items-center gap-3">
+                      <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${
+                        isCourseCompleted ? 'bg-accent/10' : 'bg-muted'
+                      }`}>
+                        <Award className={`h-6 w-6 ${isCourseCompleted ? 'text-accent' : 'text-muted-foreground'}`} />
+                      </div>
+                      <div>
+                        <p className="font-semibold">Certificate of Completion</p>
+                        <p className="text-sm text-muted-foreground">Shareable certificate upon course completion</p>
+                      </div>
+                    </div>
+                    {isCourseCompleted ? (
+                      <Link to={`/certificate/${course.id}`}>
+                        <Button variant="default" size="sm">
+                          <Award className="h-4 w-4 mr-2" />
+                          View Certificate
+                        </Button>
+                      </Link>
+                    ) : (
+                      <Button variant="secondary" size="sm" disabled>
+                        <Lock className="h-4 w-4 mr-2" />
+                        Locked
+                      </Button>
+                    )}
                   </div>
                 </div>
               </CardContent>
