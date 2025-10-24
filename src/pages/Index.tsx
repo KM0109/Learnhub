@@ -5,7 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CourseCard from "@/components/CourseCard";
 import { courses } from "@/data/courses";
-import heroImage from "@/assets/hero-image.jpeg";
+import heroImage from "@/assets/hero-learning.jpg";
 
 const Index = () => {
   const featuredCourses = courses.slice(0, 3);
