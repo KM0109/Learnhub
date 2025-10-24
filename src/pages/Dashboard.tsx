@@ -23,67 +23,75 @@ const Dashboard = () => {
     <div className="min-h-screen">
       <Navbar />
       
-      <main className="container py-12">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-2">My Learning Dashboard</h1>
-          <p className="text-lg text-muted-foreground">Track your progress and continue your journey</p>
+      <main className="container py-16">
+        <div className="mb-12">
+          <h1 className="text-5xl font-bold mb-4 tracking-tight">My Learning Dashboard</h1>
+          <p className="text-xl text-muted-foreground leading-relaxed">Track your progress and continue your journey</p>
         </div>
 
         {/* Stats Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-          <Card className="animate-fade-in">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+          <Card className="animate-fade-in hover:shadow-lg transition-shadow border-border/50">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">
+              <CardTitle className="text-sm font-semibold text-muted-foreground">
                 Courses In Progress
               </CardTitle>
-              <BookOpen className="h-4 w-4 text-primary" />
+              <div className="p-2 rounded-lg bg-primary/10">
+                <BookOpen className="h-5 w-5 text-primary" />
+              </div>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold">{enrolledCourses.length}</div>
+              <div className="text-4xl font-bold">{enrolledCourses.length}</div>
             </CardContent>
           </Card>
 
-          <Card className="animate-fade-in" style={{ animationDelay: '0.1s' }}>
+          <Card className="animate-fade-in hover:shadow-lg transition-shadow border-border/50" style={{ animationDelay: '0.1s' }}>
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">
+              <CardTitle className="text-sm font-semibold text-muted-foreground">
                 Hours Learned
               </CardTitle>
-              <Clock className="h-4 w-4 text-primary" />
+              <div className="p-2 rounded-lg bg-primary/10">
+                <Clock className="h-5 w-5 text-primary" />
+              </div>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold">{totalHoursLearned}</div>
+              <div className="text-4xl font-bold">{totalHoursLearned}</div>
             </CardContent>
           </Card>
 
-          <Card className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
+          <Card className="animate-fade-in hover:shadow-lg transition-shadow border-border/50" style={{ animationDelay: '0.2s' }}>
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">
+              <CardTitle className="text-sm font-semibold text-muted-foreground">
                 Completed Courses
               </CardTitle>
-              <TrendingUp className="h-4 w-4 text-success" />
+              <div className="p-2 rounded-lg bg-success/10">
+                <TrendingUp className="h-5 w-5 text-success" />
+              </div>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold">{coursesCompleted}</div>
+              <div className="text-4xl font-bold">{coursesCompleted}</div>
             </CardContent>
           </Card>
 
-          <Card className="animate-fade-in" style={{ animationDelay: '0.3s' }}>
+          <Card className="animate-fade-in hover:shadow-lg transition-shadow border-border/50" style={{ animationDelay: '0.3s' }}>
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">
+              <CardTitle className="text-sm font-semibold text-muted-foreground">
                 Certificates
               </CardTitle>
-              <Award className="h-4 w-4 text-accent" />
+              <div className="p-2 rounded-lg bg-accent/10">
+                <Award className="h-5 w-5 text-accent" />
+              </div>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold">{certificatesEarned}</div>
+              <div className="text-4xl font-bold">{certificatesEarned}</div>
             </CardContent>
           </Card>
         </div>
 
         {/* Continue Learning */}
-        <div className="mb-12">
-          <h2 className="text-2xl font-bold mb-6">Continue Learning</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="mb-16">
+          <h2 className="text-3xl font-bold mb-8 tracking-tight">Continue Learning</h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {enrolledCourses.map((course) => (
               <CourseCard key={course.id} course={course} showProgress={true} />
             ))}
@@ -91,9 +99,9 @@ const Dashboard = () => {
         </div>
 
         {/* Certificates Section */}
-        <div className="mb-12">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold">My Certificates</h2>
+        <div className="mb-16">
+          <div className="flex items-center justify-between mb-8">
+            <h2 className="text-3xl font-bold tracking-tight">My Certificates</h2>
             <Link to="/certificates">
               <Button variant="outline" size="sm">View All</Button>
             </Link>

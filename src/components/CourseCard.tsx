@@ -25,37 +25,37 @@ const CourseCard = ({ course, showProgress = false }: CourseCardProps) => {
 
   return (
     <Link to={`/course/${course.id}`}>
-      <Card className="group overflow-hidden transition-all hover:shadow-elegant animate-fade-in cursor-pointer h-full flex flex-col">
-        <div className="aspect-video overflow-hidden relative flex-shrink-0">
-          <img 
-            src={course.thumbnail} 
+      <Card className="group overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 animate-fade-in cursor-pointer h-full flex flex-col border-border/50">
+        <div className="aspect-video overflow-hidden relative flex-shrink-0 bg-muted">
+          <img
+            src={course.thumbnail}
             alt={course.title}
-            className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
+            className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
           />
-          <Badge className="absolute top-3 right-3 bg-primary/90 text-primary-foreground backdrop-blur shadow-card">
+          <Badge className="absolute top-4 right-4 bg-primary/95 text-primary-foreground backdrop-blur-sm shadow-lg font-semibold">
             {course.level}
           </Badge>
           <Button
             variant="ghost"
             size="icon"
-            className="absolute top-3 left-3 h-9 w-9 rounded-full bg-background/80 backdrop-blur hover:bg-background"
+            className="absolute top-4 left-4 h-10 w-10 rounded-full bg-background/90 backdrop-blur-sm hover:bg-background shadow-lg hover:scale-110 transition-all"
             onClick={handleWishlistToggle}
           >
-            <Heart 
-              className={`h-5 w-5 transition-colors ${
-                isWishlisted ? "fill-red-500 text-red-500" : "text-muted-foreground"
+            <Heart
+              className={`h-5 w-5 transition-all duration-300 ${
+                isWishlisted ? "fill-red-500 text-red-500 scale-110" : "text-muted-foreground"
               }`}
             />
           </Button>
         </div>
-        <CardContent className="p-5 flex flex-col flex-1">
-          <div className="flex items-center gap-2 text-xs text-muted-foreground mb-2">
-            <span className="text-primary font-semibold">{course.category}</span>
+        <CardContent className="p-6 flex flex-col flex-1">
+          <div className="flex items-center gap-2 text-xs mb-3">
+            <span className="px-3 py-1 rounded-full bg-primary/10 text-primary font-semibold">{course.category}</span>
           </div>
-          <h3 className="font-semibold text-lg mb-2 line-clamp-2 group-hover:text-primary transition-colors">
+          <h3 className="font-bold text-xl mb-3 line-clamp-2 group-hover:text-primary transition-colors leading-snug">
             {course.title}
           </h3>
-          <p className="text-sm text-muted-foreground line-clamp-2 mb-4 flex-1">
+          <p className="text-sm text-muted-foreground line-clamp-2 mb-5 flex-1 leading-relaxed">
             {course.description}
           </p>
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-3">
@@ -79,9 +79,9 @@ const CourseCard = ({ course, showProgress = false }: CourseCardProps) => {
             </div>
           )}
         </CardContent>
-        <CardFooter className="p-5 pt-0 flex items-center justify-between mt-auto">
-          <p className="text-sm text-muted-foreground">by {course.instructor}</p>
-          <p className="font-bold text-lg text-primary">${course.price}</p>
+        <CardFooter className="p-6 pt-0 flex items-center justify-between mt-auto border-t border-border/50 pt-4">
+          <p className="text-sm text-muted-foreground font-medium">by {course.instructor}</p>
+          <p className="font-bold text-2xl bg-gradient-primary bg-clip-text text-transparent">${course.price}</p>
         </CardFooter>
       </Card>
     </Link>
