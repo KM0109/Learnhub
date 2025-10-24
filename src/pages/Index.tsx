@@ -43,9 +43,11 @@ const Index = () => {
               </div>
             </div>
             <div className="animate-scale-in lg:block">
-              <div className="rounded-2xl shadow-elegant w-full bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center aspect-video">
-                <GraduationCap className="w-32 h-32 text-primary/40" />
-              </div>
+              <img
+                src="/src/assets/d9aedcc8-ba5d-431c-abdc-bb80a72efb44.jpg"
+                alt="People learning online"
+                className="rounded-2xl shadow-elegant w-full object-cover aspect-video"
+              />
             </div>
           </div>
         </div>
