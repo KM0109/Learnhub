@@ -16,9 +16,10 @@ const Dashboard = () => {
     { ...courses[2], enrolled: true, progress: 90 },
   ];
 
+  const completedCoursesCount = courses.filter(c => c.progress === 100 && c.completionDate).length;
   const totalHoursLearned = 47;
-  const coursesCompleted = 3;
-  const certificatesEarned = 2;
+  const coursesCompleted = completedCoursesCount;
+  const certificatesEarned = completedCoursesCount;
 
   return (
     <div className="min-h-screen flex flex-col">
