@@ -58,12 +58,12 @@ const CourseCard = ({ course, showProgress = false }: CourseCardProps) => {
           <p className="text-sm text-muted-foreground line-clamp-2 mb-4 flex-1">
             {course.description}
           </p>
-          <div className="flex items-center gap-4 text-xs text-muted-foreground mb-3">
-            <div className="flex items-center gap-1.5 min-w-[60px]">
+          <div className="flex items-center justify-between text-xs text-muted-foreground mb-3">
+            <div className="flex items-center gap-1.5">
               <Star className="h-4 w-4 fill-amber-400 text-amber-400 flex-shrink-0" />
               <span className="font-semibold text-foreground">{course.rating}</span>
             </div>
-            <div className="flex items-center gap-1.5 min-w-[70px]">
+            <div className="flex items-center gap-1.5">
               <Users className="h-4 w-4 flex-shrink-0" />
               <span className="font-medium">{course.students.toLocaleString()}</span>
             </div>

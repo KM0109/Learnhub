@@ -88,7 +88,7 @@ export const courses: Course[] = [
     enrolled: true,
     purchased: true,
     progress: 40,
-    wishlisted: true,
+    wishlisted: false,
     lessons: [
       { id: "4-1", title: "Marketing Strategy", duration: 45, type: "video", completed: true },
       { id: "4-2", title: "SEO Fundamentals", duration: 60, type: "video", completed: true },
