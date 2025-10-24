@@ -28,7 +28,7 @@ const Support = () => {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen flex flex-col">
       <Navbar />
       
       <main className="container py-12 max-w-3xl">

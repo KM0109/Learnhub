@@ -21,7 +21,7 @@ const Dashboard = () => {
   const certificatesEarned = 2;
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen flex flex-col">
       <Navbar />
       
       <main className="container py-12">

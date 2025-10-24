@@ -11,7 +11,7 @@ const Index = () => {
   const featuredCourses = courses.slice(0, 3);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen flex flex-col">
       <Navbar />
       
       {/* Hero Section */}

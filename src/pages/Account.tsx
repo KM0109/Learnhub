@@ -1,4 +1,5 @@
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
@@ -30,7 +31,7 @@ const Account = () => {
   const earnedBadges = user.badges.filter(b => b.earned);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background flex flex-col">
       <Navbar />
       
       <main className="container py-8 max-w-7xl mx-auto">
@@ -268,6 +269,7 @@ const Account = () => {
 
         </Tabs>
       </main>
+      <Footer />
     </div>
   );
 };

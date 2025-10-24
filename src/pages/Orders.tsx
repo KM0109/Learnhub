@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import { courses } from "@/data/courses";
 import { ShoppingBag, ExternalLink, ChevronRight } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -23,7 +24,7 @@ const Orders = () => {
   const totalSpent = purchasedCourses.reduce((sum, course) => sum + course.price, 0);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen flex flex-col">
       <Navbar />
       
       <main className="container py-12">
@@ -100,6 +101,7 @@ const Orders = () => {
           </div>
         )}
       </main>
+      <Footer />
     </div>
   );
 };

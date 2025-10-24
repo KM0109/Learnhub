@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import CourseCard from "@/components/CourseCard";
 import { courses } from "@/data/courses";
 import { Heart } from "lucide-react";
@@ -10,7 +11,7 @@ const Wishlist = () => {
   const [wishlistedCourses] = useState(courses.filter(c => c.wishlisted));
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen flex flex-col">
       <Navbar />
       
       <main className="container py-12">
@@ -43,6 +44,7 @@ const Wishlist = () => {
           </div>
         )}
       </main>
+      <Footer />
     </div>
   );
 };

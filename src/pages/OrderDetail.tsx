@@ -1,5 +1,6 @@
 import { useParams, useNavigate, Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import { courses } from "@/data/courses";
 import { ShoppingBag, ExternalLink, ArrowLeft, Calendar, Clock, BookOpen, BarChart } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -18,7 +19,7 @@ const OrderDetail = () => {
 
   if (!course) {
     return (
-      <div className="min-h-screen">
+      <div className="min-h-screen flex flex-col">
         <Navbar />
         <main className="container py-20 text-center">
           <h1 className="text-3xl font-bold mb-4">Order Not Found</h1>
@@ -38,7 +39,7 @@ const OrderDetail = () => {
   });
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen flex flex-col">
       <Navbar />
       
       <main className="container py-12">
@@ -207,6 +208,7 @@ const OrderDetail = () => {
           </div>
         </div>
       </main>
+      <Footer />
     </div>
   );
 };

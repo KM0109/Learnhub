@@ -6,8 +6,8 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="border-t bg-card/50 backdrop-blur-sm mt-auto">
-      <div className="container py-12">
+    <footer className="border-t bg-card/50 backdrop-blur-sm mt-auto w-full">
+      <div className="container mx-auto py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           <div>
             <Link to="/" className="flex items-center gap-2 font-bold text-lg mb-4">

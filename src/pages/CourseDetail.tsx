@@ -1,5 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -18,7 +19,7 @@ const CourseDetail = () => {
 
   if (!course) {
     return (
-      <div className="min-h-screen">
+      <div className="min-h-screen flex flex-col">
         <Navbar />
         <div className="container py-20 text-center">
           <h1 className="text-3xl font-bold mb-4">Course Not Found</h1>
@@ -38,7 +39,7 @@ const CourseDetail = () => {
   const totalDuration = course.lessons.reduce((acc, lesson) => acc + lesson.duration, 0);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen flex flex-col">
       <Navbar />
       
       <main>
@@ -191,6 +192,7 @@ const CourseDetail = () => {
           </div>
         </section>
       </main>
+      <Footer />
     </div>
   );
 };

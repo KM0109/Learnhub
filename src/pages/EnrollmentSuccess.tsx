@@ -12,7 +12,7 @@ const EnrollmentSuccess = () => {
 
   if (!course) {
     return (
-      <div className="min-h-screen">
+      <div className="min-h-screen flex flex-col">
         <Navbar />
         <div className="container py-20 text-center">
           <h1 className="text-3xl font-bold mb-4">Course Not Found</h1>
@@ -29,7 +29,7 @@ const EnrollmentSuccess = () => {
   const orderId = `ORD-${Date.now().toString().slice(-8)}`;
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen flex flex-col">
       <Navbar />
       
       <main className="container py-12">
