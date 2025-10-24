@@ -59,17 +59,17 @@ const CourseCard = ({ course, showProgress = false }: CourseCardProps) => {
             {course.description}
           </p>
           <div className="flex items-center gap-4 text-xs text-muted-foreground mb-3">
-            <div className="flex items-center gap-1">
-              <Star className="h-3.5 w-3.5 fill-accent text-accent" />
-              <span className="font-medium text-foreground">{course.rating}</span>
+            <div className="flex items-center gap-1.5 min-w-[60px]">
+              <Star className="h-4 w-4 fill-amber-400 text-amber-400 flex-shrink-0" />
+              <span className="font-semibold text-foreground">{course.rating}</span>
             </div>
-            <div className="flex items-center gap-1">
-              <Users className="h-3.5 w-3.5" />
-              <span>{course.students.toLocaleString()}</span>
+            <div className="flex items-center gap-1.5 min-w-[70px]">
+              <Users className="h-4 w-4 flex-shrink-0" />
+              <span className="font-medium">{course.students.toLocaleString()}</span>
             </div>
-            <div className="flex items-center gap-1">
-              <Clock className="h-3.5 w-3.5" />
-              <span>{course.duration}</span>
+            <div className="flex items-center gap-1.5">
+              <Clock className="h-4 w-4 flex-shrink-0" />
+              <span className="font-medium">{course.duration}</span>
             </div>
           </div>
           {showProgress && course.progress !== undefined && (
