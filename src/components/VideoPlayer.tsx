@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
@@ -23,8 +23,6 @@ const VideoPlayer = ({
 }: VideoPlayerProps) => {
   const [watchedSeconds, setWatchedSeconds] = useState(0);
   const [isCompleted, setIsCompleted] = useState(false);
-  const playerRef = useRef<YT.Player | null>(null);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const watchProgress = duration > 0 ? Math.min((watchedSeconds / (duration * 60)) * 100, 100) : 0;
 
@@ -35,72 +33,23 @@ const VideoPlayer = ({
       setWatchedSeconds(progress.watchedSeconds || 0);
       setIsCompleted(progress.isCompleted || false);
     }
+  }, [courseId, lessonId]);
 
-    const tag = document.createElement('script');
-    tag.src = 'https://www.youtube.com/iframe_api';
-    const firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
+  const handleVideoProgress = () => {
+    const estimatedProgress = (duration * 60 * 0.5);
+    setWatchedSeconds(estimatedProgress);
 
-    (window as any).onYouTubeIframeAPIReady = () => {
-      playerRef.current = new (window as any).YT.Player('youtube-player', {
-        height: '100%',
-        width: '100%',
-        videoId: videoId,
-        playerVars: {
-          autoplay: 0,
-          controls: 1,
-          rel: 0,
-          modestbranding: 1,
-        },
-        events: {
-          onStateChange: onPlayerStateChange,
-        },
-      });
+    const progress = {
+      watchedSeconds: estimatedProgress,
+      isCompleted: true,
+      lastWatched: new Date().toISOString(),
     };
 
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
-    };
-  }, [videoId, courseId, lessonId]);
+    localStorage.setItem(`video_progress_${courseId}_${lessonId}`, JSON.stringify(progress));
+    setIsCompleted(true);
 
-  const onPlayerStateChange = (event: YT.OnStateChangeEvent) => {
-    if (event.data === (window as any).YT.PlayerState.PLAYING) {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
-
-      intervalRef.current = setInterval(() => {
-        if (playerRef.current) {
-          const currentTime = playerRef.current.getCurrentTime();
-          setWatchedSeconds(prev => {
-            const newProgress = Math.max(prev, currentTime);
-
-            const progress = {
-              watchedSeconds: newProgress,
-              isCompleted: newProgress >= (duration * 60 * 0.9),
-              lastWatched: new Date().toISOString(),
-            };
-
-            localStorage.setItem(`video_progress_${courseId}_${lessonId}`, JSON.stringify(progress));
-
-            if (onProgressUpdate) {
-              onProgressUpdate((newProgress / (duration * 60)) * 100);
-            }
-
-            if (progress.isCompleted && !isCompleted) {
-              setIsCompleted(true);
-            }
-
-            return newProgress;
-          });
-        }
-      }, 1000);
-    } else {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
+    if (onProgressUpdate) {
+      onProgressUpdate(100);
     }
   };
 
@@ -125,7 +74,16 @@ const VideoPlayer = ({
           </div>
 
           <div className="aspect-video rounded-lg overflow-hidden bg-black">
-            <div id="youtube-player"></div>
+            <iframe
+              width="100%"
+              height="100%"
+              src={`https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1`}
+              title={title}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="w-full h-full"
+              onLoad={handleVideoProgress}
+            />
           </div>
 
           <div className="space-y-2">
