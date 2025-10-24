@@ -23,7 +23,7 @@ export function ThemeToggle() {
 
   if (!mounted) {
     return (
-      <div className="h-6 w-12 rounded-full bg-accent" />
+      <div className="h-6 w-12 rounded-full bg-slate-700" />
     );
   }
 
@@ -32,7 +32,7 @@ export function ThemeToggle() {
       onClick={toggleTheme}
       className={cn(
         "relative inline-flex h-6 w-12 items-center rounded-full transition-colors duration-300",
-        isDark ? "bg-slate-700" : "bg-accent"
+        isDark ? "bg-slate-700" : "bg-orange-400"
       )}
       aria-label="Toggle theme"
     >
@@ -41,8 +41,8 @@ export function ThemeToggle() {
           "absolute inset-y-0.5 left-0.5 right-0.5 flex items-center justify-between px-1.5 pointer-events-none"
         )}
       >
-        <Moon className={cn("h-3 w-3", isDark ? "opacity-100 text-white" : "opacity-60 text-accent-foreground")} />
-        <Sun className={cn("h-3 w-3", isDark ? "opacity-60 text-white" : "opacity-100 text-accent-foreground")} />
+        <Moon className={cn("h-3 w-3 text-white", isDark ? "opacity-100" : "opacity-60")} />
+        <Sun className={cn("h-3 w-3 text-white", isDark ? "opacity-60" : "opacity-100")} />
       </span>
       <span
         className={cn(

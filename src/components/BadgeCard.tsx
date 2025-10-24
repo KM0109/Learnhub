@@ -17,7 +17,7 @@ const BadgeCard = ({ badge }: BadgeCardProps) => {
 
   return (
     <Card className={cn(
-      "relative overflow-hidden transition-all group",
+      "relative overflow-hidden transition-all",
       badge.earned ? "hover:shadow-elegant cursor-pointer" : "opacity-60"
     )}>
       <div className={cn(
@@ -31,7 +31,7 @@ const BadgeCard = ({ badge }: BadgeCardProps) => {
           </div>
         )}
         <div className="text-5xl mb-3">{badge.icon}</div>
-        <h3 className="font-semibold mb-1 group-hover:text-accent transition-colors">{badge.name}</h3>
+        <h3 className="font-semibold mb-1">{badge.name}</h3>
         <p className="text-xs text-muted-foreground mb-2">{badge.description}</p>
         <span className={cn(
           "text-xs font-medium px-2 py-1 rounded-full",
