@@ -12,11 +12,13 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { toast } from "sonner";
 import { useState } from "react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import VideoPlayer from "@/components/VideoPlayer";
 
 const CourseDetail = () => {
   const { id } = useParams();
   const course = courses.find(c => c.id === id);
   const [isWishlisted, setIsWishlisted] = useState(course?.wishlisted || false);
+  const [selectedLesson, setSelectedLesson] = useState(course?.lessons.find(l => l.videoId) || null);
 
   if (!course) {
     return (
@@ -81,6 +83,16 @@ const CourseDetail = () => {
                   <p className="text-lg text-muted-foreground">{course.description}</p>
                 </div>
 
+                {selectedLesson && selectedLesson.videoId && (
+                  <VideoPlayer
+                    videoId={selectedLesson.videoId}
+                    lessonId={selectedLesson.id}
+                    courseId={course.id}
+                    title={selectedLesson.title}
+                    duration={selectedLesson.duration}
+                  />
+                )}
+
                 <div>
                   <h2 className="text-2xl font-bold mb-6">Course Content</h2>
                   <Card>
@@ -100,7 +112,15 @@ const CourseDetail = () => {
                           <AccordionContent>
                             <div className="space-y-3 pt-3">
                               {course.lessons.map((lesson, index) => (
-                                <div key={lesson.id} className="flex items-center justify-between p-3 rounded-lg hover:bg-secondary transition-colors">
+                                <div
+                                  key={lesson.id}
+                                  className={`flex items-center justify-between p-3 rounded-lg transition-colors cursor-pointer ${
+                                    selectedLesson?.id === lesson.id
+                                      ? 'bg-primary/10 border-2 border-primary'
+                                      : 'hover:bg-secondary'
+                                  } ${!lesson.videoId ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                  onClick={() => lesson.videoId && setSelectedLesson(lesson)}
+                                >
                                   <div className="flex items-center gap-3 flex-1">
                                     {lesson.type === 'video' ? (
                                       <PlayCircle className="h-5 w-5 text-primary" />
@@ -118,6 +138,9 @@ const CourseDetail = () => {
                                       <Zap className="h-3 w-3 text-accent" />
                                       {lesson.xp}
                                     </Badge>
+                                    {!lesson.videoId && (
+                                      <Lock className="h-4 w-4 text-muted-foreground" />
+                                    )}
                                   </div>
                                 </div>
                               ))}

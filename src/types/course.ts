@@ -1,10 +1,11 @@
 export interface Lesson {
   id: string;
   title: string;
-  duration: number; // in minutes
+  duration: number;
   completed?: boolean;
   type: 'video' | 'reading' | 'quiz';
   xp: number;
+  videoId?: string;
 }
 
 export interface Course {
