@@ -25,7 +25,7 @@ const CourseCard = ({ course, showProgress = false }: CourseCardProps) => {
 
   return (
     <Link to={`/course/${course.id}`}>
-      <Card className="group overflow-hidden transition-all hover:shadow-elegant animate-fade-in cursor-pointer h-full flex flex-col">
+      <Card className="group overflow-hidden transition-all hover:shadow-elegant hover:border-accent/30 animate-fade-in cursor-pointer h-full flex flex-col">
         <div className="aspect-video overflow-hidden relative flex-shrink-0">
           <img 
             src={course.thumbnail} 

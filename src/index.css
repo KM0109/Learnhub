@@ -17,9 +17,9 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 230 35% 15%;
 
-    --primary: 267 97% 60%;
-    --primary-foreground: 0 0% 100%;
-    --primary-glow: 269 91% 48%;
+    --primary: 45 95% 55%;
+    --primary-foreground: 230 35% 15%;
+    --primary-glow: 43 98% 50%;
 
     --secondary: 220 20% 92%;
     --secondary-foreground: 230 35% 15%;
@@ -27,7 +27,7 @@ All colors MUST be HSL.
     --muted: 220 20% 95%;
     --muted-foreground: 230 20% 50%;
 
-    --accent: 49 98% 51%;
+    --accent: 45 95% 55%;
     --accent-foreground: 230 35% 15%;
 
     --destructive: 0 84.2% 60.2%;
@@ -35,18 +35,18 @@ All colors MUST be HSL.
 
     --border: 220 20% 88%;
     --input: 220 20% 92%;
-    --ring: 267 97% 60%;
+    --ring: 45 95% 55%;
 
     --success: 145 65% 50%;
     --success-foreground: 0 0% 100%;
 
     --radius: 0.75rem;
-    
-    --gradient-primary: linear-gradient(135deg, hsl(267 97% 60%), hsl(269 91% 48%));
-    --gradient-accent: linear-gradient(135deg, hsl(49 98% 51%), hsl(43 98% 55%));
-    --gradient-hero: linear-gradient(180deg, hsl(220 25% 98%), hsl(267 70% 96%));
-    
-    --shadow-elegant: 0 10px 40px -10px hsl(267 97% 60% / 0.2);
+
+    --gradient-primary: linear-gradient(135deg, hsl(45 95% 55%), hsl(43 98% 50%));
+    --gradient-accent: linear-gradient(135deg, hsl(45 95% 55%), hsl(38 95% 58%));
+    --gradient-hero: linear-gradient(180deg, hsl(220 25% 98%), hsl(45 30% 96%));
+
+    --shadow-elegant: 0 10px 40px -10px hsl(45 95% 55% / 0.15);
     --shadow-card: 0 2px 8px hsl(230 20% 50% / 0.08);
     
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -78,9 +78,9 @@ All colors MUST be HSL.
     --popover: 230 30% 12%;
     --popover-foreground: 220 20% 95%;
 
-    --primary: 267 97% 60%;
-    --primary-foreground: 0 0% 100%;
-    --primary-glow: 269 91% 48%;
+    --primary: 45 95% 55%;
+    --primary-foreground: 230 35% 8%;
+    --primary-glow: 43 98% 50%;
 
     --secondary: 230 25% 18%;
     --secondary-foreground: 220 20% 95%;
@@ -88,7 +88,7 @@ All colors MUST be HSL.
     --muted: 230 25% 15%;
     --muted-foreground: 220 15% 60%;
 
-    --accent: 49 98% 51%;
+    --accent: 45 95% 55%;
     --accent-foreground: 230 35% 8%;
 
     --destructive: 0 62.8% 50%;
@@ -96,16 +96,16 @@ All colors MUST be HSL.
 
     --border: 230 25% 20%;
     --input: 230 25% 18%;
-    --ring: 267 97% 60%;
-    
+    --ring: 45 95% 55%;
+
     --success: 145 65% 45%;
     --success-foreground: 0 0% 100%;
-    
-    --gradient-primary: linear-gradient(135deg, hsl(267 97% 60%), hsl(269 91% 48%));
-    --gradient-accent: linear-gradient(135deg, hsl(49 98% 51%), hsl(43 98% 55%));
-    --gradient-hero: linear-gradient(180deg, hsl(230 35% 8%), hsl(267 40% 12%));
-    
-    --shadow-elegant: 0 10px 40px -10px hsl(267 97% 60% / 0.3);
+
+    --gradient-primary: linear-gradient(135deg, hsl(45 95% 55%), hsl(43 98% 50%));
+    --gradient-accent: linear-gradient(135deg, hsl(45 95% 55%), hsl(38 95% 58%));
+    --gradient-hero: linear-gradient(180deg, hsl(230 35% 8%), hsl(45 20% 12%));
+
+    --shadow-elegant: 0 10px 40px -10px hsl(45 95% 55% / 0.25);
     --shadow-card: 0 2px 8px hsl(0 0% 0% / 0.3);
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
@@ -125,5 +125,21 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    transition: box-shadow 0.2s ease;
+  }
+
+  input[type="range"]::-webkit-slider-thumb:hover {
+    box-shadow: 0 0 0 8px hsl(45 95% 55% / 0.1);
+  }
+
+  input[type="range"]::-moz-range-thumb {
+    transition: box-shadow 0.2s ease;
+  }
+
+  input[type="range"]::-moz-range-thumb:hover {
+    box-shadow: 0 0 0 8px hsl(45 95% 55% / 0.1);
   }
 }
