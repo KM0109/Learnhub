@@ -6,65 +6,17 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Star, Users, Clock, PlayCircle, FileText, CheckCircle, Award, Heart, Zap, Download, Lock } from "lucide-react";
+import { courses } from "@/data/courses";
 import { Progress } from "@/components/ui/progress";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { toast } from "sonner";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { supabase } from "@/lib/supabase";
-import { Course, Lesson } from "@/types/course";
 
 const CourseDetail = () => {
   const { id } = useParams();
-  const [course, setCourse] = useState<Course | null>(null);
-  const [lessons, setLessons] = useState<Lesson[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [isWishlisted, setIsWishlisted] = useState(false);
-
-  useEffect(() => {
-    fetchCourseData();
-  }, [id]);
-
-  const fetchCourseData = async () => {
-    try {
-      const { data: courseData, error: courseError } = await supabase
-        .from('courses')
-        .select('*')
-        .eq('id', id)
-        .maybeSingle();
-
-      if (courseError) throw courseError;
-
-      const { data: lessonsData, error: lessonsError } = await supabase
-        .from('lessons')
-        .select('*')
-        .eq('course_id', id)
-        .order('position');
-
-      if (lessonsError) throw lessonsError;
-
-      if (courseData) {
-        setCourse({ ...courseData, lessons: lessonsData || [] } as Course);
-        setLessons(lessonsData as Lesson[] || []);
-      }
-    } catch (error) {
-      console.error('Error fetching course:', error);
-      toast.error('Failed to load course');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex flex-col">
-        <Navbar />
-        <div className="container py-20 text-center">
-          <p>Loading course...</p>
-        </div>
-      </div>
-    );
-  }
+  const course = courses.find(c => c.id === id);
+  const [isWishlisted, setIsWishlisted] = useState(course?.wishlisted || false);
 
   if (!course) {
     return (
@@ -93,7 +45,7 @@ const CourseDetail = () => {
     }
   };
 
-  const totalDuration = lessons.reduce((acc, lesson) => acc + lesson.duration, 0);
+  const totalDuration = course.lessons.reduce((acc, lesson) => acc + lesson.duration, 0);
   const isCourseCompleted = course.progress === 100 && course.completionDate;
 
   return (
@@ -138,16 +90,16 @@ const CourseDetail = () => {
                           <AccordionTrigger className="text-lg font-semibold">
                             <div className="flex items-center gap-3">
                               <span>Course Curriculum</span>
-                              <Badge variant="outline">{lessons.length} lessons</Badge>
+                              <Badge variant="outline">{course.lessons.length} lessons</Badge>
                               <Badge variant="outline" className="flex items-center gap-1">
                                 <Zap className="h-3 w-3" />
-                                {course.total_xp} XP
+                                {course.totalXp} XP
                               </Badge>
                             </div>
                           </AccordionTrigger>
                           <AccordionContent>
                             <div className="space-y-3 pt-3">
-                              {lessons.map((lesson, index) => (
+                              {course.lessons.map((lesson, index) => (
                                 <div key={lesson.id} className="flex items-center justify-between p-3 rounded-lg hover:bg-secondary transition-colors">
                                   <div className="flex items-center gap-3 flex-1">
                                     {lesson.type === 'video' ? (
@@ -318,13 +270,13 @@ const CourseDetail = () => {
                       </div>
                       <div className="flex justify-between">
                         <span className="text-muted-foreground">Lessons</span>
-                        <span className="font-semibold">{lessons.length}</span>
+                        <span className="font-semibold">{course.lessons.length}</span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-muted-foreground">Total XP</span>
                         <span className="font-semibold flex items-center gap-1">
                           <Zap className="h-4 w-4 text-accent" />
-                          {course.total_xp}
+                          {course.totalXp}
                         </span>
                       </div>
                     </div>

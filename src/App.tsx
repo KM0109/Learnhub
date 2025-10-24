@@ -7,7 +7,6 @@ import { ThemeProvider } from "@/components/theme-provider";
 import Index from "./pages/Index";
 import Courses from "./pages/Courses";
 import CourseDetail from "./pages/CourseDetail";
-import LearnCourse from "./pages/LearnCourse";
 import Enroll from "./pages/Enroll";
 import EnrollmentSuccess from "./pages/EnrollmentSuccess";
 import Dashboard from "./pages/Dashboard";
@@ -35,7 +34,6 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/courses" element={<Courses />} />
             <Route path="/course/:id" element={<CourseDetail />} />
-            <Route path="/learn/:id" element={<LearnCourse />} />
             <Route path="/enroll/:id" element={<Enroll />} />
             <Route path="/enrollment-success/:id" element={<EnrollmentSuccess />} />
             <Route path="/dashboard" element={<Dashboard />} />

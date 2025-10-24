@@ -1,12 +1,10 @@
 export interface Lesson {
   id: string;
   title: string;
-  duration: number;
+  duration: number; // in minutes
   completed?: boolean;
   type: 'video' | 'reading' | 'quiz';
   xp: number;
-  video_id?: string;
-  position?: number;
 }
 
 export interface Course {
