@@ -4,11 +4,60 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Award, Download, Share2, Trophy } from "lucide-react";
-import { courses } from "@/data/courses";
+import { useState, useEffect } from "react";
+import { supabase } from "@/lib/supabase";
+import { Course } from "@/types/course";
+import { toast } from "sonner";
 
 const Certificate = () => {
   const { id } = useParams();
-  const course = courses.find(c => c.id === id);
+  const [course, setCourse] = useState<Course | null>(null);
+  const [lessonCount, setLessonCount] = useState(0);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchCourseData();
+  }, [id]);
+
+  const fetchCourseData = async () => {
+    try {
+      const { data: courseData, error: courseError } = await supabase
+        .from('courses')
+        .select('*')
+        .eq('id', id)
+        .maybeSingle();
+
+      if (courseError) throw courseError;
+
+      const { data: lessonsData, error: lessonsError } = await supabase
+        .from('lessons')
+        .select('id')
+        .eq('course_id', id);
+
+      if (lessonsError) throw lessonsError;
+
+      if (courseData) {
+        setCourse(courseData as Course);
+        setLessonCount(lessonsData?.length || 0);
+      }
+    } catch (error) {
+      console.error('Error fetching course:', error);
+      toast.error('Failed to load certificate');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex flex-col">
+        <Navbar />
+        <div className="container py-20 text-center">
+          <p>Loading certificate...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!course) {
     return (
@@ -77,7 +126,7 @@ const Certificate = () => {
                   <div className="w-px bg-border"></div>
                   <div className="text-center">
                     <p className="text-sm text-muted-foreground">Lessons</p>
-                    <p className="font-semibold">{course.lessons.length}</p>
+                    <p className="font-semibold">{lessonCount}</p>
                   </div>
                   <div className="w-px bg-border"></div>
                   <div className="text-center">

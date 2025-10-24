@@ -1,16 +1,43 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CourseCard from "@/components/CourseCard";
-import { courses } from "@/data/courses";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Search } from "lucide-react";
+import { supabase } from "@/lib/supabase";
+import { Course } from "@/types/course";
+import { toast } from "sonner";
 
 const Courses = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("all");
   const [levelFilter, setLevelFilter] = useState("all");
+  const [courses, setCourses] = useState<Course[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchCourses();
+  }, []);
+
+  const fetchCourses = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('courses')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      if (data) {
+        setCourses(data as Course[]);
+      }
+    } catch (error) {
+      console.error('Error fetching courses:', error);
+      toast.error('Failed to load courses');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const categories = ["all", ...Array.from(new Set(courses.map(c => c.category)))];
   const levels = ["all", "Beginner", "Intermediate", "Advanced"];
@@ -20,7 +47,7 @@ const Courses = () => {
                          course.description.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = categoryFilter === "all" || course.category === categoryFilter;
     const matchesLevel = levelFilter === "all" || course.level === levelFilter;
-    
+
     return matchesSearch && matchesCategory && matchesLevel;
   });
 
@@ -74,16 +101,24 @@ const Courses = () => {
         </div>
 
         {/* Course Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredCourses.map((course) => (
-            <CourseCard key={course.id} course={course} />
-          ))}
-        </div>
-
-        {filteredCourses.length === 0 && (
+        {loading ? (
           <div className="text-center py-16">
-            <p className="text-lg text-muted-foreground">No courses found matching your criteria.</p>
+            <p className="text-lg text-muted-foreground">Loading courses...</p>
           </div>
+        ) : (
+          <>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredCourses.map((course) => (
+                <CourseCard key={course.id} course={course} />
+              ))}
+            </div>
+
+            {filteredCourses.length === 0 && (
+              <div className="text-center py-16">
+                <p className="text-lg text-muted-foreground">No courses found matching your criteria.</p>
+              </div>
+            )}
+          </>
         )}
       </main>
       <Footer />

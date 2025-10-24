@@ -4,10 +4,38 @@ import { GraduationCap, TrendingUp, Award, BookOpen } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CourseCard from "@/components/CourseCard";
-import { courses } from "@/data/courses";
-import heroImage from "@/assets/hero-image.jpeg";
+import heroImage from "@/assets/hero-learning.jpg";
+import { useState, useEffect } from "react";
+import { supabase } from "@/lib/supabase";
+import { Course } from "@/types/course";
 
 const Index = () => {
+  const [courses, setCourses] = useState<Course[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchCourses();
+  }, []);
+
+  const fetchCourses = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('courses')
+        .select('*')
+        .order('created_at', { ascending: false })
+        .limit(3);
+
+      if (error) throw error;
+      if (data) {
+        setCourses(data as Course[]);
+      }
+    } catch (error) {
+      console.error('Error fetching courses:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const featuredCourses = courses.slice(0, 3);
 
   return (
