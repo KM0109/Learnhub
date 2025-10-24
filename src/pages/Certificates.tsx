@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { FileCheck, Download, Share2, Award, Medal } from "lucide-react";
+import { FileCheck, Download, Share2, Award } from "lucide-react";
 import { courses } from "@/data/courses";
 import { toast } from "sonner";
 import { Separator } from "@/components/ui/separator";
@@ -45,8 +45,11 @@ const Certificates = () => {
                 <div className="p-8 text-center" style={{
                   background: 'var(--gradient-primary)'
                 }}>
-                  <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-yellow-400 via-yellow-500 to-yellow-600 flex items-center justify-center shadow-lg">
-                    <Medal className="w-12 h-12 text-yellow-100" />
+                  <div className="relative w-20 h-20 mx-auto mb-4">
+                    <div className="absolute inset-0 rounded-full bg-gradient-to-br from-yellow-400 via-yellow-500 to-amber-600 flex items-center justify-center shadow-xl">
+                      <Award className="w-11 h-11 text-yellow-50" strokeWidth={2.5} />
+                    </div>
+                    <div className="absolute -inset-1 rounded-full bg-gradient-to-br from-yellow-400/40 to-amber-600/40 blur-sm -z-10"></div>
                   </div>
                   <Badge className="bg-white/20 text-primary-foreground backdrop-blur border-0">
                     LearnHub Certificate

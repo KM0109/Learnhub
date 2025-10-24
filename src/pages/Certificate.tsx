@@ -29,7 +29,9 @@ const Certificate = () => {
         <div className="max-w-4xl mx-auto">
           {/* Success Message */}
           <div className="text-center mb-12 animate-fade-in">
-            <Award className="h-16 w-16 text-primary mx-auto mb-6" />
+            <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-yellow-400 via-yellow-500 to-amber-600 flex items-center justify-center shadow-xl">
+              <Award className="w-12 h-12 text-yellow-50" strokeWidth={2.5} />
+            </div>
             <h1 className="text-4xl font-bold mb-4">Certificate of Completion</h1>
             <p className="text-xl text-muted-foreground">
               This certifies that you have successfully completed {course.title}
@@ -41,8 +43,11 @@ const Certificate = () => {
             <CardContent className="p-12">
               <div className="text-center">
                 <div className="mb-8">
-                  <div className="w-24 h-24 mx-auto mb-6 rounded-full bg-gradient-to-br from-yellow-400 via-yellow-500 to-yellow-600 flex items-center justify-center shadow-lg">
-                    <Medal className="w-14 h-14 text-yellow-100" />
+                  <div className="relative w-32 h-32 mx-auto mb-6">
+                    <div className="absolute inset-0 rounded-full bg-gradient-to-br from-yellow-400 via-yellow-500 to-amber-600 flex items-center justify-center shadow-2xl animate-pulse" style={{ animationDuration: '3s' }}>
+                      <Award className="w-20 h-20 text-yellow-50" strokeWidth={3} />
+                    </div>
+                    <div className="absolute -inset-2 rounded-full bg-gradient-to-br from-yellow-400/30 to-amber-600/30 blur-md -z-10"></div>
                   </div>
                   <div className="inline-block px-8 py-3 rounded-lg mb-6" style={{ 
                     background: 'var(--gradient-primary)'
