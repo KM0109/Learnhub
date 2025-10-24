@@ -131,7 +131,7 @@ const Navbar = () => {
           <span className="bg-gradient-primary bg-clip-text text-transparent">LearnHub</span>
         </Link>
         
-        <div className="hidden md:flex items-center gap-6">
+        <div className="hidden md:flex items-center gap-8">
           <Link to="/courses" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
             Courses
           </Link>
@@ -143,7 +143,7 @@ const Navbar = () => {
           </Link>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           <Button variant="ghost" size="icon" className="hover:bg-primary/10 hover:text-primary hidden sm:flex">
             <Search className="h-5 w-5" />
           </Button>

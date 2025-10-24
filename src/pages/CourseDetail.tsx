@@ -60,10 +60,9 @@ const CourseDetail = () => {
               <div className="lg:col-span-2">
                 <Badge className="mb-3">{course.category}</Badge>
                 <h1 className="text-4xl font-bold mb-2">{course.title}</h1>
-                <p className="text-muted-foreground mb-3">by <span className="font-semibold text-foreground">{course.instructor}</span></p>
-                <p className="text-lg text-muted-foreground mb-4">{course.description}</p>
+                <p className="text-muted-foreground mb-6">by <span className="font-semibold text-foreground">{course.instructor}</span></p>
 
-                <div className="flex flex-wrap items-center gap-6 mb-4">
+                <div className="flex flex-wrap items-center gap-6 mb-6">
                   <div className="flex items-center gap-2">
                     <Star className="h-5 w-5 fill-accent text-accent" />
                     <span className="font-semibold">{course.rating}</span>
@@ -78,6 +77,8 @@ const CourseDetail = () => {
                   </div>
                   <Badge variant="outline">{course.level}</Badge>
                 </div>
+
+                <p className="text-lg text-muted-foreground">{course.description}</p>
               </div>
 
               <div>
@@ -155,8 +156,8 @@ const CourseDetail = () => {
         </section>
 
         {/* Course Content */}
-        <section className="container py-8">
-          <div className="lg:w-2/3">
+        <section className="container py-12">
+          <div className="max-w-4xl">
             <h2 className="text-2xl font-bold mb-6">Course Content</h2>
             <Card>
               <CardContent className="p-6">

@@ -52,9 +52,12 @@ const CourseCard = ({ course, showProgress = false }: CourseCardProps) => {
           <div className="flex items-center gap-2 text-xs text-muted-foreground mb-2">
             <span className="text-primary font-semibold">{course.category}</span>
           </div>
-          <h3 className="font-semibold text-lg mb-2 line-clamp-2 group-hover:text-primary transition-colors">
+          <h3 className="font-semibold text-lg mb-1 line-clamp-2 group-hover:text-primary transition-colors">
             {course.title}
           </h3>
+          <p className="text-xs text-muted-foreground mb-3">
+            by {course.instructor}
+          </p>
           <p className="text-sm text-muted-foreground line-clamp-2 mb-4 flex-1">
             {course.description}
           </p>
