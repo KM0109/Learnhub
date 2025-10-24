@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Star, Users, Clock, Heart } from "lucide-react";
+import { Star, Users, Clock, Heart, Zap } from "lucide-react";
 import { Course } from "@/types/course";
 import { Progress } from "@/components/ui/progress";
 import { toast } from "sonner";
@@ -71,6 +71,10 @@ const CourseCard = ({ course, showProgress = false }: CourseCardProps) => {
               <Clock className="h-4 w-4 flex-shrink-0" />
               <span className="font-medium">{course.duration}</span>
             </div>
+          </div>
+          <div className="flex items-center gap-1.5 mb-3 px-2 py-1.5 bg-accent/10 rounded-md w-fit">
+            <Zap className="h-4 w-4 text-accent flex-shrink-0" />
+            <span className="text-sm font-semibold text-accent">{course.totalXp} XP</span>
           </div>
           {showProgress && course.progress !== undefined && (
             <div className="mb-3">

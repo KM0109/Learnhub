@@ -5,12 +5,13 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Star, Users, Clock, PlayCircle, FileText, CheckCircle, Award, Heart, Zap } from "lucide-react";
+import { Star, Users, Clock, PlayCircle, FileText, CheckCircle, Award, Heart, Zap, Download, Lock } from "lucide-react";
 import { courses } from "@/data/courses";
 import { Progress } from "@/components/ui/progress";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { toast } from "sonner";
 import { useState } from "react";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 const CourseDetail = () => {
   const { id } = useParams();
@@ -36,7 +37,16 @@ const CourseDetail = () => {
     toast.success(isWishlisted ? "Removed from wishlist" : "Added to wishlist");
   };
 
+  const handleDownloadPDF = () => {
+    if (course.progress === 100 && course.completionDate) {
+      toast.success("Downloading course summary PDF...");
+    } else {
+      toast.error("Complete the course to unlock the PDF summary");
+    }
+  };
+
   const totalDuration = course.lessons.reduce((acc, lesson) => acc + lesson.duration, 0);
+  const isCourseCompleted = course.progress === 100 && course.completionDate;
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -119,7 +129,45 @@ const CourseDetail = () => {
                           Yes
                         </span>
                       </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Total XP</span>
+                        <span className="font-semibold flex items-center gap-1">
+                          <Zap className="h-4 w-4 text-accent" />
+                          {course.totalXp}
+                        </span>
+                      </div>
                     </div>
+                    <Separator className="my-4" />
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <div>
+                          <Button
+                            variant="outline"
+                            size="lg"
+                            className="w-full"
+                            onClick={handleDownloadPDF}
+                            disabled={!isCourseCompleted}
+                          >
+                            {isCourseCompleted ? (
+                              <>
+                                <Download className="h-5 w-5 mr-2" />
+                                Download PDF Summary
+                              </>
+                            ) : (
+                              <>
+                                <Lock className="h-5 w-5 mr-2" />
+                                PDF Summary Locked
+                              </>
+                            )}
+                          </Button>
+                        </div>
+                      </TooltipTrigger>
+                      {!isCourseCompleted && (
+                        <TooltipContent>
+                          <p>Complete the course to unlock the PDF summary</p>
+                        </TooltipContent>
+                      )}
+                    </Tooltip>
                   </CardContent>
                 </Card>
               </div>
