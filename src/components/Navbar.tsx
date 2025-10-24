@@ -15,10 +15,12 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { GraduationCap, Search, User, LogOut, LayoutDashboard, HeadphonesIcon, Heart, ShoppingBag, FileCheck, Menu, BookOpen } from "lucide-react";
+import { GraduationCap, Search, User, LogOut, LayoutDashboard, HeadphonesIcon, Heart, ShoppingBag, FileCheck, Menu, BookOpen, Sun, Moon } from "lucide-react";
+import { useTheme } from "@/components/theme-provider";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const { theme, setTheme } = useTheme();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -39,6 +41,10 @@ const Navbar = () => {
 
   const closeMobileMenu = () => {
     setMobileMenuOpen(false);
+  };
+
+  const toggleTheme = () => {
+    setTheme(theme === "dark" ? "light" : "dark");
   };
 
   return (
@@ -168,6 +174,20 @@ const Navbar = () => {
               <DropdownMenuItem onClick={() => navigate("/support")} className="hover:bg-primary/10 hover:text-primary focus:bg-primary/10 focus:text-primary">
                 <HeadphonesIcon className="h-4 w-4 mr-2" />
                 Support
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={toggleTheme} className="hover:bg-primary/10 hover:text-primary focus:bg-primary/10 focus:text-primary">
+                {theme === "dark" ? (
+                  <>
+                    <Sun className="h-4 w-4 mr-2" />
+                    Light Mode
+                  </>
+                ) : (
+                  <>
+                    <Moon className="h-4 w-4 mr-2" />
+                    Dark Mode
+                  </>
+                )}
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={handleLogout} className="text-destructive hover:bg-destructive hover:text-destructive-foreground focus:bg-destructive focus:text-destructive-foreground">
