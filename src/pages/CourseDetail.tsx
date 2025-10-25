@@ -10,7 +10,7 @@ import { courses } from "@/data/courses";
 import { Progress } from "@/components/ui/progress";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { toast } from "sonner";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import VideoPlayer from "@/components/VideoPlayer";
 
@@ -19,6 +19,68 @@ const CourseDetail = () => {
   const course = courses.find(c => c.id === id);
   const [isWishlisted, setIsWishlisted] = useState(course?.wishlisted || false);
   const [selectedLesson, setSelectedLesson] = useState(course?.lessons.find(l => l.videoId) || null);
+  const [lessonProgress, setLessonProgress] = useState<Record<string, number>>({});
+  const [unlockedLessons, setUnlockedLessons] = useState<Set<string>>(new Set([course?.lessons[0]?.id || ""]));
+
+  useEffect(() => {
+    if (!course) return;
+
+    const unlocked = new Set<string>([course.lessons[0]?.id]);
+    const progressMap: Record<string, number> = {};
+
+    course.lessons.forEach((lesson) => {
+      const savedProgress = localStorage.getItem(`video_progress_${course.id}_${lesson.id}`);
+      if (savedProgress) {
+        const progress = JSON.parse(savedProgress);
+        const watchedPercent = (progress.watchedSeconds / (lesson.duration * 60)) * 100;
+        progressMap[lesson.id] = watchedPercent;
+
+        if (watchedPercent >= 90) {
+          const currentIndex = course.lessons.findIndex(l => l.id === lesson.id);
+          if (currentIndex < course.lessons.length - 1) {
+            unlocked.add(course.lessons[currentIndex + 1].id);
+          }
+        }
+      }
+    });
+
+    setLessonProgress(progressMap);
+    setUnlockedLessons(unlocked);
+  }, [course]);
+
+  const handleProgressUpdate = (progress: number, lessonId: string) => {
+    setLessonProgress(prev => ({ ...prev, [lessonId]: progress }));
+
+    if (progress >= 90 && course) {
+      const currentIndex = course.lessons.findIndex(l => l.id === lessonId);
+      if (currentIndex < course.lessons.length - 1) {
+        const nextLesson = course.lessons[currentIndex + 1];
+        setUnlockedLessons(prev => new Set([...prev, nextLesson.id]));
+      }
+    }
+  };
+
+  const handleVideoComplete = (lessonId: string) => {
+    if (!course) return;
+
+    const currentIndex = course.lessons.findIndex(l => l.id === lessonId);
+    if (currentIndex < course.lessons.length - 1) {
+      const nextLesson = course.lessons[currentIndex + 1];
+      if (nextLesson.videoId && unlockedLessons.has(nextLesson.id)) {
+        setTimeout(() => {
+          setSelectedLesson(nextLesson);
+          toast.success(`Now playing: ${nextLesson.title}`);
+        }, 2000);
+      }
+    } else {
+      toast.success("Congratulations! You've completed all videos in this course!");
+    }
+  };
+
+  const isLessonLocked = (lessonId: string, index: number) => {
+    if (index === 0) return false;
+    return !unlockedLessons.has(lessonId);
+  };
 
   if (!course) {
     return (
@@ -90,6 +152,8 @@ const CourseDetail = () => {
                     courseId={course.id}
                     title={selectedLesson.title}
                     duration={selectedLesson.duration}
+                    onProgressUpdate={handleProgressUpdate}
+                    onVideoComplete={handleVideoComplete}
                   />
                 )}
 
@@ -111,39 +175,64 @@ const CourseDetail = () => {
                           </AccordionTrigger>
                           <AccordionContent>
                             <div className="space-y-3 pt-3">
-                              {course.lessons.map((lesson, index) => (
-                                <div
-                                  key={lesson.id}
-                                  className={`flex items-center justify-between p-3 rounded-lg transition-colors cursor-pointer ${
-                                    selectedLesson?.id === lesson.id
-                                      ? 'bg-primary/10 border-2 border-primary'
-                                      : 'hover:bg-secondary'
-                                  } ${!lesson.videoId ? 'opacity-50 cursor-not-allowed' : ''}`}
-                                  onClick={() => lesson.videoId && setSelectedLesson(lesson)}
-                                >
-                                  <div className="flex items-center gap-3 flex-1">
-                                    {lesson.type === 'video' ? (
-                                      <PlayCircle className="h-5 w-5 text-primary" />
-                                    ) : (
-                                      <FileText className="h-5 w-5 text-primary" />
-                                    )}
-                                    <div className="flex-1">
-                                      <p className="font-medium">{index + 1}. {lesson.title}</p>
-                                      <p className="text-xs text-muted-foreground capitalize">{lesson.type}</p>
+                              {course.lessons.map((lesson, index) => {
+                                const locked = isLessonLocked(lesson.id, index);
+                                const progress = lessonProgress[lesson.id] || 0;
+                                return (
+                                  <div
+                                    key={lesson.id}
+                                    className={`flex items-center justify-between p-3 rounded-lg transition-colors ${
+                                      locked ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
+                                    } ${
+                                      selectedLesson?.id === lesson.id
+                                        ? 'bg-primary/10 border-2 border-primary'
+                                        : !locked ? 'hover:bg-secondary' : ''
+                                    }`}
+                                    onClick={() => {
+                                      if (!locked && lesson.videoId) {
+                                        setSelectedLesson(lesson);
+                                      } else if (locked) {
+                                        toast.error('Complete the previous video to 90% to unlock this lesson');
+                                      }
+                                    }}
+                                  >
+                                    <div className="flex items-center gap-3 flex-1">
+                                      {lesson.type === 'video' ? (
+                                        <PlayCircle className={`h-5 w-5 ${locked ? 'text-muted-foreground' : 'text-primary'}`} />
+                                      ) : (
+                                        <FileText className={`h-5 w-5 ${locked ? 'text-muted-foreground' : 'text-primary'}`} />
+                                      )}
+                                      <div className="flex-1">
+                                        <p className="font-medium">{index + 1}. {lesson.title}</p>
+                                        <div className="flex items-center gap-2">
+                                          <p className="text-xs text-muted-foreground capitalize">{lesson.type}</p>
+                                          {progress > 0 && progress < 90 && (
+                                            <Badge variant="outline" className="text-xs">
+                                              {Math.round(progress)}%
+                                            </Badge>
+                                          )}
+                                          {progress >= 90 && (
+                                            <Badge className="text-xs bg-success text-success-foreground">
+                                              <CheckCircle className="h-2 w-2 mr-1" />
+                                              Complete
+                                            </Badge>
+                                          )}
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div className="flex items-center gap-4">
+                                      <span className="text-sm text-muted-foreground">{lesson.duration} min</span>
+                                      <Badge variant="secondary" className="flex items-center gap-1">
+                                        <Zap className="h-3 w-3 text-accent" />
+                                        {lesson.xp}
+                                      </Badge>
+                                      {locked && (
+                                        <Lock className="h-4 w-4 text-muted-foreground" />
+                                      )}
                                     </div>
                                   </div>
-                                  <div className="flex items-center gap-4">
-                                    <span className="text-sm text-muted-foreground">{lesson.duration} min</span>
-                                    <Badge variant="secondary" className="flex items-center gap-1">
-                                      <Zap className="h-3 w-3 text-accent" />
-                                      {lesson.xp}
-                                    </Badge>
-                                    {!lesson.videoId && (
-                                      <Lock className="h-4 w-4 text-muted-foreground" />
-                                    )}
-                                  </div>
-                                </div>
-                              ))}
+                                );
+                              })}
                             </div>
                           </AccordionContent>
                         </AccordionItem>

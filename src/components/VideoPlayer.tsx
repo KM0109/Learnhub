@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
@@ -10,7 +10,15 @@ interface VideoPlayerProps {
   courseId: string;
   title: string;
   duration: number;
-  onProgressUpdate?: (progress: number) => void;
+  onProgressUpdate?: (progress: number, lessonId: string) => void;
+  onVideoComplete?: (lessonId: string) => void;
+}
+
+declare global {
+  interface Window {
+    YT: any;
+    onYouTubeIframeAPIReady: () => void;
+  }
 }
 
 const VideoPlayer = ({
@@ -19,10 +27,14 @@ const VideoPlayer = ({
   courseId,
   title,
   duration,
-  onProgressUpdate
+  onProgressUpdate,
+  onVideoComplete
 }: VideoPlayerProps) => {
   const [watchedSeconds, setWatchedSeconds] = useState(0);
   const [isCompleted, setIsCompleted] = useState(false);
+  const [player, setPlayer] = useState<any>(null);
+  const playerRef = useRef<HTMLDivElement>(null);
+  const progressIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const watchProgress = duration > 0 ? Math.min((watchedSeconds / (duration * 60)) * 100, 100) : 0;
 
@@ -35,12 +47,87 @@ const VideoPlayer = ({
     }
   }, [courseId, lessonId]);
 
-  const handleVideoProgress = () => {
-    const estimatedProgress = (duration * 60 * 0.5);
-    setWatchedSeconds(estimatedProgress);
+  useEffect(() => {
+    const tag = document.createElement('script');
+    tag.src = 'https://www.youtube.com/iframe_api';
+    const firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
 
+    window.onYouTubeIframeAPIReady = () => {
+      if (playerRef.current) {
+        const newPlayer = new window.YT.Player(playerRef.current, {
+          videoId: videoId,
+          playerVars: {
+            rel: 0,
+            modestbranding: 1,
+            controls: 1,
+          },
+          events: {
+            onStateChange: handlePlayerStateChange,
+          },
+        });
+        setPlayer(newPlayer);
+      }
+    };
+
+    return () => {
+      if (progressIntervalRef.current) {
+        clearInterval(progressIntervalRef.current);
+      }
+      if (player) {
+        player.destroy();
+      }
+    };
+  }, [videoId]);
+
+  const handlePlayerStateChange = (event: any) => {
+    if (event.data === window.YT.PlayerState.PLAYING) {
+      startProgressTracking();
+    } else if (event.data === window.YT.PlayerState.PAUSED || event.data === window.YT.PlayerState.ENDED) {
+      if (progressIntervalRef.current) {
+        clearInterval(progressIntervalRef.current);
+      }
+
+      if (event.data === window.YT.PlayerState.ENDED) {
+        handleVideoComplete();
+      }
+    }
+  };
+
+  const startProgressTracking = () => {
+    if (progressIntervalRef.current) {
+      clearInterval(progressIntervalRef.current);
+    }
+
+    progressIntervalRef.current = setInterval(() => {
+      if (player && player.getCurrentTime) {
+        const currentTime = Math.floor(player.getCurrentTime());
+        setWatchedSeconds(currentTime);
+
+        const progress = {
+          watchedSeconds: currentTime,
+          isCompleted: false,
+          lastWatched: new Date().toISOString(),
+        };
+
+        localStorage.setItem(`video_progress_${courseId}_${lessonId}`, JSON.stringify(progress));
+
+        const currentProgress = (currentTime / (duration * 60)) * 100;
+
+        if (onProgressUpdate) {
+          onProgressUpdate(currentProgress, lessonId);
+        }
+
+        if (currentProgress >= 90 && !isCompleted) {
+          handleVideoComplete();
+        }
+      }
+    }, 1000);
+  };
+
+  const handleVideoComplete = () => {
     const progress = {
-      watchedSeconds: estimatedProgress,
+      watchedSeconds: duration * 60,
       isCompleted: true,
       lastWatched: new Date().toISOString(),
     };
@@ -49,7 +136,11 @@ const VideoPlayer = ({
     setIsCompleted(true);
 
     if (onProgressUpdate) {
-      onProgressUpdate(100);
+      onProgressUpdate(100, lessonId);
+    }
+
+    if (onVideoComplete) {
+      onVideoComplete(lessonId);
     }
   };
 
@@ -74,17 +165,7 @@ const VideoPlayer = ({
           </div>
 
           <div className="aspect-video rounded-lg overflow-hidden bg-black">
-            <iframe
-              width="100%"
-              height="100%"
-              src={`https://www.youtube-nocookie.com/embed/${videoId}?rel=0&modestbranding=1`}
-              title={title}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              crossOrigin="anonymous"
-              className="w-full h-full"
-              onLoad={handleVideoProgress}
-            />
+            <div ref={playerRef} className="w-full h-full" />
           </div>
 
           <div className="space-y-2">
