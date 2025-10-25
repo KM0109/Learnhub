@@ -77,10 +77,11 @@ const VideoPlayer = ({
             <iframe
               width="100%"
               height="100%"
-              src={`https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1`}
+              src={`https://www.youtube-nocookie.com/embed/${videoId}?rel=0&modestbranding=1`}
               title={title}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
+              crossOrigin="anonymous"
               className="w-full h-full"
               onLoad={handleVideoProgress}
             />
