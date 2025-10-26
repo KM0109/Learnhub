@@ -28,7 +28,14 @@ const CourseDetail = () => {
     const unlocked = new Set<string>([course.lessons[0]?.id]);
     const progressMap: Record<string, number> = {};
 
-    course.lessons.forEach((lesson) => {
+    course.lessons.forEach((lesson, index) => {
+      if (lesson.completed) {
+        progressMap[lesson.id] = 100;
+        if (index < course.lessons.length - 1) {
+          unlocked.add(course.lessons[index + 1].id);
+        }
+      }
+
       const savedProgress = localStorage.getItem(`video_progress_${course.id}_${lesson.id}`);
       if (savedProgress) {
         const progress = JSON.parse(savedProgress);
@@ -145,19 +152,7 @@ const CourseDetail = () => {
                   <p className="text-lg text-muted-foreground">{course.description}</p>
                 </div>
 
-                {selectedLesson && selectedLesson.videoId && (
-                  <VideoPlayer
-                    videoId={selectedLesson.videoId}
-                    lessonId={selectedLesson.id}
-                    courseId={course.id}
-                    title={selectedLesson.title}
-                    duration={selectedLesson.duration}
-                    onProgressUpdate={handleProgressUpdate}
-                    onVideoComplete={handleVideoComplete}
-                  />
-                )}
-
-                {/* Course Info Card - Shows above Course Content on mobile */}
+                {/* Course Info Card - Shows above video player on mobile */}
                 <Card className="lg:hidden shadow-elegant">
                   <CardContent className="p-6">
                     <div className="aspect-video rounded-lg overflow-hidden mb-4">
@@ -234,6 +229,18 @@ const CourseDetail = () => {
                   </CardContent>
                 </Card>
 
+                {selectedLesson && selectedLesson.videoId && (
+                  <VideoPlayer
+                    videoId={selectedLesson.videoId}
+                    lessonId={selectedLesson.id}
+                    courseId={course.id}
+                    title={selectedLesson.title}
+                    duration={selectedLesson.duration}
+                    onProgressUpdate={handleProgressUpdate}
+                    onVideoComplete={handleVideoComplete}
+                  />
+                )}
+
                 <div>
                   <h2 className="text-2xl font-bold mb-6">Course Content</h2>
                   <Card>
@@ -254,7 +261,7 @@ const CourseDetail = () => {
                             <div className="space-y-3 pt-3">
                               {course.lessons.map((lesson, index) => {
                                 const locked = isLessonLocked(lesson.id, index);
-                                const progress = lessonProgress[lesson.id] || 0;
+                                const progress = lessonProgress[lesson.id] || (lesson.completed ? 100 : 0);
                                 return (
                                   <div
                                     key={lesson.id}
