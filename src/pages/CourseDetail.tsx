@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Star, Users, Clock, PlayCircle, FileText, CheckCircle, Award, Heart, Zap, Download, Lock, BookOpen, XCircle } from "lucide-react";
+import { Star, Users, Clock, PlayCircle, FileText, CheckCircle, Award, Heart, Zap, Download, Lock, BookOpen, XCircle, ArrowLeft } from "lucide-react";
 import { courses } from "@/data/courses";
 import { Progress } from "@/components/ui/progress";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -156,6 +156,14 @@ const CourseDetail = () => {
       <main>
         <section className="bg-gradient-hero py-8 pb-12">
           <div className="container">
+            <Button
+              variant="ghost"
+              className="mb-4 -ml-2 hover:bg-primary/10"
+              onClick={() => navigate(-1)}
+            >
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              Back
+            </Button>
             <div className="grid lg:grid-cols-3 gap-8">
               <div className="lg:col-span-2 space-y-8">
                 <div>
@@ -284,14 +292,16 @@ const CourseDetail = () => {
                     <CardContent className="p-6">
                       <Accordion type="single" collapsible className="w-full" defaultValue="lessons">
                         <AccordionItem value="lessons" className="border-none">
-                          <AccordionTrigger className="text-lg font-semibold hover:no-underline hover:text-purple-600 transition-colors pt-2">
-                            <div className="flex items-center gap-3 flex-wrap">
-                              <span>Course Curriculum</span>
-                              <Badge variant="outline">{course.lessons.length} lessons</Badge>
-                              <Badge variant="outline" className="flex items-center gap-1">
-                                <Zap className="h-3 w-3" />
-                                {course.totalXp} XP
-                              </Badge>
+                          <AccordionTrigger className="hover:no-underline hover:text-primary transition-colors pt-2">
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-3 w-full">
+                              <span className="text-lg sm:text-xl font-bold">Course Curriculum</span>
+                              <div className="flex items-center gap-2 flex-wrap">
+                                <Badge variant="outline" className="text-sm">{course.lessons.length} lessons</Badge>
+                                <Badge variant="outline" className="flex items-center gap-1 text-sm">
+                                  <Zap className="h-3 w-3" />
+                                  {course.totalXp} XP
+                                </Badge>
+                              </div>
                             </div>
                           </AccordionTrigger>
                           <AccordionContent>
@@ -403,12 +413,12 @@ const CourseDetail = () => {
                                           }`}
                                           onClick={handleLessonClick}
                                         >
-                                          <div className="flex gap-4">
-                                            <div className="flex items-center justify-center w-14 h-14 sm:w-12 sm:h-12 rounded-xl bg-primary/10 text-primary font-bold shrink-0 text-xl sm:text-lg">
+                                          <div className="flex gap-4 items-center">
+                                            <div className="flex items-center justify-center min-w-[56px] h-14 sm:min-w-[48px] sm:h-12 rounded-xl bg-primary/10 text-primary font-bold shrink-0 text-xl sm:text-lg">
                                               {index + 1}
                                             </div>
 
-                                            <div className="flex-1 min-w-0 flex flex-col gap-3">
+                                            <div className="flex-1 min-w-0 flex flex-col gap-3 py-1">
                                               <div className="flex flex-col gap-2">
                                                 <h4 className="font-semibold text-base leading-snug">
                                                   {lesson.title}
