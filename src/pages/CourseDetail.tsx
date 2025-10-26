@@ -158,7 +158,7 @@ const CourseDetail = () => {
           <div className="container">
             <Button
               variant="ghost"
-              className="mb-4 -ml-2 hover:bg-primary/10"
+              className="mb-4 -ml-2 hover:bg-primary/10 hover:text-foreground"
               onClick={() => navigate(-1)}
             >
               <ArrowLeft className="h-4 w-4 mr-2" />
@@ -418,8 +418,8 @@ const CourseDetail = () => {
                                               {index + 1}
                                             </div>
 
-                                            <div className="flex-1 min-w-0 flex flex-col gap-3 py-1">
-                                              <div className="flex flex-col gap-2">
+                                            <div className="flex-1 min-w-0 flex flex-col sm:flex-row sm:items-center gap-3 py-1">
+                                              <div className="flex-1 flex flex-col gap-2">
                                                 <h4 className="font-semibold text-base leading-snug">
                                                   {lesson.title}
                                                 </h4>
@@ -436,10 +436,8 @@ const CourseDetail = () => {
                                                 </div>
                                               </div>
 
-                                              <div className="flex items-center justify-end gap-2">
-                                                <div className="shrink-0">
-                                                  {statusBadge}
-                                                </div>
+                                              <div className="shrink-0">
+                                                {statusBadge}
                                               </div>
                                             </div>
                                           </div>

@@ -37,7 +37,7 @@ const EnrollmentSuccess = () => {
         <div className="max-w-4xl mx-auto">
           <Button
             variant="ghost"
-            className="mb-4 -ml-2 hover:bg-primary/10"
+            className="mb-4 -ml-2 hover:bg-primary/10 hover:text-foreground"
             onClick={() => navigate(-1)}
           >
             <ArrowLeft className="h-4 w-4 mr-2" />

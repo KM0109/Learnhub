@@ -84,7 +84,7 @@ const Enroll = () => {
         <div className="max-w-4xl mx-auto">
           <Button
             variant="ghost"
-            className="mb-4 -ml-2 hover:bg-primary/10"
+            className="mb-4 -ml-2 hover:bg-primary/10 hover:text-foreground"
             onClick={() => navigate(-1)}
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
@@ -109,61 +109,32 @@ const Enroll = () => {
                       <>
                         <div className="space-y-2">
                           <Label htmlFor="cardName">Cardholder Name</Label>
-                          <Input id="cardName" placeholder="John Doe" required />
+                          <Input id="cardName" placeholder="John Doe" />
                         </div>
 
                         <div className="space-y-2">
                           <Label htmlFor="cardNumber">Card Number</Label>
-                          <Input id="cardNumber" placeholder="1234 5678 9012 3456" required />
+                          <Input id="cardNumber" placeholder="1234 5678 9012 3456" />
                         </div>
 
                         <div className="grid grid-cols-2 gap-4">
                           <div className="space-y-2">
                             <Label htmlFor="expiry">Expiry Date</Label>
-                            <Input id="expiry" placeholder="MM/YY" required />
+                            <Input id="expiry" placeholder="MM/YY" />
                           </div>
                           <div className="space-y-2">
                             <Label htmlFor="cvv">CVV</Label>
-                            <Input id="cvv" placeholder="123" type="password" maxLength={3} required />
+                            <Input id="cvv" placeholder="123" type="password" maxLength={3} />
                           </div>
                         </div>
 
                         <Separator />
-
-                        <div className="space-y-2">
-                          <Label htmlFor="coupon" className="flex items-center gap-2">
-                            <Tag className="h-4 w-4" />
-                            Coupon Code
-                          </Label>
-                          <div className="flex gap-2">
-                            <Input
-                              id="coupon"
-                              placeholder="Enter coupon code"
-                              value={couponCode}
-                              onChange={(e) => setCouponCode(e.target.value)}
-                              disabled={appliedCoupon !== null}
-                            />
-                            <Button
-                              type="button"
-                              variant="outline"
-                              onClick={handleApplyCoupon}
-                              disabled={appliedCoupon !== null || !couponCode}
-                            >
-                              {appliedCoupon ? "Applied" : "Apply"}
-                            </Button>
-                          </div>
-                          {appliedCoupon && (
-                            <p className="text-sm text-success flex items-center gap-1">
-                              ✓ {appliedCoupon.discount}% discount applied
-                            </p>
-                          )}
-                        </div>
                       </>
                     )}
 
                     <div className="space-y-2">
                       <Label htmlFor="email">Email Address</Label>
-                      <Input id="email" type="email" placeholder="your@email.com" required />
+                      <Input id="email" type="email" placeholder="your@email.com" />
                     </div>
 
                     {isFree && (
@@ -207,7 +178,7 @@ const Enroll = () => {
                   </div>
                   
                   <Separator />
-                  
+
                   <div className="space-y-2">
                     <div className="flex justify-between text-sm">
                       <span className="text-muted-foreground">Course Price</span>
@@ -233,6 +204,41 @@ const Enroll = () => {
                     <span>Total</span>
                     <span className="text-primary">{isFree ? "FREE" : `$${calculateTotal().toFixed(2)}`}</span>
                   </div>
+
+                  {!isFree && (
+                    <>
+                      <Separator />
+
+                      <div className="space-y-2">
+                        <p className="font-semibold text-sm">Coupon Code</p>
+                        <div className="flex gap-2">
+                          <Input
+                            placeholder="Enter coupon code"
+                            value={couponCode}
+                            onChange={(e) => setCouponCode(e.target.value)}
+                            disabled={appliedCoupon !== null}
+                            className="text-sm"
+                          />
+                          <Button
+                            type="button"
+                            variant="outline"
+                            size="sm"
+                            onClick={handleApplyCoupon}
+                            disabled={appliedCoupon !== null || !couponCode}
+                          >
+                            {appliedCoupon ? "Applied" : "Apply"}
+                          </Button>
+                        </div>
+                        {appliedCoupon && (
+                          <p className="text-sm text-success flex items-center gap-1">
+                            ✓ {appliedCoupon.discount}% discount applied
+                          </p>
+                        )}
+                      </div>
+                    </>
+                  )}
+
+                  <Separator />
 
                   <div className="bg-secondary p-4 rounded-lg space-y-2 text-sm">
                     <p className="font-semibold">What's included:</p>
