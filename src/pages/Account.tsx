@@ -6,6 +6,9 @@ import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { courses } from "@/data/courses";
+import { getTotalXPFromCourses, getProgressToNextLevel, levels } from "@/data/levels";
 import BadgeCard from "@/components/BadgeCard";
 import MilestoneCard from "@/components/MilestoneCard";
 import { mockUserProfile } from "@/data/gamification";
@@ -22,13 +25,33 @@ import {
   Star,
   Target,
   FileCheck,
-  User
+  User,
+  Gift,
+  Sparkles,
+  Lock
 } from "lucide-react";
+import { useState } from "react";
 
 const Account = () => {
   const user = mockUserProfile;
   const xpProgress = (user.xp / user.xpToNextLevel) * 100;
   const earnedBadges = user.badges.filter(b => b.earned);
+  const [isLevelOpen, setIsLevelOpen] = useState(false);
+
+  const totalXP = getTotalXPFromCourses(courses);
+  const { current: currentLevel, next: nextLevel, progress: levelProgress } = getProgressToNextLevel(totalXP);
+
+  const coursesXP = courses.reduce((total, course) => {
+    if (course.enrolled || course.purchased) {
+      const completedLessons = course.lessons.filter((lesson: any) => lesson.completed);
+      const xp = completedLessons.reduce((sum: number, lesson: any) => sum + lesson.xp, 0);
+      return total + xp;
+    }
+    return total;
+  }, 0);
+
+  const streakXP = user.streak * 50;
+  const level8 = levels.find(l => l.level === 8);
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
@@ -129,6 +152,114 @@ const Account = () => {
           </CardContent>
         </Card>
 
+        {/* Level Progression & Rewards Section */}
+        <Card className="mb-6 shadow-card">
+          <CardContent className="p-6">
+            <Collapsible open={isLevelOpen} onOpenChange={setIsLevelOpen}>
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-3">
+                  <div className={`w-12 h-12 rounded-full ${currentLevel.color} flex items-center justify-center text-2xl`}>
+                    {currentLevel.icon}
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold">Level {currentLevel.level}: {currentLevel.name}</h3>
+                    <p className="text-sm text-muted-foreground">Total: {totalXP.toLocaleString()} XP</p>
+                  </div>
+                </div>
+                <CollapsibleTrigger asChild>
+                  <Button variant="outline" size="sm">
+                    <Gift className="h-4 w-4 mr-2" />
+                    {isLevelOpen ? 'Hide' : 'View'} Rewards
+                  </Button>
+                </CollapsibleTrigger>
+              </div>
+
+              {nextLevel && (
+                <div className="mb-4">
+                  <div className="flex items-center justify-between text-sm mb-2">
+                    <span className="font-semibold">Progress to {nextLevel.name}</span>
+                    <span className="text-muted-foreground">
+                      {totalXP.toLocaleString()} / {nextLevel.minXP.toLocaleString()} XP
+                    </span>
+                  </div>
+                  <Progress value={levelProgress} className="h-2" />
+                </div>
+              )}
+
+              <CollapsibleContent>
+                <div className="mt-6 pt-6 border-t space-y-6">
+                  <div>
+                    <h4 className="font-semibold mb-4 flex items-center gap-2">
+                      <Sparkles className="h-5 w-5 text-accent" />
+                      Unlocked Rewards from Levels
+                    </h4>
+                    <div className="grid md:grid-cols-2 gap-4">
+                      {currentLevel.rewards.map((reward) => (
+                        <Card key={reward.id} className="bg-accent/5">
+                          <CardContent className="p-4">
+                            <div className="flex items-start gap-3">
+                              <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center shrink-0">
+                                {reward.type === 'coupon' ? (
+                                  <Gift className="h-5 w-5 text-accent" />
+                                ) : reward.type === 'badge' ? (
+                                  <Award className="h-5 w-5 text-accent" />
+                                ) : (
+                                  <Sparkles className="h-5 w-5 text-accent" />
+                                )}
+                              </div>
+                              <div className="flex-1">
+                                <h5 className="font-semibold mb-1">{reward.title}</h5>
+                                <p className="text-sm text-muted-foreground mb-2">{reward.description}</p>
+                                {reward.code && (
+                                  <Badge variant="outline" className="font-mono">
+                                    {reward.code}
+                                  </Badge>
+                                )}
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
+                  </div>
+
+                  {level8 && (
+                    <div>
+                      <h4 className="font-semibold mb-4 flex items-center gap-2">
+                        <Lock className="h-5 w-5 text-muted-foreground" />
+                        Locked Rewards - Unlocks at Level 8
+                      </h4>
+                      <div className="grid md:grid-cols-2 gap-4">
+                        {level8.rewards.map((reward) => (
+                          <Card key={reward.id} className="bg-muted/30 border-dashed opacity-70">
+                            <CardContent className="p-4">
+                              <div className="flex items-start gap-3">
+                                <div className="w-10 h-10 rounded-lg bg-muted flex items-center justify-center shrink-0">
+                                  <Lock className="h-5 w-5 text-muted-foreground" />
+                                </div>
+                                <div className="flex-1">
+                                  <h5 className="font-semibold mb-1 flex items-center gap-2">
+                                    {reward.title}
+                                    <Badge variant="secondary" className="text-xs">
+                                      <Lock className="h-3 w-3 mr-1" />
+                                      Lvl 8
+                                    </Badge>
+                                  </h5>
+                                  <p className="text-sm text-muted-foreground">{reward.description}</p>
+                                </div>
+                              </div>
+                            </CardContent>
+                          </Card>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </CollapsibleContent>
+            </Collapsible>
+          </CardContent>
+        </Card>
+
         {/* Stats Overview */}
         <div className="grid md:grid-cols-3 gap-4 mb-6">
           <Card className="animate-fade-in shadow-card" style={{ animationDelay: '0.1s' }}>
@@ -137,8 +268,17 @@ const Account = () => {
               <Zap className="h-5 w-5 text-accent" />
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold text-accent">{user.totalXp.toLocaleString()}</div>
-              <p className="text-xs text-muted-foreground mt-1">Keep learning to earn more!</p>
+              <div className="text-3xl font-bold text-accent">{totalXP.toLocaleString()}</div>
+              <div className="mt-3 pt-3 border-t space-y-1">
+                <div className="flex justify-between text-xs">
+                  <span className="text-muted-foreground">From Courses & Quizzes:</span>
+                  <span className="font-semibold">{coursesXP.toLocaleString()} XP</span>
+                </div>
+                <div className="flex justify-between text-xs">
+                  <span className="text-muted-foreground">Weekly Streak Bonus ({user.streak} weeks):</span>
+                  <span className="font-semibold">{streakXP} XP</span>
+                </div>
+              </div>
             </CardContent>
           </Card>
 

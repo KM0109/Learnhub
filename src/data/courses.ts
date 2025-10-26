@@ -19,7 +19,7 @@ export const courses: Course[] = [
     totalXp: 2450,
     lessons: [
       { id: "0-1", title: "Introduction", duration: 10, type: "video", completed: true, xp: 100, videoId: "OvKCESUCWII", watchedPercent: 97 },
-      { id: "0-2", title: "Functions, Variables", duration: 110, type: "video", completed: false, xp: 200, videoId: "JP7ITIXGpHk" },
+      { id: "0-2", title: "Functions, Variables", duration: 110, type: "video", completed: true, xp: 200, videoId: "JP7ITIXGpHk", watchedPercent: 95 },
       { id: "quiz-0-1", title: "Python Basics Quiz", duration: 15, type: "quiz", completed: false, xp: 150 },
       { id: "0-3", title: "Conditionals", duration: 60, type: "video", completed: false, xp: 150, videoId: "_b6NgY_pMdw" },
       { id: "0-4", title: "Loops", duration: 90, type: "video", completed: false, xp: 180, videoId: "-7xg8pGcP6w" },

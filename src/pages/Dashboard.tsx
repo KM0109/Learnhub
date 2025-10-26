@@ -3,27 +3,18 @@ import Footer from "@/components/Footer";
 import CourseCard from "@/components/CourseCard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { Award, BookOpen, Clock, TrendingUp, FileCheck, Gift, Sparkles, Zap } from "lucide-react";
+import { Award, BookOpen, Clock, TrendingUp, FileCheck } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { courses } from "@/data/courses";
-import { getTotalXPFromCourses, getProgressToNextLevel } from "@/data/levels";
-import { Badge } from "@/components/ui/badge";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { useState } from "react";
 
 const Dashboard = () => {
-  const [isLevelOpen, setIsLevelOpen] = useState(false);
-
   const enrolledCourses = courses.filter(c => c.enrolled || c.purchased);
 
   const completedCoursesCount = courses.filter(c => c.progress === 100 && c.completionDate).length;
   const totalHoursLearned = 47;
   const coursesCompleted = completedCoursesCount;
   const certificatesEarned = completedCoursesCount;
-
-  const totalXP = getTotalXPFromCourses(courses);
-  const { current: currentLevel, next: nextLevel, progress: levelProgress } = getProgressToNextLevel(totalXP);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -36,91 +27,7 @@ const Dashboard = () => {
               <h1 className="text-4xl font-bold mb-2">My Learning Dashboard</h1>
               <p className="text-lg text-muted-foreground">Track your progress and continue your journey</p>
             </div>
-            <div className="flex items-center gap-3">
-              <div className="text-right">
-                <div className="flex items-center gap-2 justify-end">
-                  <span className="text-2xl">{currentLevel.icon}</span>
-                  <div>
-                    <p className="text-sm text-muted-foreground">Current Level</p>
-                    <p className="font-bold text-lg">{currentLevel.name}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
-
-          <Card className="mb-8">
-            <CardContent className="p-6">
-              <Collapsible open={isLevelOpen} onOpenChange={setIsLevelOpen}>
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-3">
-                    <div className={`w-12 h-12 rounded-full ${currentLevel.color} flex items-center justify-center text-2xl`}>
-                      {currentLevel.icon}
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold">Level {currentLevel.level}: {currentLevel.name}</h3>
-                      <p className="text-sm text-muted-foreground">Total: {totalXP.toLocaleString()} XP</p>
-                    </div>
-                  </div>
-                  <CollapsibleTrigger asChild>
-                    <Button variant="outline" size="sm">
-                      <Gift className="h-4 w-4 mr-2" />
-                      {isLevelOpen ? 'Hide' : 'View'} Rewards
-                    </Button>
-                  </CollapsibleTrigger>
-                </div>
-
-                {nextLevel && (
-                  <div className="mb-4">
-                    <div className="flex items-center justify-between text-sm mb-2">
-                      <span className="font-semibold">Progress to {nextLevel.name}</span>
-                      <span className="text-muted-foreground">
-                        {totalXP.toLocaleString()} / {nextLevel.minXP.toLocaleString()} XP
-                      </span>
-                    </div>
-                    <Progress value={levelProgress} className="h-2" />
-                  </div>
-                )}
-
-                <CollapsibleContent>
-                  <div className="mt-6 pt-6 border-t">
-                    <h4 className="font-semibold mb-4 flex items-center gap-2">
-                      <Sparkles className="h-5 w-5 text-accent" />
-                      Your Level Rewards
-                    </h4>
-                    <div className="grid md:grid-cols-2 gap-4">
-                      {currentLevel.rewards.map((reward) => (
-                        <Card key={reward.id} className="bg-accent/5">
-                          <CardContent className="p-4">
-                            <div className="flex items-start gap-3">
-                              <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center shrink-0">
-                                {reward.type === 'coupon' ? (
-                                  <Gift className="h-5 w-5 text-accent" />
-                                ) : reward.type === 'badge' ? (
-                                  <Award className="h-5 w-5 text-accent" />
-                                ) : (
-                                  <Sparkles className="h-5 w-5 text-accent" />
-                                )}
-                              </div>
-                              <div className="flex-1">
-                                <h5 className="font-semibold mb-1">{reward.title}</h5>
-                                <p className="text-sm text-muted-foreground mb-2">{reward.description}</p>
-                                {reward.code && (
-                                  <Badge variant="outline" className="font-mono">
-                                    {reward.code}
-                                  </Badge>
-                                )}
-                              </div>
-                            </div>
-                          </CardContent>
-                        </Card>
-                      ))}
-                    </div>
-                  </div>
-                </CollapsibleContent>
-              </Collapsible>
-            </CardContent>
-          </Card>
         </div>
 
         {/* Stats Grid */}

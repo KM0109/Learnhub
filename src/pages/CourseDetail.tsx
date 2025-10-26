@@ -427,24 +427,31 @@ const CourseDetail = () => {
                                       </div>
                                     </ContextMenuTrigger>
                                     <ContextMenuContent>
-                                      {locked && (
-                                        <ContextMenuItem onClick={handleUnlock}>
-                                          <Lock className="h-4 w-4 mr-2" />
-                                          Unlock Lesson
-                                        </ContextMenuItem>
-                                      )}
-                                      {!locked && !isCompleted && (
-                                        <ContextMenuItem onClick={handleMarkComplete}>
-                                          <CheckCircle className="h-4 w-4 mr-2" />
-                                          Mark as Complete
-                                        </ContextMenuItem>
-                                      )}
-                                      {isCompleted && (
-                                        <ContextMenuItem onClick={handleMarkIncomplete}>
-                                          <XCircle className="h-4 w-4 mr-2" />
-                                          Mark as Incomplete
-                                        </ContextMenuItem>
-                                      )}
+                                      <ContextMenuItem onClick={handleUnlock}>
+                                        <Lock className="h-4 w-4 mr-2" />
+                                        Mark as Unlocked
+                                      </ContextMenuItem>
+                                      <ContextMenuItem onClick={handleMarkComplete}>
+                                        <CheckCircle className="h-4 w-4 mr-2" />
+                                        Mark as Complete
+                                      </ContextMenuItem>
+                                      <ContextMenuItem onClick={() => {
+                                        setUnlockedLessons(prev => {
+                                          const newSet = new Set(prev);
+                                          newSet.delete(lesson.id);
+                                          return newSet;
+                                        });
+                                        setManuallyCompleted(prev => {
+                                          const newSet = new Set(prev);
+                                          newSet.delete(lesson.id);
+                                          return newSet;
+                                        });
+                                        setLessonProgress({ ...lessonProgress, [lesson.id]: 0 });
+                                        toast.success(`${lesson.title} marked as locked`);
+                                      }}>
+                                        <Lock className="h-4 w-4 mr-2" />
+                                        Mark as Locked
+                                      </ContextMenuItem>
                                     </ContextMenuContent>
                                   </ContextMenu>
                                 );

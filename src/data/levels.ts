@@ -140,7 +140,7 @@ export const levels: UserLevel[] = [
     level: 6,
     name: "Grand Master",
     minXP: 20000,
-    maxXP: Infinity,
+    maxXP: 29999,
     color: "bg-red-500",
     icon: "👑",
     rewards: [
@@ -163,6 +163,60 @@ export const levels: UserLevel[] = [
         type: "feature",
         title: "Personal Mentorship Session",
         description: "One-on-one session with an industry expert"
+      }
+    ]
+  },
+  {
+    level: 7,
+    name: "Elite Scholar",
+    minXP: 30000,
+    maxXP: 44999,
+    color: "bg-violet-500",
+    icon: "💎",
+    rewards: [
+      {
+        id: "elite-coupon",
+        type: "coupon",
+        title: "35% Off Coupon",
+        description: "35% discount on any course",
+        value: "35%",
+        code: "ELITE35"
+      },
+      {
+        id: "priority-review",
+        type: "feature",
+        title: "Priority Code Review",
+        description: "Get your projects reviewed by expert instructors"
+      }
+    ]
+  },
+  {
+    level: 8,
+    name: "Master Sage",
+    minXP: 45000,
+    maxXP: Infinity,
+    color: "bg-gradient-to-r from-yellow-500 to-orange-500",
+    icon: "🌟",
+    rewards: [
+      {
+        id: "sage-coupon",
+        type: "coupon",
+        title: "40% Off Coupon",
+        description: "40% discount on any course",
+        value: "40%",
+        code: "SAGE40"
+      },
+      {
+        id: "exclusive-masterclass",
+        type: "feature",
+        title: "Exclusive Masterclass Access",
+        description: "Access to private masterclasses with industry leaders"
+      },
+      {
+        id: "certification-boost",
+        type: "feature",
+        title: "LinkedIn Certified Badge",
+        description: "Special LearnHub certification badge for your LinkedIn profile"
       }
     ]
   }
