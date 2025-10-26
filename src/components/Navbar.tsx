@@ -163,29 +163,41 @@ const Navbar = () => {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-48">
-              <DropdownMenuItem onClick={() => navigate("/account")} className="hover:bg-primary/10 hover:text-primary focus:bg-primary/10 focus:text-primary">
-                <User className="h-4 w-4 mr-2" />
-                Account
+              <DropdownMenuItem asChild className="hover:bg-primary/10 hover:text-primary focus:bg-primary/10 focus:text-primary">
+                <Link to="/account" className="flex items-center cursor-pointer">
+                  <User className="h-4 w-4 mr-2" />
+                  Account
+                </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => navigate("/dashboard")} className="hover:bg-primary/10 hover:text-primary focus:bg-primary/10 focus:text-primary">
-                <LayoutDashboard className="h-4 w-4 mr-2" />
-                Dashboard
+              <DropdownMenuItem asChild className="hover:bg-primary/10 hover:text-primary focus:bg-primary/10 focus:text-primary">
+                <Link to="/dashboard" className="flex items-center cursor-pointer">
+                  <LayoutDashboard className="h-4 w-4 mr-2" />
+                  Dashboard
+                </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => navigate("/wishlist")} className="hover:bg-primary/10 hover:text-primary focus:bg-primary/10 focus:text-primary">
-                <Heart className="h-4 w-4 mr-2" />
-                Wishlist
+              <DropdownMenuItem asChild className="hover:bg-primary/10 hover:text-primary focus:bg-primary/10 focus:text-primary">
+                <Link to="/wishlist" className="flex items-center cursor-pointer">
+                  <Heart className="h-4 w-4 mr-2" />
+                  Wishlist
+                </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => navigate("/orders")} className="hover:bg-primary/10 hover:text-primary focus:bg-primary/10 focus:text-primary">
-                <ShoppingBag className="h-4 w-4 mr-2" />
-                Orders
+              <DropdownMenuItem asChild className="hover:bg-primary/10 hover:text-primary focus:bg-primary/10 focus:text-primary">
+                <Link to="/orders" className="flex items-center cursor-pointer">
+                  <ShoppingBag className="h-4 w-4 mr-2" />
+                  Orders
+                </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => navigate("/certificates")} className="hover:bg-primary/10 hover:text-primary focus:bg-primary/10 focus:text-primary">
-                <FileCheck className="h-4 w-4 mr-2" />
-                Certificates
+              <DropdownMenuItem asChild className="hover:bg-primary/10 hover:text-primary focus:bg-primary/10 focus:text-primary">
+                <Link to="/certificates" className="flex items-center cursor-pointer">
+                  <FileCheck className="h-4 w-4 mr-2" />
+                  Certificates
+                </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => navigate("/support")} className="hover:bg-primary/10 hover:text-primary focus:bg-primary/10 focus:text-primary">
-                <HeadphonesIcon className="h-4 w-4 mr-2" />
-                Support
+              <DropdownMenuItem asChild className="hover:bg-primary/10 hover:text-primary focus:bg-primary/10 focus:text-primary">
+                <Link to="/support" className="flex items-center cursor-pointer">
+                  <HeadphonesIcon className="h-4 w-4 mr-2" />
+                  Support
+                </Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <div className="px-2 py-1.5 flex items-center justify-between cursor-default">

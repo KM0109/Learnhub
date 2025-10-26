@@ -12,7 +12,7 @@ export const courses: Course[] = [
     duration: "40 hours",
     level: "Beginner",
     category: "Programming",
-    thumbnail: "/src/assets/CS50P_pll copy.png",
+    thumbnail: "/src/assets/CS50P_pll copy copy.png",
     enrolled: true,
     purchased: true,
     progress: 38,
