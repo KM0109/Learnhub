@@ -462,7 +462,7 @@ const CourseDetail = () => {
                                       </ContextMenuContent>
                                     </ContextMenu>
                                     {index < course.lessons.length - 1 && (
-                                      <Separator className="my-3" />
+                                      <div className="my-3" />
                                     )}
                                   </>
                                 );
