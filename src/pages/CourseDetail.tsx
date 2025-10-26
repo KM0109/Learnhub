@@ -413,7 +413,7 @@ const CourseDetail = () => {
                                           }`}
                                           onClick={handleLessonClick}
                                         >
-                                          <div className="flex gap-2 sm:gap-4 items-start sm:items-center">
+                                          <div className="flex gap-2 sm:gap-4 items-center">
                                             <div className="flex items-center justify-center min-w-[40px] h-10 sm:min-w-[48px] sm:h-12 rounded-lg sm:rounded-xl bg-primary/10 text-primary font-bold shrink-0 text-base sm:text-lg">
                                               {index + 1}
                                             </div>
