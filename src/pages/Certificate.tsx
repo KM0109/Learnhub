@@ -1,13 +1,14 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Award, Download, Share2, Trophy } from "lucide-react";
+import { Award, Download, Share2, Trophy, ArrowLeft } from "lucide-react";
 import { courses } from "@/data/courses";
 
 const Certificate = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const course = courses.find(c => c.id === id);
 
   if (!course) {
@@ -27,6 +28,14 @@ const Certificate = () => {
       
       <main className="container py-12">
         <div className="max-w-4xl mx-auto">
+          <Button
+            variant="ghost"
+            className="mb-4 -ml-2 hover:bg-primary/10"
+            onClick={() => navigate(-1)}
+          >
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            Back
+          </Button>
           {/* Success Message */}
           <div className="text-center mb-12 animate-fade-in">
             <Award className="h-16 w-16 text-primary mx-auto mb-6" />

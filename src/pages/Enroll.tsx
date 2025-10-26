@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { courses } from "@/data/courses";
-import { CreditCard, Lock } from "lucide-react";
+import { CreditCard, Lock, ArrowLeft, Tag } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -15,6 +15,8 @@ const Enroll = () => {
   const navigate = useNavigate();
   const course = courses.find(c => c.id === id);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [couponCode, setCouponCode] = useState("");
+  const [appliedCoupon, setAppliedCoupon] = useState<{ code: string; discount: number } | null>(null);
 
   if (!course) {
     return (
@@ -26,6 +28,26 @@ const Enroll = () => {
       </div>
     );
   }
+
+  const handleApplyCoupon = () => {
+    const validCoupons: Record<string, number> = {
+      "LEARNHUB25": 25,
+      "SEEKER10": 10,
+      "SKILLED15": 15,
+      "MASTER20": 20,
+      "GRANDMASTER30": 30,
+      "ELITE35": 35,
+      "SAGE40": 40
+    };
+
+    const discount = validCoupons[couponCode.toUpperCase()];
+    if (discount) {
+      setAppliedCoupon({ code: couponCode.toUpperCase(), discount });
+      toast.success(`Coupon applied! ${discount}% discount`);
+    } else {
+      toast.error("Invalid coupon code");
+    }
+  };
 
   const handleEnroll = (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,6 +65,15 @@ const Enroll = () => {
     }, 2000);
   };
 
+  const calculateTotal = () => {
+    if (isFree) return 0;
+    if (appliedCoupon) {
+      const discount = (course.price * appliedCoupon.discount) / 100;
+      return course.price - discount;
+    }
+    return course.price;
+  };
+
   const isFree = course.price === 0;
 
   return (
@@ -51,6 +82,14 @@ const Enroll = () => {
       
       <main className="container py-12">
         <div className="max-w-4xl mx-auto">
+          <Button
+            variant="ghost"
+            className="mb-4 -ml-2 hover:bg-primary/10"
+            onClick={() => navigate(-1)}
+          >
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            Back
+          </Button>
           <h1 className="text-3xl font-bold mb-8">
             {isFree ? "Complete Your Free Enrollment" : "Complete Your Enrollment"}
           </h1>
@@ -90,6 +129,35 @@ const Enroll = () => {
                         </div>
 
                         <Separator />
+
+                        <div className="space-y-2">
+                          <Label htmlFor="coupon" className="flex items-center gap-2">
+                            <Tag className="h-4 w-4" />
+                            Coupon Code
+                          </Label>
+                          <div className="flex gap-2">
+                            <Input
+                              id="coupon"
+                              placeholder="Enter coupon code"
+                              value={couponCode}
+                              onChange={(e) => setCouponCode(e.target.value)}
+                              disabled={appliedCoupon !== null}
+                            />
+                            <Button
+                              type="button"
+                              variant="outline"
+                              onClick={handleApplyCoupon}
+                              disabled={appliedCoupon !== null || !couponCode}
+                            >
+                              {appliedCoupon ? "Applied" : "Apply"}
+                            </Button>
+                          </div>
+                          {appliedCoupon && (
+                            <p className="text-sm text-success flex items-center gap-1">
+                              ✓ {appliedCoupon.discount}% discount applied
+                            </p>
+                          )}
+                        </div>
                       </>
                     )}
 
@@ -120,7 +188,7 @@ const Enroll = () => {
                       className="w-full"
                       disabled={isProcessing}
                     >
-                      {isProcessing ? "Processing..." : isFree ? "Enroll for Free" : `Pay $${course.price} & Enroll`}
+                      {isProcessing ? "Processing..." : isFree ? "Enroll for Free" : `Pay $${calculateTotal().toFixed(2)} & Enroll`}
                     </Button>
                   </form>
                 </CardContent>
@@ -145,6 +213,12 @@ const Enroll = () => {
                       <span className="text-muted-foreground">Course Price</span>
                       <span>{isFree ? "FREE" : `$${course.price}`}</span>
                     </div>
+                    {!isFree && appliedCoupon && (
+                      <div className="flex justify-between text-sm text-success">
+                        <span>Discount ({appliedCoupon.discount}%)</span>
+                        <span>-${((course.price * appliedCoupon.discount) / 100).toFixed(2)}</span>
+                      </div>
+                    )}
                     {!isFree && (
                       <div className="flex justify-between text-sm">
                         <span className="text-muted-foreground">Tax</span>
@@ -157,7 +231,7 @@ const Enroll = () => {
 
                   <div className="flex justify-between font-bold text-lg">
                     <span>Total</span>
-                    <span className="text-primary">{isFree ? "FREE" : `$${course.price}`}</span>
+                    <span className="text-primary">{isFree ? "FREE" : `$${calculateTotal().toFixed(2)}`}</span>
                   </div>
 
                   <div className="bg-secondary p-4 rounded-lg space-y-2 text-sm">

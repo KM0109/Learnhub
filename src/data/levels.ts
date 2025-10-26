@@ -120,7 +120,7 @@ export const levels: UserLevel[] = [
         title: "25% Off Coupon",
         description: "25% discount on your next course purchase",
         value: "25%",
-        code: "EXPERT25"
+        code: "LEARNHUB25"
       },
       {
         id: "exclusive-newsletter",

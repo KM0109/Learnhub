@@ -1,13 +1,14 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Award, CheckCircle } from "lucide-react";
+import { Award, CheckCircle, ArrowLeft } from "lucide-react";
 import { courses } from "@/data/courses";
 import { Separator } from "@/components/ui/separator";
 
 const EnrollmentSuccess = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const course = courses.find(c => c.id === id);
 
   if (!course) {
@@ -34,6 +35,14 @@ const EnrollmentSuccess = () => {
       
       <main className="container py-12">
         <div className="max-w-4xl mx-auto">
+          <Button
+            variant="ghost"
+            className="mb-4 -ml-2 hover:bg-primary/10"
+            onClick={() => navigate(-1)}
+          >
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            Back
+          </Button>
           {/* Success Message */}
           <div className="text-center mb-12 animate-fade-in">
             <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-success/10 mb-6">

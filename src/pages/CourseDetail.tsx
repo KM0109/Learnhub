@@ -423,19 +423,20 @@ const CourseDetail = () => {
                                                 <h4 className="font-semibold text-base leading-snug">
                                                   {lesson.title}
                                                 </h4>
-                                                <div className="flex items-center gap-2 text-sm">
-                                                  {lessonIcon}
-                                                  <span className="font-medium text-muted-foreground">{lessonTypeText}</span>
-                                                  <span className="text-muted-foreground">•</span>
-                                                  <span className="text-muted-foreground">{lesson.duration} min</span>
+                                                <div className="flex items-center gap-2 text-sm flex-wrap sm:flex-nowrap">
+                                                  <div className="flex items-center gap-2">
+                                                    {lessonIcon}
+                                                    <span className="font-medium text-muted-foreground">{lessonTypeText}</span>
+                                                    <span className="text-muted-foreground">•</span>
+                                                    <span className="text-muted-foreground">{lesson.duration} min</span>
+                                                    <span className="text-muted-foreground">•</span>
+                                                    <Zap className="h-4 w-4 text-accent" />
+                                                    <span className="font-bold text-accent text-sm">{lesson.xp} XP</span>
+                                                  </div>
                                                 </div>
                                               </div>
 
-                                              <div className="flex items-center justify-between gap-2">
-                                                <div className="flex items-center gap-1.5">
-                                                  <Zap className="h-4 w-4 text-accent" />
-                                                  <span className="font-bold text-accent text-sm">{lesson.xp} XP</span>
-                                                </div>
+                                              <div className="flex items-center justify-end gap-2">
                                                 <div className="shrink-0">
                                                   {statusBadge}
                                                 </div>
