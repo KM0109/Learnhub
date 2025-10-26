@@ -419,6 +419,10 @@ const CourseDetail = () => {
                                             </div>
 
                                             <div className="flex-1 min-w-0 flex flex-col gap-2 sm:gap-3">
+                                              <div className="shrink-0">
+                                                {statusBadge}
+                                              </div>
+
                                               <div className="flex flex-col gap-1.5">
                                                 <h4 className="font-semibold text-sm sm:text-base leading-tight sm:leading-snug">
                                                   {lesson.title}
@@ -432,10 +436,6 @@ const CourseDetail = () => {
                                                   <Zap className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-accent" />
                                                   <span className="font-bold text-accent">{lesson.xp} XP</span>
                                                 </div>
-                                              </div>
-
-                                              <div className="shrink-0">
-                                                {statusBadge}
                                               </div>
                                             </div>
                                           </div>
