@@ -394,7 +394,7 @@ const CourseDetail = () => {
                                     <ContextMenu key={lesson.id}>
                                       <ContextMenuTrigger>
                                         <div
-                                          className={`p-4 rounded-lg border transition-all ${
+                                          className={`p-4 sm:p-4 rounded-xl border transition-all ${
                                             locked ? 'opacity-60 cursor-not-allowed border-muted bg-muted/20' : 'cursor-pointer border-border hover:border-primary hover:shadow-sm'
                                           } ${
                                             selectedLesson?.id === lesson.id || activeQuizId === lesson.id
@@ -403,30 +403,31 @@ const CourseDetail = () => {
                                           }`}
                                           onClick={handleLessonClick}
                                         >
-                                          <div className="flex items-start gap-3">
-                                            <div className="flex items-center justify-center w-12 h-12 sm:w-10 sm:h-10 rounded-lg bg-primary/10 text-primary font-bold shrink-0 text-lg sm:text-base">
+                                          <div className="flex gap-4">
+                                            <div className="flex items-center justify-center w-14 h-14 sm:w-12 sm:h-12 rounded-xl bg-primary/10 text-primary font-bold shrink-0 text-xl sm:text-lg">
                                               {index + 1}
                                             </div>
 
-                                            <div className="flex-1 min-w-0">
-                                              <div className="flex items-start justify-between gap-2 mb-2">
-                                                <h4 className="font-semibold text-base sm:text-base leading-tight flex-1">
+                                            <div className="flex-1 min-w-0 flex flex-col gap-3">
+                                              <div className="flex flex-col gap-2">
+                                                <h4 className="font-semibold text-base leading-snug">
                                                   {lesson.title}
                                                 </h4>
-                                                <div className="shrink-0">
-                                                  {statusBadge}
+                                                <div className="flex items-center gap-2 text-sm">
+                                                  {lessonIcon}
+                                                  <span className="font-medium text-muted-foreground">{lessonTypeText}</span>
+                                                  <span className="text-muted-foreground">•</span>
+                                                  <span className="text-muted-foreground">{lesson.duration} min</span>
                                                 </div>
                                               </div>
-                                              <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-2 text-sm text-muted-foreground">
-                                                <div className="flex items-center gap-1.5">
-                                                  {lessonIcon}
-                                                  <span className="font-medium">{lessonTypeText}</span>
-                                                  <span className="mx-1">•</span>
-                                                  <span>{lesson.duration} min</span>
-                                                </div>
+
+                                              <div className="flex items-center justify-between gap-2">
                                                 <div className="flex items-center gap-1.5">
                                                   <Zap className="h-4 w-4 text-accent" />
-                                                  <span className="font-semibold text-accent">{lesson.xp} XP</span>
+                                                  <span className="font-bold text-accent text-sm">{lesson.xp} XP</span>
+                                                </div>
+                                                <div className="shrink-0">
+                                                  {statusBadge}
                                                 </div>
                                               </div>
                                             </div>
