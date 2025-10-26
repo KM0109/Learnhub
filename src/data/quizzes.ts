@@ -2,13 +2,13 @@ import { Quiz } from "@/types/quiz";
 
 export const quizzes: Quiz[] = [
   {
-    id: "quiz-0-1",
+    id: "quiz-0-6",
     courseId: "0",
-    title: "Python Basics Quiz",
-    description: "Test your understanding of Python fundamentals, variables, and functions",
+    title: "Python Fundamentals Quiz",
+    description: "Test your understanding of Python basics, conditionals, loops, and exceptions",
     xp: 150,
     passingScore: 60,
-    timeLimit: 5,
+    timeLimit: 10,
     questions: [
       {
         id: "q1",
@@ -22,53 +22,12 @@ export const quizzes: Quiz[] = [
       },
       {
         id: "q2",
-        question: "Which keyword is used to define a function in Python?",
-        points: 10,
-        options: [
-          { id: "q2-a", text: "function", isCorrect: false },
-          { id: "q2-b", text: "def", isCorrect: true },
-          { id: "q2-c", text: "func", isCorrect: false },
-        ],
-      },
-      {
-        id: "q3",
-        question: "What does the print() function do in Python?",
-        points: 10,
-        options: [
-          { id: "q3-a", text: "Saves output to a file", isCorrect: false },
-          { id: "q3-b", text: "Displays output to the console", isCorrect: true },
-          { id: "q3-c", text: "Creates a new variable", isCorrect: false },
-        ],
-      },
-    ],
-  },
-  {
-    id: "quiz-0-2",
-    courseId: "0",
-    title: "Conditionals and Loops Quiz",
-    description: "Test your knowledge of if statements, while loops, and for loops",
-    xp: 150,
-    passingScore: 60,
-    timeLimit: 5,
-    questions: [
-      {
-        id: "q1",
         question: "Which operator is used for equality comparison in Python?",
         points: 10,
         options: [
-          { id: "q1-a", text: "=", isCorrect: false },
-          { id: "q1-b", text: "==", isCorrect: true },
-          { id: "q1-c", text: "===", isCorrect: false },
-        ],
-      },
-      {
-        id: "q2",
-        question: "What is the correct syntax for a for loop in Python?",
-        points: 10,
-        options: [
-          { id: "q2-a", text: "for i in range(10):", isCorrect: true },
-          { id: "q2-b", text: "for (i = 0; i < 10; i++)", isCorrect: false },
-          { id: "q2-c", text: "for i to 10:", isCorrect: false },
+          { id: "q2-a", text: "=", isCorrect: false },
+          { id: "q2-b", text: "==", isCorrect: true },
+          { id: "q2-c", text: "===", isCorrect: false },
         ],
       },
       {
@@ -81,45 +40,65 @@ export const quizzes: Quiz[] = [
           { id: "q3-c", text: "break", isCorrect: true },
         ],
       },
-    ],
-  },
-  {
-    id: "quiz-0-3",
-    courseId: "0",
-    title: "Exceptions and Error Handling Quiz",
-    description: "Test your understanding of try-except blocks and error handling",
-    xp: 150,
-    passingScore: 60,
-    timeLimit: 5,
-    questions: [
       {
-        id: "q1",
+        id: "q4",
         question: "Which keyword is used to handle exceptions in Python?",
         points: 10,
         options: [
-          { id: "q1-a", text: "catch", isCorrect: false },
-          { id: "q1-b", text: "except", isCorrect: true },
-          { id: "q1-c", text: "handle", isCorrect: false },
+          { id: "q4-a", text: "catch", isCorrect: false },
+          { id: "q4-b", text: "except", isCorrect: true },
+          { id: "q4-c", text: "handle", isCorrect: false },
+        ],
+      },
+    ],
+  },
+  {
+    id: "quiz-0-7",
+    courseId: "0",
+    title: "Advanced Python Concepts Quiz",
+    description: "Test your knowledge of libraries, unit tests, file I/O, regular expressions, and OOP",
+    xp: 150,
+    passingScore: 60,
+    timeLimit: 10,
+    questions: [
+      {
+        id: "q1",
+        question: "What is the purpose of the 'import' statement in Python?",
+        points: 10,
+        options: [
+          { id: "q1-a", text: "To create a new module", isCorrect: false },
+          { id: "q1-b", text: "To use external libraries and modules", isCorrect: true },
+          { id: "q1-c", text: "To export functions", isCorrect: false },
         ],
       },
       {
         id: "q2",
-        question: "What is the purpose of the 'finally' block?",
+        question: "Which module is commonly used for unit testing in Python?",
         points: 10,
         options: [
-          { id: "q2-a", text: "To handle exceptions", isCorrect: false },
-          { id: "q2-b", text: "To execute code regardless of exceptions", isCorrect: true },
-          { id: "q2-c", text: "To raise exceptions", isCorrect: false },
+          { id: "q2-a", text: "pytest", isCorrect: true },
+          { id: "q2-b", text: "testlib", isCorrect: false },
+          { id: "q2-c", text: "checktest", isCorrect: false },
         ],
       },
       {
         id: "q3",
-        question: "How do you raise an exception in Python?",
+        question: "How do you open a file for reading in Python?",
         points: 10,
         options: [
-          { id: "q3-a", text: "throw Exception()", isCorrect: false },
-          { id: "q3-b", text: "raise Exception()", isCorrect: true },
-          { id: "q3-c", text: "error Exception()", isCorrect: false },
+          { id: "q3-a", text: "open('file.txt', 'r')", isCorrect: true },
+          { id: "q3-b", text: "read('file.txt')", isCorrect: false },
+          { id: "q3-c", text: "file.open('r')", isCorrect: false },
+        ],
+      },
+      {
+        id: "q4",
+        question: "What is the purpose of the '__init__' method in Python classes?",
+        points: 10,
+        options: [
+          { id: "q4-a", text: "To delete an object", isCorrect: false },
+          { id: "q4-b", text: "To initialize object attributes", isCorrect: true },
+          { id: "q4-c", text: "To import a class", isCorrect: false },
         ],
       },
     ],
