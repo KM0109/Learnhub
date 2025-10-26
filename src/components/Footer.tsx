@@ -19,7 +19,7 @@ const Footer = () => {
             </p>
           </div>
 
-          <div>
+          <div className="text-center md:text-left">
             <h4 className="font-semibold mb-4">Platform</h4>
             <ul className="space-y-2 text-sm">
               <li>
@@ -45,7 +45,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div>
+          <div className="text-center md:text-left">
             <h4 className="font-semibold mb-4">Support</h4>
             <ul className="space-y-2 text-sm">
               <li>
@@ -76,7 +76,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div>
+          <div className="text-center md:text-left">
             <h4 className="font-semibold mb-4">About</h4>
             <ul className="space-y-2 text-sm">
               <li>
