@@ -41,16 +41,6 @@ const Account = () => {
   const totalXP = getTotalXPFromCourses(courses);
   const { current: currentLevel, next: nextLevel, progress: levelProgress } = getProgressToNextLevel(totalXP);
 
-  const coursesXP = courses.reduce((total, course) => {
-    if (course.enrolled || course.purchased) {
-      const completedLessons = course.lessons.filter((lesson: any) => lesson.completed);
-      const xp = completedLessons.reduce((sum: number, lesson: any) => sum + lesson.xp, 0);
-      return total + xp;
-    }
-    return total;
-  }, 0);
-
-  const streakXP = user.streak * 50;
   const level8 = levels.find(l => l.level === 8);
 
   return (
@@ -61,7 +51,7 @@ const Account = () => {
         {/* Profile Header */}
         <Card className="mb-6 shadow-card animate-fade-in">
           <CardContent className="p-6">
-            <div className="flex flex-col md:flex-row gap-6 items-start">
+            <div className="flex flex-col md:flex-row gap-6 items-start md:items-center">
               <div className="relative flex-shrink-0">
                 <div className="w-24 h-24 md:w-32 md:h-32 rounded-full border-4 border-primary shadow-card bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
                   <User className="w-12 h-12 md:w-16 md:h-16 text-primary" />
@@ -253,26 +243,6 @@ const Account = () => {
             </CardHeader>
             <CardContent>
               <div className="text-3xl font-bold text-accent">{totalXP.toLocaleString()}</div>
-              <Collapsible className="mt-3">
-                <CollapsibleTrigger className="w-full">
-                  <div className="pt-3 border-t flex items-center justify-between text-xs text-muted-foreground hover:text-foreground transition-colors">
-                    <span>View XP Breakdown</span>
-                    <span className="text-xs">▼</span>
-                  </div>
-                </CollapsibleTrigger>
-                <CollapsibleContent>
-                  <div className="mt-2 space-y-1">
-                    <div className="flex justify-between text-xs">
-                      <span className="text-muted-foreground">From Courses & Quizzes:</span>
-                      <span className="font-semibold">{coursesXP.toLocaleString()} XP</span>
-                    </div>
-                    <div className="flex justify-between text-xs">
-                      <span className="text-muted-foreground">Weekly Streak Bonus ({user.streak} weeks):</span>
-                      <span className="font-semibold">{streakXP} XP</span>
-                    </div>
-                  </div>
-                </CollapsibleContent>
-              </Collapsible>
             </CardContent>
           </Card>
 

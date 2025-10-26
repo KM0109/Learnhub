@@ -14,8 +14,6 @@ import { useState, useEffect } from "react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import VideoPlayer from "@/components/VideoPlayer";
 import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "@/components/ui/context-menu";
-import InlineQuiz from "@/components/InlineQuiz";
-import { getQuizById } from "@/data/quizzes";
 
 const CourseDetail = () => {
   const { id } = useParams();
@@ -27,7 +25,6 @@ const CourseDetail = () => {
   const [unlockedLessons, setUnlockedLessons] = useState<Set<string>>(new Set([course?.lessons[0]?.id || ""]));
   const [clickCounts, setClickCounts] = useState<Record<string, number>>({});
   const [manuallyCompleted, setManuallyCompleted] = useState<Set<string>>(new Set());
-  const [activeQuizId, setActiveQuizId] = useState<string | null>(null);
 
   useEffect(() => {
     if (!course) return;
@@ -102,22 +99,6 @@ const CourseDetail = () => {
     return !unlockedLessons.has(lessonId);
   };
 
-  const handleQuizComplete = (passed: boolean, quizId: string) => {
-    if (passed) {
-      setManuallyCompleted(prev => new Set([...prev, quizId]));
-      setLessonProgress({ ...lessonProgress, [quizId]: 100 });
-
-      const currentIndex = course.lessons.findIndex(l => l.id === quizId);
-      if (currentIndex < course.lessons.length - 1) {
-        const nextLesson = course.lessons[currentIndex + 1];
-        setUnlockedLessons(prev => new Set([...prev, nextLesson.id]));
-      }
-
-      setTimeout(() => {
-        setActiveQuizId(null);
-      }, 2000);
-    }
-  };
 
   if (!course) {
     return (
@@ -259,14 +240,7 @@ const CourseDetail = () => {
                   </CardContent>
                 </Card>
 
-                {activeQuizId && (() => {
-                  const quiz = getQuizById(activeQuizId);
-                  return quiz ? (
-                    <InlineQuiz quiz={quiz} onComplete={(passed) => handleQuizComplete(passed, activeQuizId)} />
-                  ) : null;
-                })()}
-
-                {selectedLesson && selectedLesson.videoId && !activeQuizId && (
+                {selectedLesson && selectedLesson.videoId && (
                   <VideoPlayer
                     videoId={selectedLesson.videoId}
                     lessonId={selectedLesson.id}
@@ -334,8 +308,7 @@ const CourseDetail = () => {
 
                                   if (lesson.type === 'quiz') {
                                     if (!isCompleted) {
-                                      setActiveQuizId(lesson.id);
-                                      setSelectedLesson(null);
+                                      navigate(`/course/${course.id}/quiz/${lesson.id}`);
                                     }
                                     return;
                                   } else if (lesson.videoId && !locked) {
