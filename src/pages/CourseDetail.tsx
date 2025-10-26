@@ -14,6 +14,8 @@ import { useState, useEffect } from "react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import VideoPlayer from "@/components/VideoPlayer";
 import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "@/components/ui/context-menu";
+import InlineQuiz from "@/components/InlineQuiz";
+import { getQuizById } from "@/data/quizzes";
 
 const CourseDetail = () => {
   const { id } = useParams();
@@ -25,6 +27,7 @@ const CourseDetail = () => {
   const [unlockedLessons, setUnlockedLessons] = useState<Set<string>>(new Set([course?.lessons[0]?.id || ""]));
   const [clickCounts, setClickCounts] = useState<Record<string, number>>({});
   const [manuallyCompleted, setManuallyCompleted] = useState<Set<string>>(new Set());
+  const [activeQuizId, setActiveQuizId] = useState<string | null>(null);
 
   useEffect(() => {
     if (!course) return;
@@ -99,6 +102,22 @@ const CourseDetail = () => {
     return !unlockedLessons.has(lessonId);
   };
 
+  const handleQuizComplete = (passed: boolean, quizId: string) => {
+    if (passed) {
+      setManuallyCompleted(prev => new Set([...prev, quizId]));
+      setLessonProgress({ ...lessonProgress, [quizId]: 100 });
+
+      const currentIndex = course!.lessons.findIndex(l => l.id === quizId);
+      if (currentIndex < course!.lessons.length - 1) {
+        const nextLesson = course!.lessons[currentIndex + 1];
+        setUnlockedLessons(prev => new Set([...prev, nextLesson.id]));
+      }
+
+      setTimeout(() => {
+        setActiveQuizId(null);
+      }, 500);
+    }
+  };
 
   if (!course) {
     return (
@@ -240,7 +259,14 @@ const CourseDetail = () => {
                   </CardContent>
                 </Card>
 
-                {selectedLesson && selectedLesson.videoId && (
+                {activeQuizId && (() => {
+                  const quiz = getQuizById(activeQuizId);
+                  return quiz ? (
+                    <InlineQuiz quiz={quiz} onComplete={(passed) => handleQuizComplete(passed, activeQuizId)} />
+                  ) : null;
+                })()}
+
+                {selectedLesson && selectedLesson.videoId && !activeQuizId && (
                   <VideoPlayer
                     videoId={selectedLesson.videoId}
                     lessonId={selectedLesson.id}
@@ -271,7 +297,7 @@ const CourseDetail = () => {
                             </div>
                           </AccordionTrigger>
                           <AccordionContent>
-                            <div className="space-y-4 pt-4">
+                            <div className="space-y-6 pt-4">
                               {course.lessons.map((lesson, index) => {
                                 const locked = isLessonLocked(lesson.id, index);
                                 const progress = lessonProgress[lesson.id] || (lesson.completed ? 100 : 0);
@@ -308,7 +334,8 @@ const CourseDetail = () => {
 
                                   if (lesson.type === 'quiz') {
                                     if (!isCompleted) {
-                                      navigate(`/course/${course.id}/quiz/${lesson.id}`);
+                                      setActiveQuizId(lesson.id);
+                                      setSelectedLesson(null);
                                     }
                                     return;
                                   } else if (lesson.videoId && !locked) {
@@ -365,7 +392,7 @@ const CourseDetail = () => {
                                         className={`p-3 md:p-4 rounded-lg border-2 transition-all ${
                                           locked ? 'opacity-60 cursor-not-allowed border-muted' : 'cursor-pointer border-border hover:border-primary'
                                         } ${
-                                          selectedLesson?.id === lesson.id
+                                          selectedLesson?.id === lesson.id || activeQuizId === lesson.id
                                             ? 'bg-primary/10 border-primary shadow-md'
                                             : 'bg-card'
                                         }`}

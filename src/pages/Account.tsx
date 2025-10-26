@@ -132,8 +132,8 @@ const Account = () => {
             <Collapsible open={isLevelOpen} onOpenChange={setIsLevelOpen}>
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-3">
-                  <div className={`w-12 h-12 rounded-full ${currentLevel.color} flex items-center justify-center text-2xl`}>
-                    {currentLevel.icon}
+                  <div className={`w-12 h-12 rounded-full bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center`}>
+                    <Trophy className="w-7 h-7 text-white" />
                   </div>
                   <div>
                     <h3 className="text-xl font-bold">Level {currentLevel.level}</h3>
