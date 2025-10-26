@@ -403,7 +403,7 @@ const CourseDetail = () => {
                                             {index + 1}
                                           </div>
                                           <div className="flex-1 min-w-0">
-                                            <div className="flex items-center gap-2 mb-2.5 md:mb-3">
+                                            <div className="flex items-center gap-2 mb-4">
                                               {statusBadge}
                                             </div>
                                             <h4 className="font-semibold text-sm md:text-base mb-1.5 md:mb-2 leading-tight">
