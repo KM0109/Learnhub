@@ -30,8 +30,13 @@ const CourseDetail = () => {
     const progressMap: Record<string, number> = {};
 
     course.lessons.forEach((lesson, index) => {
-      if (lesson.completed) {
+      if (lesson.watchedPercent !== undefined) {
+        progressMap[lesson.id] = lesson.watchedPercent;
+      } else if (lesson.completed) {
         progressMap[lesson.id] = 100;
+      }
+
+      if (lesson.completed || (lesson.watchedPercent && lesson.watchedPercent >= 90)) {
         if (index < course.lessons.length - 1) {
           unlocked.add(course.lessons[index + 1].id);
         }
@@ -318,7 +323,7 @@ const CourseDetail = () => {
                                 return (
                                   <div
                                     key={lesson.id}
-                                    className={`p-4 rounded-lg border-2 transition-all ${
+                                    className={`p-3 md:p-4 rounded-lg border-2 transition-all ${
                                       locked ? 'opacity-60 cursor-not-allowed border-muted' : 'cursor-pointer border-border hover:border-primary'
                                     } ${
                                       selectedLesson?.id === lesson.id
@@ -327,27 +332,27 @@ const CourseDetail = () => {
                                     }`}
                                     onClick={handleLessonClick}
                                   >
-                                    <div className="flex items-center gap-4">
-                                      <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary/10 text-primary font-bold shrink-0">
+                                    <div className="flex items-start md:items-center gap-3 md:gap-4">
+                                      <div className="flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-full bg-primary/10 text-primary font-bold shrink-0 text-sm md:text-base">
                                         {index + 1}
                                       </div>
                                       <div className="flex-1 min-w-0">
-                                        <div className="flex items-center gap-2 mb-2">
+                                        <div className="flex items-center gap-2 mb-1.5 md:mb-2">
                                           {statusBadge}
                                         </div>
-                                        <h4 className="font-semibold text-base mb-2 leading-tight">
+                                        <h4 className="font-semibold text-sm md:text-base mb-1.5 md:mb-2 leading-tight">
                                           {lesson.title}
                                         </h4>
-                                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                                          <div className="flex items-center gap-1.5">
+                                        <div className="flex flex-wrap items-center gap-1.5 md:gap-2 text-xs md:text-sm text-muted-foreground">
+                                          <div className="flex items-center gap-1 md:gap-1.5">
                                             {lessonIcon}
                                             <span>{lessonTypeText}</span>
                                           </div>
-                                          <span>•</span>
+                                          <span className="hidden sm:inline">•</span>
                                           <span>{lesson.duration} min</span>
-                                          <span>•</span>
+                                          <span className="hidden sm:inline">•</span>
                                           <div className="flex items-center gap-1">
-                                            <Zap className="h-4 w-4 text-accent" />
+                                            <Zap className="h-3 w-3 md:h-4 md:w-4 text-accent" />
                                             <span className="font-medium text-accent">{lesson.xp} XP</span>
                                           </div>
                                         </div>
