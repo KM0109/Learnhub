@@ -8,7 +8,7 @@ const Footer = () => {
   return (
     <footer className="border-t bg-card/50 backdrop-blur-sm mt-auto w-full">
       <div className="container mx-auto py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8 text-center md:text-left">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           <div>
             <Link to="/" className="flex items-center gap-2 font-bold text-lg mb-4">
               <img src="/LearnHub-Logo.svg" alt="LearnHub" className="h-8 w-8" />
@@ -105,8 +105,8 @@ const Footer = () => {
 
         <Separator className="mb-6" />
 
-        <div className="flex flex-col md:flex-row justify-center md:justify-between items-center gap-4 text-sm text-muted-foreground">
-          <p className="text-center md:text-left">&copy; {currentYear} LearnHub. All rights reserved.</p>
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
+          <p>&copy; {currentYear} LearnHub. All rights reserved.</p>
           <div className="flex gap-6">
             <a href="#" className="hover:text-primary transition-colors">
               Privacy

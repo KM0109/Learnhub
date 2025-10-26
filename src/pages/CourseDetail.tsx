@@ -121,65 +121,6 @@ const CourseDetail = () => {
           <div className="container">
             <div className="grid lg:grid-cols-3 gap-8">
               <div className="lg:col-span-2 space-y-8">
-                <div className="lg:hidden">
-                  <Card className="shadow-elegant mb-8">
-                    <CardContent className="p-6">
-                      <div className="aspect-video rounded-lg overflow-hidden mb-4">
-                        <img src={course.thumbnail} alt={course.title} className="w-full h-full object-cover" />
-                      </div>
-                      <div className="text-center mb-4">
-                        {course.price === 0 ? (
-                          <div>
-                            <span className="text-4xl font-bold text-success">FREE</span>
-                            <p className="text-sm text-muted-foreground mt-1">No payment required</p>
-                          </div>
-                        ) : (
-                          <span className="text-4xl font-bold text-primary">${course.price}</span>
-                        )}
-                      </div>
-                      <Link to={`/enroll/${course.id}`} className="block mb-3">
-                        <Button variant="hero" size="lg" className="w-full">
-                          {course.price === 0 ? "Enroll for Free" : "Enroll Now"}
-                        </Button>
-                      </Link>
-                      <Button
-                        variant="outline"
-                        size="lg"
-                        className="w-full mb-4"
-                        onClick={handleWishlistToggle}
-                      >
-                        <Heart
-                          className={`h-5 w-5 mr-2 transition-colors ${
-                            isWishlisted ? "fill-red-500 text-red-500" : ""
-                          }`}
-                        />
-                        {isWishlisted ? "Remove from Wishlist" : "Add to Wishlist"}
-                      </Button>
-                      <Separator className="my-4" />
-                      <div className="space-y-3 text-sm">
-                        <div className="flex justify-between">
-                          <span className="text-muted-foreground">Level</span>
-                          <span className="font-semibold">{course.level}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-muted-foreground">Duration</span>
-                          <span className="font-semibold">{course.duration}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-muted-foreground">Lessons</span>
-                          <span className="font-semibold">{course.lessons.length}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-muted-foreground">Total XP</span>
-                          <span className="font-semibold flex items-center gap-1">
-                            <Zap className="h-4 w-4 text-accent" />
-                            {course.totalXp}
-                          </span>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
                 <div>
                   <Badge className="mb-3">{course.category}</Badge>
                   <h1 className="text-4xl font-bold mb-2">{course.title}</h1>
@@ -223,19 +164,17 @@ const CourseDetail = () => {
                       <Accordion type="single" collapsible className="w-full" defaultValue="lessons">
                         <AccordionItem value="lessons">
                           <AccordionTrigger className="text-lg font-semibold">
-                            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3">
+                            <div className="flex items-center gap-3">
                               <span>Course Curriculum</span>
-                              <div className="flex items-center gap-2 flex-wrap">
-                                <Badge variant="outline">{course.lessons.length} lessons</Badge>
-                                <Badge variant="outline" className="flex items-center gap-1">
-                                  <Zap className="h-3 w-3" />
-                                  {course.totalXp} XP
-                                </Badge>
-                              </div>
+                              <Badge variant="outline">{course.lessons.length} lessons</Badge>
+                              <Badge variant="outline" className="flex items-center gap-1">
+                                <Zap className="h-3 w-3" />
+                                {course.totalXp} XP
+                              </Badge>
                             </div>
                           </AccordionTrigger>
                           <AccordionContent>
-                            <div className="space-y-3 pt-3 px-1">
+                            <div className="space-y-3 pt-3">
                               {course.lessons.map((lesson, index) => {
                                 const locked = isLessonLocked(lesson.id, index);
                                 const progress = lessonProgress[lesson.id] || 0;
@@ -257,14 +196,14 @@ const CourseDetail = () => {
                                       }
                                     }}
                                   >
-                                    <div className="flex items-center gap-2 sm:gap-3 flex-1 min-w-0">
+                                    <div className="flex items-center gap-3 flex-1">
                                       {lesson.type === 'video' ? (
                                         <PlayCircle className={`h-5 w-5 ${locked ? 'text-muted-foreground' : 'text-primary'}`} />
                                       ) : (
                                         <FileText className={`h-5 w-5 ${locked ? 'text-muted-foreground' : 'text-primary'}`} />
                                       )}
-                                      <div className="flex-1 min-w-0">
-                                        <p className="font-medium text-sm sm:text-base truncate sm:whitespace-normal">{index + 1}. {lesson.title}</p>
+                                      <div className="flex-1">
+                                        <p className="font-medium">{index + 1}. {lesson.title}</p>
                                         <div className="flex items-center gap-2">
                                           <p className="text-xs text-muted-foreground capitalize">{lesson.type}</p>
                                           {progress > 0 && progress < 90 && (
@@ -281,11 +220,11 @@ const CourseDetail = () => {
                                         </div>
                                       </div>
                                     </div>
-                                    <div className="flex items-center gap-2 sm:gap-4 flex-shrink-0">
-                                      <span className="text-xs sm:text-sm text-muted-foreground hidden sm:inline">{lesson.duration} min</span>
-                                      <Badge variant="secondary" className="flex items-center gap-1 text-xs">
+                                    <div className="flex items-center gap-4">
+                                      <span className="text-sm text-muted-foreground">{lesson.duration} min</span>
+                                      <Badge variant="secondary" className="flex items-center gap-1">
                                         <Zap className="h-3 w-3 text-accent" />
-                                        <span className="hidden sm:inline">{lesson.xp}</span>
+                                        {lesson.xp}
                                       </Badge>
                                       {locked && (
                                         <Lock className="h-4 w-4 text-muted-foreground" />
