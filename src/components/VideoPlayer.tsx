@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
-import { Clock, CheckCircle } from "lucide-react";
+import { CheckCircle } from "lucide-react";
 
 interface VideoPlayerProps {
   videoId: string;
@@ -144,17 +144,12 @@ const VideoPlayer = ({
     }
   };
 
-  const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = Math.floor(seconds % 60);
-    return `${mins}:${secs.toString().padStart(2, '0')}`;
-  };
 
   return (
     <Card>
       <CardContent className="p-6">
         <div className="space-y-4">
-          <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center gap-2 mb-2 flex-wrap">
             <h3 className="text-xl font-semibold">{title}</h3>
             {isCompleted && (
               <Badge className="bg-success text-success-foreground">
@@ -170,12 +165,6 @@ const VideoPlayer = ({
 
           <div className="space-y-2">
             <div className="flex items-center justify-between text-sm">
-              <div className="flex items-center gap-2 text-muted-foreground">
-                <Clock className="h-4 w-4" />
-                <span>
-                  {formatTime(watchedSeconds)} / {formatTime(duration * 60)}
-                </span>
-              </div>
               <span className="font-semibold">{Math.round(watchProgress)}% watched</span>
             </div>
             <Progress value={watchProgress} className="h-2" />

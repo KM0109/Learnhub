@@ -157,6 +157,109 @@ const CourseDetail = () => {
                   />
                 )}
 
+                {/* What You'll Learn section - Shows above Course Content on mobile */}
+                <Card className="lg:hidden">
+                  <CardContent className="p-6">
+                    <h3 className="text-xl font-semibold mb-4">What You'll Learn</h3>
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div className="flex gap-3">
+                        <CheckCircle className="h-5 w-5 text-success shrink-0 mt-0.5" />
+                        <p className="text-sm">Master the fundamentals and advanced concepts</p>
+                      </div>
+                      <div className="flex gap-3">
+                        <CheckCircle className="h-5 w-5 text-success shrink-0 mt-0.5" />
+                        <p className="text-sm">Build real-world projects from scratch</p>
+                      </div>
+                      <div className="flex gap-3">
+                        <CheckCircle className="h-5 w-5 text-success shrink-0 mt-0.5" />
+                        <p className="text-sm">Get industry-recognized certification</p>
+                      </div>
+                      <div className="flex gap-3">
+                        <CheckCircle className="h-5 w-5 text-success shrink-0 mt-0.5" />
+                        <p className="text-sm">Learn best practices and current standards</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* What You'll Get section - Shows above Course Content on mobile */}
+                <Card className="lg:hidden">
+                  <CardContent className="p-6">
+                    <h3 className="text-xl font-semibold mb-4">What You'll Get</h3>
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between p-4 bg-secondary/30 rounded-lg">
+                        <div className="flex items-center gap-3">
+                          <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${
+                            isCourseCompleted ? 'bg-success/10' : 'bg-muted'
+                          }`}>
+                            <FileText className={`h-6 w-6 ${isCourseCompleted ? 'text-success' : 'text-muted-foreground'}`} />
+                          </div>
+                          <div>
+                            <p className="font-semibold">PDF Course Summary</p>
+                            <p className="text-sm text-muted-foreground">Comprehensive course notes and key takeaways</p>
+                          </div>
+                        </div>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <div>
+                              <Button
+                                variant={isCourseCompleted ? "default" : "secondary"}
+                                size="sm"
+                                onClick={handleDownloadPDF}
+                                disabled={!isCourseCompleted}
+                              >
+                                {isCourseCompleted ? (
+                                  <>
+                                    <Download className="h-4 w-4 mr-2" />
+                                    Download
+                                  </>
+                                ) : (
+                                  <>
+                                    <Lock className="h-4 w-4 mr-2" />
+                                    Locked
+                                  </>
+                                )}
+                              </Button>
+                            </div>
+                          </TooltipTrigger>
+                          {!isCourseCompleted && (
+                            <TooltipContent>
+                              <p>Complete the course to unlock</p>
+                            </TooltipContent>
+                          )}
+                        </Tooltip>
+                      </div>
+
+                      <div className="flex items-center justify-between p-4 bg-secondary/30 rounded-lg">
+                        <div className="flex items-center gap-3">
+                          <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${
+                            isCourseCompleted ? 'bg-accent/10' : 'bg-muted'
+                          }`}>
+                            <Award className={`h-6 w-6 ${isCourseCompleted ? 'text-accent' : 'text-muted-foreground'}`} />
+                          </div>
+                          <div>
+                            <p className="font-semibold">Certificate of Completion</p>
+                            <p className="text-sm text-muted-foreground">Shareable certificate upon course completion</p>
+                          </div>
+                        </div>
+                        {isCourseCompleted ? (
+                          <Link to={`/certificate/${course.id}`}>
+                            <Button variant="default" size="sm">
+                              <Award className="h-4 w-4 mr-2" />
+                              View Certificate
+                            </Button>
+                          </Link>
+                        ) : (
+                          <Button variant="secondary" size="sm" disabled>
+                            <Lock className="h-4 w-4 mr-2" />
+                            Locked
+                          </Button>
+                        )}
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
                 <div>
                   <h2 className="text-2xl font-bold mb-6">Course Content</h2>
                   <Card>
@@ -240,7 +343,8 @@ const CourseDetail = () => {
                     </CardContent>
                   </Card>
 
-                  <Card className="mt-8">
+                  {/* What You'll Learn section - Hidden on mobile, shown on desktop */}
+                  <Card className="mt-8 hidden lg:block">
                     <CardContent className="p-6">
                       <h3 className="text-xl font-semibold mb-4">What You'll Learn</h3>
                       <div className="grid md:grid-cols-2 gap-4">
@@ -264,7 +368,8 @@ const CourseDetail = () => {
                     </CardContent>
                   </Card>
 
-                  <Card className="mt-8">
+                  {/* What You'll Get section - Hidden on mobile, shown on desktop */}
+                  <Card className="mt-8 hidden lg:block">
                     <CardContent className="p-6">
                       <h3 className="text-xl font-semibold mb-4">What You'll Get</h3>
                       <div className="space-y-4">
