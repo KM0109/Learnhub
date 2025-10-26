@@ -133,7 +133,7 @@ const Dashboard = () => {
               <BookOpen className="h-4 w-4 text-primary" />
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold">{enrolledCourses.length}</div>
+              <div className="text-3xl font-bold">6</div>
             </CardContent>
           </Card>
 

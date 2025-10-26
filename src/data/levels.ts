@@ -108,7 +108,7 @@ export const levels: UserLevel[] = [
   },
   {
     level: 5,
-    name: "Learning Legend",
+    name: "Level 5",
     minXP: 10000,
     maxXP: 19999,
     color: "bg-orange-500",
@@ -125,8 +125,8 @@ export const levels: UserLevel[] = [
       {
         id: "exclusive-content",
         type: "feature",
-        title: "Exclusive Content Access",
-        description: "Access to premium-only materials and workshops"
+        title: "Educational Newsletter Access",
+        description: "Access to exclusive educational newsletters and learning resources"
       }
     ]
   },

@@ -112,12 +112,12 @@ export const mockMilestones: Milestone[] = [
 ];
 
 export const mockUserProfile: UserProfile = {
-  name: "Alex Johnson",
-  email: "alex.johnson@example.com",
+  name: "Student Name",
+  email: "student@example.com",
   level: 7,
   xp: 2850,
   xpToNextLevel: 3500,
-  totalXp: 15420,
+  totalXp: 13350,
   streak: 3,
   longestStreak: 8,
   coursesCompleted: 3,

@@ -22,6 +22,8 @@ const CourseDetail = () => {
   const [selectedLesson, setSelectedLesson] = useState(course?.lessons.find(l => l.videoId) || null);
   const [lessonProgress, setLessonProgress] = useState<Record<string, number>>({});
   const [unlockedLessons, setUnlockedLessons] = useState<Set<string>>(new Set([course?.lessons[0]?.id || ""]));
+  const [clickCounts, setClickCounts] = useState<Record<string, number>>({});
+  const [manuallyCompleted, setManuallyCompleted] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     if (!course) return;
@@ -91,6 +93,7 @@ const CourseDetail = () => {
   };
 
   const isLessonLocked = (lessonId: string, index: number) => {
+    if (!course.enrolled && !course.purchased && index === 0) return true;
     if (index === 0) return false;
     return !unlockedLessons.has(lessonId);
   };
@@ -254,13 +257,15 @@ const CourseDetail = () => {
                       <Accordion type="single" collapsible className="w-full" defaultValue="lessons">
                         <AccordionItem value="lessons" className="border-none">
                           <AccordionTrigger className="text-lg font-semibold hover:no-underline hover:text-purple-600 transition-colors">
-                            <div className="flex items-center gap-3">
+                            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3">
                               <span>Course Curriculum</span>
-                              <Badge variant="outline">{course.lessons.length} lessons</Badge>
-                              <Badge variant="outline" className="flex items-center gap-1">
-                                <Zap className="h-3 w-3" />
-                                {course.totalXp} XP
-                              </Badge>
+                              <div className="flex items-center gap-2 flex-wrap">
+                                <Badge variant="outline">{course.lessons.length} lessons</Badge>
+                                <Badge variant="outline" className="flex items-center gap-1">
+                                  <Zap className="h-3 w-3" />
+                                  {course.totalXp} XP
+                                </Badge>
+                              </div>
                             </div>
                           </AccordionTrigger>
                           <AccordionContent>
@@ -268,7 +273,7 @@ const CourseDetail = () => {
                               {course.lessons.map((lesson, index) => {
                                 const locked = isLessonLocked(lesson.id, index);
                                 const progress = lessonProgress[lesson.id] || (lesson.completed ? 100 : 0);
-                                const isCompleted = progress >= 90;
+                                const isCompleted = progress >= 90 || manuallyCompleted.has(lesson.id);
 
                                 let statusBadge;
                                 if (isCompleted) {
@@ -295,13 +300,67 @@ const CourseDetail = () => {
 
                                 const handleLessonClick = () => {
                                   if (locked) {
-                                    toast.error('Complete the previous lesson to 90% to unlock this item');
+                                    const currentClicks = (clickCounts[lesson.id] || 0) + 1;
+                                    setClickCounts({ ...clickCounts, [lesson.id]: currentClicks });
+
+                                    if (currentClicks === 1) {
+                                      toast.info(`Click ${currentClicks}/3 to unlock`);
+                                    } else if (currentClicks === 2) {
+                                      toast.info(`Click ${currentClicks}/3 to unlock`);
+                                    } else if (currentClicks >= 3) {
+                                      setUnlockedLessons(prev => new Set([...prev, lesson.id]));
+                                      setClickCounts({ ...clickCounts, [lesson.id]: 0 });
+                                      toast.success(`${lesson.title} unlocked!`);
+                                    }
                                     return;
                                   }
 
+                                  if (isCompleted) {
+                                    const completionClicks = (clickCounts[`completed_${lesson.id}`] || 0) + 1;
+                                    setClickCounts({ ...clickCounts, [`completed_${lesson.id}`]: completionClicks });
+
+                                    if (completionClicks === 1) {
+                                      toast.info(`Click ${completionClicks}/3 to mark as incomplete`);
+                                    } else if (completionClicks === 2) {
+                                      toast.info(`Click ${completionClicks}/3 to mark as incomplete`);
+                                    } else if (completionClicks >= 3) {
+                                      setManuallyCompleted(prev => {
+                                        const newSet = new Set(prev);
+                                        newSet.delete(lesson.id);
+                                        return newSet;
+                                      });
+                                      setLessonProgress({ ...lessonProgress, [lesson.id]: 0 });
+                                      setClickCounts({ ...clickCounts, [`completed_${lesson.id}`]: 0 });
+                                      toast.success(`${lesson.title} marked as incomplete`);
+                                    }
+                                    return;
+                                  }
+
+                                  if (!locked && !isCompleted) {
+                                    const incompleteClicks = (clickCounts[`incomplete_${lesson.id}`] || 0) + 1;
+                                    setClickCounts({ ...clickCounts, [`incomplete_${lesson.id}`]: incompleteClicks });
+
+                                    if (incompleteClicks === 1) {
+                                      toast.info(`Click ${incompleteClicks}/3 to mark as complete`);
+                                    } else if (incompleteClicks === 2) {
+                                      toast.info(`Click ${incompleteClicks}/3 to mark as complete`);
+                                    } else if (incompleteClicks >= 3) {
+                                      setManuallyCompleted(prev => new Set([...prev, lesson.id]));
+                                      setLessonProgress({ ...lessonProgress, [lesson.id]: 100 });
+                                      setClickCounts({ ...clickCounts, [`incomplete_${lesson.id}`]: 0 });
+                                      toast.success(`${lesson.title} marked as complete!`);
+
+                                      const currentIndex = course.lessons.findIndex(l => l.id === lesson.id);
+                                      if (currentIndex < course.lessons.length - 1) {
+                                        const nextLesson = course.lessons[currentIndex + 1];
+                                        setUnlockedLessons(prev => new Set([...prev, nextLesson.id]));
+                                      }
+                                    }
+                                  }
+
                                   if (lesson.type === 'quiz') {
-                                    navigate(`/course/${course.id}/quiz/${lesson.id}`);
-                                  } else if (lesson.videoId) {
+                                    return;
+                                  } else if (lesson.videoId && !locked) {
                                     setSelectedLesson(lesson);
                                   }
                                 };
