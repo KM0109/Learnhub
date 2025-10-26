@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Star, Users, Clock, PlayCircle, FileText, CheckCircle, Award, Heart, Zap, Download, Lock, BookOpen, XCircle } from "lucide-react";
+import { Star, Users, Clock, CirclePlay as PlayCircle, FileText, CircleCheck as CheckCircle, Award, Heart, Zap, Download, Lock, BookOpen, Circle as XCircle } from "lucide-react";
 import { courses } from "@/data/courses";
 import { Progress } from "@/components/ui/progress";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
