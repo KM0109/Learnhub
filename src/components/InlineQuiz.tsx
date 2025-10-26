@@ -17,7 +17,9 @@ const InlineQuiz = ({ quiz, onComplete }: InlineQuizProps) => {
   const [answers, setAnswers] = useState<{ [questionId: string]: string }>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState(quiz.timeLimit * 60);
+  const [reviewTimeRemaining, setReviewTimeRemaining] = useState(60);
   const [results, setResults] = useState<{ [questionId: string]: boolean }>({});
+  const [quizPassed, setQuizPassed] = useState(false);
 
   useEffect(() => {
     if (timeRemaining > 0 && !isSubmitted) {
@@ -33,6 +35,23 @@ const InlineQuiz = ({ quiz, onComplete }: InlineQuizProps) => {
       return () => clearInterval(timer);
     }
   }, [timeRemaining, isSubmitted]);
+
+  useEffect(() => {
+    if (isSubmitted && reviewTimeRemaining > 0) {
+      const timer = setInterval(() => {
+        setReviewTimeRemaining(prev => {
+          if (prev <= 1) {
+            if (quizPassed) {
+              onComplete(true);
+            }
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+      return () => clearInterval(timer);
+    }
+  }, [isSubmitted, reviewTimeRemaining, quizPassed, onComplete]);
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -69,17 +88,22 @@ const InlineQuiz = ({ quiz, onComplete }: InlineQuizProps) => {
     const scorePercent = Math.round((earnedPoints / maxPoints) * 100);
     setResults(questionResults);
     setIsSubmitted(true);
+    setReviewTimeRemaining(60);
 
     const passed = scorePercent >= quiz.passingScore;
+    setQuizPassed(passed);
+
     if (passed) {
       toast.success(`Quiz passed with ${scorePercent}%! Earned ${quiz.xp} XP!`);
     } else {
       toast.error(`Quiz failed with ${scorePercent}%. Need ${quiz.passingScore}% to pass.`);
     }
+  };
 
-    setTimeout(() => {
-      onComplete(passed);
-    }, 2000);
+  const handleMarkComplete = () => {
+    if (quizPassed) {
+      onComplete(true);
+    }
   };
 
   const allAnswered = quiz.questions.every(q => answers[q.id]);
@@ -173,6 +197,18 @@ const InlineQuiz = ({ quiz, onComplete }: InlineQuizProps) => {
             <div className="flex justify-end pt-4 border-t">
               <Button onClick={handleSubmit} disabled={!allAnswered}>
                 Submit Quiz
+              </Button>
+            </div>
+          )}
+
+          {isSubmitted && quizPassed && (
+            <div className="flex items-center justify-between pt-4 border-t">
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Clock className="h-4 w-4" />
+                <span>Review time: {formatTime(reviewTimeRemaining)}</span>
+              </div>
+              <Button onClick={handleMarkComplete}>
+                Mark as Complete
               </Button>
             </div>
           )}

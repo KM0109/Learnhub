@@ -89,22 +89,6 @@ const Account = () => {
                 </div>
 
                 <div className="space-y-3">
-                  <div>
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="flex items-center gap-2">
-                        <Star className="h-4 w-4 text-primary" />
-                        <span className="font-semibold text-sm">Level {user.level}</span>
-                      </div>
-                      <span className="text-xs text-muted-foreground">
-                        {user.xp} / {user.xpToNextLevel} XP
-                      </span>
-                    </div>
-                    <Progress value={xpProgress} className="h-2.5" />
-                    <p className="text-xs text-muted-foreground mt-1">
-                      {user.xpToNextLevel - user.xp} XP to level {user.level + 1}
-                    </p>
-                  </div>
-
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                     <div className="flex items-center gap-2 p-3 rounded-lg bg-card border shadow-sm">
                       <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
@@ -162,7 +146,7 @@ const Account = () => {
                     {currentLevel.icon}
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold">Level {currentLevel.level}: {currentLevel.name}</h3>
+                    <h3 className="text-xl font-bold">Level {currentLevel.level}</h3>
                     <p className="text-sm text-muted-foreground">Total: {totalXP.toLocaleString()} XP</p>
                   </div>
                 </div>
@@ -177,7 +161,7 @@ const Account = () => {
               {nextLevel && (
                 <div className="mb-4">
                   <div className="flex items-center justify-between text-sm mb-2">
-                    <span className="font-semibold">Progress to {nextLevel.name}</span>
+                    <span className="font-semibold">Progress to Level {nextLevel.level}</span>
                     <span className="text-muted-foreground">
                       {totalXP.toLocaleString()} / {nextLevel.minXP.toLocaleString()} XP
                     </span>
@@ -269,16 +253,26 @@ const Account = () => {
             </CardHeader>
             <CardContent>
               <div className="text-3xl font-bold text-accent">{totalXP.toLocaleString()}</div>
-              <div className="mt-3 pt-3 border-t space-y-1">
-                <div className="flex justify-between text-xs">
-                  <span className="text-muted-foreground">From Courses & Quizzes:</span>
-                  <span className="font-semibold">{coursesXP.toLocaleString()} XP</span>
-                </div>
-                <div className="flex justify-between text-xs">
-                  <span className="text-muted-foreground">Weekly Streak Bonus ({user.streak} weeks):</span>
-                  <span className="font-semibold">{streakXP} XP</span>
-                </div>
-              </div>
+              <Collapsible className="mt-3">
+                <CollapsibleTrigger className="w-full">
+                  <div className="pt-3 border-t flex items-center justify-between text-xs text-muted-foreground hover:text-foreground transition-colors">
+                    <span>View XP Breakdown</span>
+                    <span className="text-xs">▼</span>
+                  </div>
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                  <div className="mt-2 space-y-1">
+                    <div className="flex justify-between text-xs">
+                      <span className="text-muted-foreground">From Courses & Quizzes:</span>
+                      <span className="font-semibold">{coursesXP.toLocaleString()} XP</span>
+                    </div>
+                    <div className="flex justify-between text-xs">
+                      <span className="text-muted-foreground">Weekly Streak Bonus ({user.streak} weeks):</span>
+                      <span className="font-semibold">{streakXP} XP</span>
+                    </div>
+                  </div>
+                </CollapsibleContent>
+              </Collapsible>
             </CardContent>
           </Card>
 

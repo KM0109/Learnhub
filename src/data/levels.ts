@@ -20,11 +20,11 @@ export interface LevelReward {
 export const levels: UserLevel[] = [
   {
     level: 1,
-    name: "Beginner Explorer",
+    name: "",
     minXP: 0,
     maxXP: 999,
     color: "bg-slate-500",
-    icon: "🌱",
+    icon: "📘",
     rewards: [
       {
         id: "welcome-badge",
@@ -36,7 +36,7 @@ export const levels: UserLevel[] = [
   },
   {
     level: 2,
-    name: "Knowledge Seeker",
+    name: "",
     minXP: 1000,
     maxXP: 2499,
     color: "bg-blue-500",
@@ -60,7 +60,7 @@ export const levels: UserLevel[] = [
   },
   {
     level: 3,
-    name: "Skilled Learner",
+    name: "",
     minXP: 2500,
     maxXP: 4999,
     color: "bg-green-500",
@@ -84,7 +84,7 @@ export const levels: UserLevel[] = [
   },
   {
     level: 4,
-    name: "Master Student",
+    name: "",
     minXP: 5000,
     maxXP: 9999,
     color: "bg-yellow-500",
@@ -108,7 +108,7 @@ export const levels: UserLevel[] = [
   },
   {
     level: 5,
-    name: "Expert Learner",
+    name: "",
     minXP: 10000,
     maxXP: 19999,
     color: "bg-orange-500",
@@ -138,7 +138,7 @@ export const levels: UserLevel[] = [
   },
   {
     level: 6,
-    name: "Grand Master",
+    name: "",
     minXP: 20000,
     maxXP: 29999,
     color: "bg-red-500",
@@ -168,10 +168,10 @@ export const levels: UserLevel[] = [
   },
   {
     level: 7,
-    name: "Elite Scholar",
+    name: "",
     minXP: 30000,
     maxXP: 44999,
-    color: "bg-violet-500",
+    color: "bg-blue-600",
     icon: "💎",
     rewards: [
       {
@@ -192,7 +192,7 @@ export const levels: UserLevel[] = [
   },
   {
     level: 8,
-    name: "Master Sage",
+    name: "",
     minXP: 45000,
     maxXP: Infinity,
     color: "bg-gradient-to-r from-yellow-500 to-orange-500",
@@ -205,18 +205,6 @@ export const levels: UserLevel[] = [
         description: "40% discount on any course",
         value: "40%",
         code: "SAGE40"
-      },
-      {
-        id: "exclusive-masterclass",
-        type: "feature",
-        title: "Exclusive Masterclass Access",
-        description: "Access to private masterclasses with industry leaders"
-      },
-      {
-        id: "certification-boost",
-        type: "feature",
-        title: "LinkedIn Certified Badge",
-        description: "Special LearnHub certification badge for your LinkedIn profile"
       }
     ]
   }

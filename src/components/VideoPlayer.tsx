@@ -42,10 +42,14 @@ const VideoPlayer = ({
     const savedProgress = localStorage.getItem(`video_progress_${courseId}_${lessonId}`);
     if (savedProgress) {
       const progress = JSON.parse(savedProgress);
-      setWatchedSeconds(progress.watchedSeconds || 0);
-      setIsCompleted(progress.isCompleted || false);
+      const seconds = progress.watchedSeconds || 0;
+      setWatchedSeconds(seconds);
+
+      const currentProgress = (seconds / (duration * 60)) * 100;
+      const completed = progress.isCompleted || currentProgress >= 90;
+      setIsCompleted(completed);
     }
-  }, [courseId, lessonId]);
+  }, [courseId, lessonId, duration]);
 
   useEffect(() => {
     if (!window.YT) {
