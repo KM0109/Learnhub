@@ -9,8 +9,8 @@ const Footer = () => {
     <footer className="border-t bg-card/50 backdrop-blur-sm mt-auto w-full">
       <div className="container mx-auto py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
-          <div className="text-center md:text-left">
-            <Link to="/" className="flex items-center justify-center md:justify-start gap-2 font-bold text-lg mb-4">
+          <div className="text-center">
+            <Link to="/" className="flex items-center justify-center gap-2 font-bold text-lg mb-4">
               <img src="/LearnHub-Logo.svg" alt="LearnHub" className="h-8 w-8" />
               <span className="bg-gradient-primary bg-clip-text text-transparent">LearnHub</span>
             </Link>
@@ -19,7 +19,7 @@ const Footer = () => {
             </p>
           </div>
 
-          <div className="text-center md:text-left">
+          <div className="text-center">
             <h4 className="font-semibold mb-4">Platform</h4>
             <ul className="space-y-2 text-sm">
               <li>
@@ -45,7 +45,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div className="text-center md:text-left">
+          <div className="text-center">
             <h4 className="font-semibold mb-4">Support</h4>
             <ul className="space-y-2 text-sm">
               <li>
@@ -76,7 +76,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div className="text-center md:text-left">
+          <div className="text-center">
             <h4 className="font-semibold mb-4">About</h4>
             <ul className="space-y-2 text-sm">
               <li>
