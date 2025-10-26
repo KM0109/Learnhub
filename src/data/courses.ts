@@ -1,4 +1,5 @@
 import { Course } from "@/types/course";
+import cs50Image from "@/assets/CS50P_pll copy copy.png";
 
 export const courses: Course[] = [
   {
@@ -12,7 +13,7 @@ export const courses: Course[] = [
     duration: "40 hours",
     level: "Beginner",
     category: "Programming",
-    thumbnail: "/src/assets/CS50P_pll copy copy.png",
+    thumbnail: cs50Image,
     enrolled: true,
     purchased: true,
     progress: 38,
