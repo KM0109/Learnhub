@@ -132,11 +132,11 @@ const Account = () => {
             <Collapsible open={isLevelOpen} onOpenChange={setIsLevelOpen}>
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-3">
-                  <div className={`w-12 h-12 rounded-full bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center`}>
-                    <Trophy className="w-7 h-7 text-white" />
+                  <div className={`w-12 h-12 rounded-full bg-gradient-to-br from-amber-500 to-yellow-500 flex items-center justify-center`}>
+                    <Star className="w-7 h-7 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold">Level {currentLevel.level}</h3>
+                    <h3 className="text-xl font-bold">Level 6</h3>
                     <p className="text-sm text-muted-foreground">Total: {totalXP.toLocaleString()} XP</p>
                   </div>
                 </div>
@@ -151,7 +151,7 @@ const Account = () => {
               {nextLevel && (
                 <div className="mb-4">
                   <div className="flex items-center justify-between text-sm mb-2">
-                    <span className="font-semibold">Progress to Level {nextLevel.level}</span>
+                    <span className="font-semibold">Progress to Level 7</span>
                     <span className="text-muted-foreground">
                       {totalXP.toLocaleString()} / {nextLevel.minXP.toLocaleString()} XP
                     </span>
@@ -242,7 +242,10 @@ const Account = () => {
               <Zap className="h-5 w-5 text-accent" />
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold text-accent">{totalXP.toLocaleString()}</div>
+              <div className="text-3xl font-bold text-accent">14,750</div>
+              <p className="text-xs text-muted-foreground mt-1">
+                Obtained from courses and streaks
+              </p>
             </CardContent>
           </Card>
 
