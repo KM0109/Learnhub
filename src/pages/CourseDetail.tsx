@@ -306,7 +306,7 @@ const CourseDetail = () => {
 
                                 if (lesson.type === 'video') {
                                   lessonIcon = <PlayCircle className="h-4 w-4" />;
-                                  lessonTypeText = "Video Lecture";
+                                  lessonTypeText = "Video";
                                 } else if (lesson.type === 'quiz') {
                                   lessonIcon = <BookOpen className="h-4 w-4" />;
                                   lessonTypeText = "Quiz";
@@ -327,29 +327,26 @@ const CourseDetail = () => {
                                     }`}
                                     onClick={handleLessonClick}
                                   >
-                                    <div className="flex items-start gap-4">
+                                    <div className="flex items-center gap-4">
                                       <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary/10 text-primary font-bold shrink-0">
                                         {index + 1}
                                       </div>
                                       <div className="flex-1 min-w-0">
-                                        <div className="mb-2">
+                                        <div className="flex items-center gap-2 mb-2">
                                           {statusBadge}
                                         </div>
-                                        <h4 className="font-semibold text-base mb-1 leading-tight">
+                                        <h4 className="font-semibold text-base mb-2 leading-tight">
                                           {lesson.title}
                                         </h4>
                                         <div className="flex items-center gap-2 text-sm text-muted-foreground">
                                           <div className="flex items-center gap-1.5">
                                             {lessonIcon}
-                                            <span className="capitalize">{lessonTypeText}</span>
+                                            <span>{lessonTypeText}</span>
                                           </div>
                                           <span>•</span>
-                                          <div className="flex items-center gap-1.5">
-                                            <Clock className="h-4 w-4" />
-                                            <span>{lesson.duration} min</span>
-                                          </div>
+                                          <span>{lesson.duration} min</span>
                                           <span>•</span>
-                                          <div className="flex items-center gap-1.5">
+                                          <div className="flex items-center gap-1">
                                             <Zap className="h-4 w-4 text-accent" />
                                             <span className="font-medium text-accent">{lesson.xp} XP</span>
                                           </div>
