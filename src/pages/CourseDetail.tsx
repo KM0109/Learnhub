@@ -403,32 +403,32 @@ const CourseDetail = () => {
                                           }`}
                                           onClick={handleLessonClick}
                                         >
-                                          <div className="flex items-start sm:items-center gap-3 sm:gap-4">
-                                            <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 text-primary font-bold shrink-0">
+                                          <div className="flex items-start gap-3">
+                                            <div className="flex items-center justify-center w-12 h-12 sm:w-10 sm:h-10 rounded-lg bg-primary/10 text-primary font-bold shrink-0 text-lg sm:text-base">
                                               {index + 1}
                                             </div>
 
                                             <div className="flex-1 min-w-0">
-                                              <h4 className="font-semibold text-sm sm:text-base mb-2 leading-tight">
-                                                {lesson.title}
-                                              </h4>
-                                              <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs sm:text-sm text-muted-foreground">
+                                              <div className="flex items-start justify-between gap-2 mb-2">
+                                                <h4 className="font-semibold text-base sm:text-base leading-tight flex-1">
+                                                  {lesson.title}
+                                                </h4>
+                                                <div className="shrink-0">
+                                                  {statusBadge}
+                                                </div>
+                                              </div>
+                                              <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-2 text-sm text-muted-foreground">
                                                 <div className="flex items-center gap-1.5">
                                                   {lessonIcon}
                                                   <span className="font-medium">{lessonTypeText}</span>
+                                                  <span className="mx-1">•</span>
+                                                  <span>{lesson.duration} min</span>
                                                 </div>
-                                                <span className="hidden sm:inline">•</span>
-                                                <span>{lesson.duration} min</span>
-                                                <span className="hidden sm:inline">•</span>
-                                                <div className="flex items-center gap-1">
-                                                  <Zap className="h-3 w-3 sm:h-4 sm:w-4 text-accent" />
-                                                  <span className="font-medium text-accent">{lesson.xp} XP</span>
+                                                <div className="flex items-center gap-1.5">
+                                                  <Zap className="h-4 w-4 text-accent" />
+                                                  <span className="font-semibold text-accent">{lesson.xp} XP</span>
                                                 </div>
                                               </div>
-                                            </div>
-
-                                            <div className="shrink-0 self-start sm:self-center">
-                                              {statusBadge}
                                             </div>
                                           </div>
                                         </div>
