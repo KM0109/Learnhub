@@ -30,12 +30,8 @@ const CourseDetail = () => {
     const progressMap: Record<string, number> = {};
 
     course.lessons.forEach((lesson, index) => {
-      if (lesson.watchedPercent) {
-        progressMap[lesson.id] = lesson.watchedPercent;
-      }
-
       if (lesson.completed) {
-        progressMap[lesson.id] = lesson.watchedPercent || 100;
+        progressMap[lesson.id] = 100;
         if (index < course.lessons.length - 1) {
           unlocked.add(course.lessons[index + 1].id);
         }

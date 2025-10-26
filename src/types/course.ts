@@ -6,7 +6,6 @@ export interface Lesson {
   type: 'video' | 'reading' | 'quiz';
   xp: number;
   videoId?: string;
-  watchedPercent?: number;
 }
 
 export interface Course {
