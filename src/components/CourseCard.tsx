@@ -27,8 +27,8 @@ const CourseCard = ({ course, showProgress = false }: CourseCardProps) => {
     <Link to={`/course/${course.id}`}>
       <Card className="group overflow-hidden transition-all hover:shadow-elegant animate-fade-in cursor-pointer h-full flex flex-col">
         <div className="aspect-video overflow-hidden relative flex-shrink-0">
-          <img 
-            src={course.thumbnail} 
+          <img
+            src={course.thumbnail}
             alt={course.title}
             className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
           />
@@ -41,7 +41,7 @@ const CourseCard = ({ course, showProgress = false }: CourseCardProps) => {
             className="absolute top-3 left-3 h-9 w-9 rounded-full bg-background/80 backdrop-blur hover:bg-background"
             onClick={handleWishlistToggle}
           >
-            <Heart 
+            <Heart
               className={`h-5 w-5 transition-colors ${
                 isWishlisted ? "fill-red-500 text-red-500" : "text-muted-foreground"
               }`}
@@ -58,10 +58,10 @@ const CourseCard = ({ course, showProgress = false }: CourseCardProps) => {
           <p className="text-xs text-muted-foreground mb-3">
             by {course.instructor}
           </p>
-          <p className="text-sm text-muted-foreground line-clamp-2 mb-4 flex-1">
+          <p className="text-sm text-muted-foreground line-clamp-3 mb-4">
             {course.description}
           </p>
-          <div className="flex items-center justify-between text-xs text-muted-foreground mb-3">
+          <div className="flex items-center justify-between text-xs text-muted-foreground mb-3 mt-auto">
             <div className="flex items-center gap-1.5">
               <Star className="h-4 w-4 fill-amber-400 text-amber-400 flex-shrink-0" />
               <span className="font-semibold text-foreground">{course.rating}</span>
@@ -82,7 +82,7 @@ const CourseCard = ({ course, showProgress = false }: CourseCardProps) => {
             </div>
           )}
         </CardContent>
-        <CardFooter className="p-5 pt-0 flex items-center justify-between mt-auto">
+        <CardFooter className="p-5 pt-0 flex items-center justify-between">
           <div className="flex items-center gap-1.5 px-2 py-1.5 bg-accent/10 rounded-md">
             <Zap className="h-4 w-4 text-accent flex-shrink-0" />
             <span className="text-sm font-semibold text-accent">{course.totalXp} XP</span>

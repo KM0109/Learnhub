@@ -1,11 +1,11 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Star, Users, Clock, PlayCircle, FileText, CheckCircle, Award, Heart, Zap, Download, Lock } from "lucide-react";
+import { Star, Users, Clock, PlayCircle, FileText, CheckCircle, Award, Heart, Zap, Download, Lock, BookOpen } from "lucide-react";
 import { courses } from "@/data/courses";
 import { Progress } from "@/components/ui/progress";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -16,6 +16,7 @@ import VideoPlayer from "@/components/VideoPlayer";
 
 const CourseDetail = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const course = courses.find(c => c.id === id);
   const [isWishlisted, setIsWishlisted] = useState(course?.wishlisted || false);
   const [selectedLesson, setSelectedLesson] = useState(course?.lessons.find(l => l.videoId) || null);
@@ -247,7 +248,7 @@ const CourseDetail = () => {
                     <CardContent className="p-6">
                       <Accordion type="single" collapsible className="w-full" defaultValue="lessons">
                         <AccordionItem value="lessons" className="border-none">
-                          <AccordionTrigger className="text-lg font-semibold hover:no-underline">
+                          <AccordionTrigger className="text-lg font-semibold hover:no-underline hover:text-purple-600 transition-colors">
                             <div className="flex items-center gap-3">
                               <span>Course Curriculum</span>
                               <Badge variant="outline">{course.lessons.length} lessons</Badge>
@@ -258,63 +259,102 @@ const CourseDetail = () => {
                             </div>
                           </AccordionTrigger>
                           <AccordionContent>
-                            <div className="space-y-3 pt-3">
+                            <div className="space-y-4 pt-4">
                               {course.lessons.map((lesson, index) => {
                                 const locked = isLessonLocked(lesson.id, index);
                                 const progress = lessonProgress[lesson.id] || (lesson.completed ? 100 : 0);
+                                const isCompleted = progress >= 90;
+
+                                let statusBadge;
+                                if (isCompleted) {
+                                  statusBadge = (
+                                    <Badge className="bg-success text-success-foreground hover:bg-success">
+                                      <CheckCircle className="h-3 w-3 mr-1" />
+                                      Completed
+                                    </Badge>
+                                  );
+                                } else if (locked) {
+                                  statusBadge = (
+                                    <Badge variant="secondary" className="bg-muted">
+                                      <Lock className="h-3 w-3 mr-1" />
+                                      Locked
+                                    </Badge>
+                                  );
+                                } else {
+                                  statusBadge = (
+                                    <Badge variant="outline" className="border-primary text-primary">
+                                      Unlocked
+                                    </Badge>
+                                  );
+                                }
+
+                                const handleLessonClick = () => {
+                                  if (locked) {
+                                    toast.error('Complete the previous lesson to 90% to unlock this item');
+                                    return;
+                                  }
+
+                                  if (lesson.type === 'quiz') {
+                                    navigate(`/course/${course.id}/quiz/${lesson.id}`);
+                                  } else if (lesson.videoId) {
+                                    setSelectedLesson(lesson);
+                                  }
+                                };
+
+                                let lessonIcon;
+                                let lessonTypeText;
+
+                                if (lesson.type === 'video') {
+                                  lessonIcon = <PlayCircle className="h-4 w-4" />;
+                                  lessonTypeText = "Video Lecture";
+                                } else if (lesson.type === 'quiz') {
+                                  lessonIcon = <BookOpen className="h-4 w-4" />;
+                                  lessonTypeText = "Quiz";
+                                } else {
+                                  lessonIcon = <FileText className="h-4 w-4" />;
+                                  lessonTypeText = "Document";
+                                }
+
                                 return (
                                   <div
                                     key={lesson.id}
-                                    className={`flex items-center justify-between p-3 rounded-lg transition-colors ${
-                                      locked ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
+                                    className={`p-4 rounded-lg border-2 transition-all ${
+                                      locked ? 'opacity-60 cursor-not-allowed border-muted' : 'cursor-pointer border-border hover:border-primary'
                                     } ${
                                       selectedLesson?.id === lesson.id
-                                        ? 'bg-primary/10 border-2 border-primary'
-                                        : !locked ? 'hover:bg-secondary' : ''
+                                        ? 'bg-primary/10 border-primary shadow-md'
+                                        : 'bg-card'
                                     }`}
-                                    onClick={() => {
-                                      if (!locked && lesson.videoId) {
-                                        setSelectedLesson(lesson);
-                                      } else if (locked) {
-                                        toast.error('Complete the previous video to 90% to unlock this lesson');
-                                      }
-                                    }}
+                                    onClick={handleLessonClick}
                                   >
-                                    <div className="flex items-center gap-3 flex-1">
-                                      {lesson.type === 'video' ? (
-                                        <PlayCircle className={`h-5 w-5 ${locked ? 'text-muted-foreground' : 'text-primary'}`} />
-                                      ) : (
-                                        <FileText className={`h-5 w-5 ${locked ? 'text-muted-foreground' : 'text-primary'}`} />
-                                      )}
-                                      <div className="flex-1">
-                                        <div className="flex items-center gap-2">
-                                          {progress >= 90 && (
-                                            <Badge className="text-xs bg-success text-success-foreground">
-                                              <CheckCircle className="h-2 w-2 mr-1" />
-                                              Complete
-                                            </Badge>
-                                          )}
-                                          <p className="font-medium">{index + 1}. {lesson.title}</p>
+                                    <div className="flex items-start gap-4">
+                                      <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary/10 text-primary font-bold shrink-0">
+                                        {index + 1}
+                                      </div>
+                                      <div className="flex-1 min-w-0">
+                                        <div className="mb-2">
+                                          {statusBadge}
                                         </div>
-                                        <div className="flex items-center gap-2">
-                                          <p className="text-xs text-muted-foreground capitalize">{lesson.type}</p>
-                                          {progress > 0 && progress < 90 && (
-                                            <Badge variant="outline" className="text-xs">
-                                              {Math.round(progress)}%
-                                            </Badge>
-                                          )}
+                                        <h4 className="font-semibold text-base mb-1 leading-tight">
+                                          {lesson.title}
+                                        </h4>
+                                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                                          <div className="flex items-center gap-1.5">
+                                            {lessonIcon}
+                                            <span className="capitalize">{lessonTypeText}</span>
+                                          </div>
+                                          <span>•</span>
+                                          <div className="flex items-center gap-1.5">
+                                            <Clock className="h-4 w-4" />
+                                            <span>{lesson.duration} min</span>
+                                          </div>
+                                          <span>•</span>
+                                          <div className="flex items-center gap-1.5">
+                                            <Zap className="h-4 w-4 text-accent" />
+                                            <span className="font-medium text-accent">{lesson.xp} XP</span>
+                                          </div>
                                         </div>
                                       </div>
-                                    </div>
-                                    <div className="flex items-center gap-4">
-                                      <span className="text-sm text-muted-foreground">{lesson.duration} min</span>
-                                      <Badge variant="secondary" className="flex items-center gap-1">
-                                        <Zap className="h-3 w-3 text-accent" />
-                                        {lesson.xp}
-                                      </Badge>
-                                      {locked && (
-                                        <Lock className="h-4 w-4 text-muted-foreground" />
-                                      )}
                                     </div>
                                   </div>
                                 );
