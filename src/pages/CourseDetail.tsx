@@ -297,7 +297,7 @@ const CourseDetail = () => {
                             </div>
                           </AccordionTrigger>
                           <AccordionContent>
-                            <div className="space-y-4 pt-4">
+                            <div className="space-y-3 pt-4">
                               {course.lessons.map((lesson, index) => {
                                 const locked = isLessonLocked(lesson.id, index);
                                 const progress = lessonProgress[lesson.id] || (lesson.completed ? 100 : 0);
@@ -313,9 +313,16 @@ const CourseDetail = () => {
                                   );
                                 } else if (locked) {
                                   statusBadge = (
-                                    <Badge variant="secondary" className="bg-muted">
+                                    <Badge variant="secondary" className="bg-muted text-muted-foreground">
                                       <Lock className="h-3 w-3 mr-1" />
                                       Locked
+                                    </Badge>
+                                  );
+                                } else if (lesson.type === 'quiz') {
+                                  statusBadge = (
+                                    <Badge className="bg-purple-600 text-white hover:bg-purple-700">
+                                      <BookOpen className="h-3 w-3 mr-1" />
+                                      Unlocked
                                     </Badge>
                                   );
                                 } else {
@@ -375,22 +382,22 @@ const CourseDetail = () => {
                                 let lessonTypeText;
 
                                 if (lesson.type === 'video') {
-                                  lessonIcon = <PlayCircle className="h-4 w-4" />;
+                                  lessonIcon = <PlayCircle className="h-5 w-5" />;
                                   lessonTypeText = "Video";
                                 } else if (lesson.type === 'quiz') {
-                                  lessonIcon = <BookOpen className="h-4 w-4" />;
+                                  lessonIcon = <BookOpen className="h-5 w-5" />;
                                   lessonTypeText = "Quiz";
                                 } else {
-                                  lessonIcon = <FileText className="h-4 w-4" />;
-                                  lessonTypeText = "Document";
+                                  lessonIcon = <FileText className="h-5 w-5" />;
+                                  lessonTypeText = "Reading";
                                 }
 
                                 return (
                                   <ContextMenu key={lesson.id}>
                                     <ContextMenuTrigger>
                                       <div
-                                        className={`p-3 md:p-4 rounded-lg border-2 transition-all ${
-                                          locked ? 'opacity-60 cursor-not-allowed border-muted' : 'cursor-pointer border-border hover:border-primary'
+                                        className={`p-4 rounded-lg border transition-all ${
+                                          locked ? 'opacity-60 cursor-not-allowed border-muted bg-muted/20' : 'cursor-pointer border-border hover:border-primary hover:shadow-sm'
                                         } ${
                                           selectedLesson?.id === lesson.id || activeQuizId === lesson.id
                                             ? 'bg-primary/10 border-primary shadow-md'
@@ -398,30 +405,32 @@ const CourseDetail = () => {
                                         }`}
                                         onClick={handleLessonClick}
                                       >
-                                        <div className="flex items-start md:items-center gap-3 md:gap-4">
-                                          <div className="flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-full bg-primary/10 text-primary font-bold shrink-0 text-sm md:text-base mt-1">
+                                        <div className="flex items-center gap-4">
+                                          <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 text-primary font-bold shrink-0">
                                             {index + 1}
                                           </div>
+
                                           <div className="flex-1 min-w-0">
-                                            <div className="flex items-center gap-2 mb-4">
-                                              {statusBadge}
-                                            </div>
-                                            <h4 className="font-semibold text-sm md:text-base mb-1.5 md:mb-2 leading-tight">
+                                            <h4 className="font-semibold text-base mb-2 leading-tight">
                                               {lesson.title}
                                             </h4>
-                                            <div className="flex flex-wrap items-center gap-1.5 md:gap-2 text-xs md:text-sm text-muted-foreground">
-                                              <div className="flex items-center gap-1 md:gap-1.5">
+                                            <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
+                                              <div className="flex items-center gap-1.5">
                                                 {lessonIcon}
-                                                <span>{lessonTypeText}</span>
+                                                <span className="font-medium">{lessonTypeText}</span>
                                               </div>
-                                              <span className="hidden sm:inline">•</span>
+                                              <span>•</span>
                                               <span>{lesson.duration} min</span>
-                                              <span className="hidden sm:inline">•</span>
+                                              <span>•</span>
                                               <div className="flex items-center gap-1">
-                                                <Zap className="h-3 w-3 md:h-4 md:w-4 text-accent" />
+                                                <Zap className="h-4 w-4 text-accent" />
                                                 <span className="font-medium text-accent">{lesson.xp} XP</span>
                                               </div>
                                             </div>
+                                          </div>
+
+                                          <div className="shrink-0">
+                                            {statusBadge}
                                           </div>
                                         </div>
                                       </div>
@@ -456,6 +465,10 @@ const CourseDetail = () => {
                                   </ContextMenu>
                                 );
                               })}
+                              <Separator className="my-4" />
+                              <p className="text-sm text-muted-foreground text-center py-2">
+                                Complete all lessons to earn your certificate
+                              </p>
                             </div>
                           </AccordionContent>
                         </AccordionItem>
