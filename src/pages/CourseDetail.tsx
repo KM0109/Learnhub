@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Star, Users, Clock, PlayCircle, FileText, CheckCircle, Award, Heart, Zap, Download, Lock, BookOpen } from "lucide-react";
+import { Star, Users, Clock, PlayCircle, FileText, CheckCircle, Award, Heart, Zap, Download, Lock, BookOpen, XCircle } from "lucide-react";
 import { courses } from "@/data/courses";
 import { Progress } from "@/components/ui/progress";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -13,6 +13,9 @@ import { toast } from "sonner";
 import { useState, useEffect } from "react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import VideoPlayer from "@/components/VideoPlayer";
+import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "@/components/ui/context-menu";
+import InlineQuiz from "@/components/InlineQuiz";
+import { getQuizById } from "@/data/quizzes";
 
 const CourseDetail = () => {
   const { id } = useParams();
@@ -24,6 +27,7 @@ const CourseDetail = () => {
   const [unlockedLessons, setUnlockedLessons] = useState<Set<string>>(new Set([course?.lessons[0]?.id || ""]));
   const [clickCounts, setClickCounts] = useState<Record<string, number>>({});
   const [manuallyCompleted, setManuallyCompleted] = useState<Set<string>>(new Set());
+  const [activeQuizId, setActiveQuizId] = useState<string | null>(null);
 
   useEffect(() => {
     if (!course) return;
@@ -96,6 +100,23 @@ const CourseDetail = () => {
     if (!course.enrolled && !course.purchased && index === 0) return true;
     if (index === 0) return false;
     return !unlockedLessons.has(lessonId);
+  };
+
+  const handleQuizComplete = (passed: boolean, quizId: string) => {
+    if (passed) {
+      setManuallyCompleted(prev => new Set([...prev, quizId]));
+      setLessonProgress({ ...lessonProgress, [quizId]: 100 });
+
+      const currentIndex = course.lessons.findIndex(l => l.id === quizId);
+      if (currentIndex < course.lessons.length - 1) {
+        const nextLesson = course.lessons[currentIndex + 1];
+        setUnlockedLessons(prev => new Set([...prev, nextLesson.id]));
+      }
+
+      setTimeout(() => {
+        setActiveQuizId(null);
+      }, 2000);
+    }
   };
 
   if (!course) {
@@ -238,7 +259,14 @@ const CourseDetail = () => {
                   </CardContent>
                 </Card>
 
-                {selectedLesson && selectedLesson.videoId && (
+                {activeQuizId && (() => {
+                  const quiz = getQuizById(activeQuizId);
+                  return quiz ? (
+                    <InlineQuiz quiz={quiz} onComplete={(passed) => handleQuizComplete(passed, activeQuizId)} />
+                  ) : null;
+                })()}
+
+                {selectedLesson && selectedLesson.videoId && !activeQuizId && (
                   <VideoPlayer
                     videoId={selectedLesson.videoId}
                     lessonId={selectedLesson.id}
@@ -300,69 +328,47 @@ const CourseDetail = () => {
 
                                 const handleLessonClick = () => {
                                   if (locked) {
-                                    const currentClicks = (clickCounts[lesson.id] || 0) + 1;
-                                    setClickCounts({ ...clickCounts, [lesson.id]: currentClicks });
-
-                                    if (currentClicks === 1) {
-                                      toast.info(`Click ${currentClicks}/3 to unlock`);
-                                    } else if (currentClicks === 2) {
-                                      toast.info(`Click ${currentClicks}/3 to unlock`);
-                                    } else if (currentClicks >= 3) {
-                                      setUnlockedLessons(prev => new Set([...prev, lesson.id]));
-                                      setClickCounts({ ...clickCounts, [lesson.id]: 0 });
-                                      toast.success(`${lesson.title} unlocked!`);
-                                    }
+                                    toast.info("This lesson is locked. Right-click to unlock it.");
                                     return;
-                                  }
-
-                                  if (isCompleted) {
-                                    const completionClicks = (clickCounts[`completed_${lesson.id}`] || 0) + 1;
-                                    setClickCounts({ ...clickCounts, [`completed_${lesson.id}`]: completionClicks });
-
-                                    if (completionClicks === 1) {
-                                      toast.info(`Click ${completionClicks}/3 to mark as incomplete`);
-                                    } else if (completionClicks === 2) {
-                                      toast.info(`Click ${completionClicks}/3 to mark as incomplete`);
-                                    } else if (completionClicks >= 3) {
-                                      setManuallyCompleted(prev => {
-                                        const newSet = new Set(prev);
-                                        newSet.delete(lesson.id);
-                                        return newSet;
-                                      });
-                                      setLessonProgress({ ...lessonProgress, [lesson.id]: 0 });
-                                      setClickCounts({ ...clickCounts, [`completed_${lesson.id}`]: 0 });
-                                      toast.success(`${lesson.title} marked as incomplete`);
-                                    }
-                                    return;
-                                  }
-
-                                  if (!locked && !isCompleted) {
-                                    const incompleteClicks = (clickCounts[`incomplete_${lesson.id}`] || 0) + 1;
-                                    setClickCounts({ ...clickCounts, [`incomplete_${lesson.id}`]: incompleteClicks });
-
-                                    if (incompleteClicks === 1) {
-                                      toast.info(`Click ${incompleteClicks}/3 to mark as complete`);
-                                    } else if (incompleteClicks === 2) {
-                                      toast.info(`Click ${incompleteClicks}/3 to mark as complete`);
-                                    } else if (incompleteClicks >= 3) {
-                                      setManuallyCompleted(prev => new Set([...prev, lesson.id]));
-                                      setLessonProgress({ ...lessonProgress, [lesson.id]: 100 });
-                                      setClickCounts({ ...clickCounts, [`incomplete_${lesson.id}`]: 0 });
-                                      toast.success(`${lesson.title} marked as complete!`);
-
-                                      const currentIndex = course.lessons.findIndex(l => l.id === lesson.id);
-                                      if (currentIndex < course.lessons.length - 1) {
-                                        const nextLesson = course.lessons[currentIndex + 1];
-                                        setUnlockedLessons(prev => new Set([...prev, nextLesson.id]));
-                                      }
-                                    }
                                   }
 
                                   if (lesson.type === 'quiz') {
+                                    if (!isCompleted) {
+                                      setActiveQuizId(lesson.id);
+                                      setSelectedLesson(null);
+                                    }
                                     return;
                                   } else if (lesson.videoId && !locked) {
+                                    setActiveQuizId(null);
                                     setSelectedLesson(lesson);
                                   }
+                                };
+
+                                const handleUnlock = () => {
+                                  setUnlockedLessons(prev => new Set([...prev, lesson.id]));
+                                  toast.success(`${lesson.title} unlocked!`);
+                                };
+
+                                const handleMarkComplete = () => {
+                                  setManuallyCompleted(prev => new Set([...prev, lesson.id]));
+                                  setLessonProgress({ ...lessonProgress, [lesson.id]: 100 });
+                                  toast.success(`${lesson.title} marked as complete!`);
+
+                                  const currentIndex = course.lessons.findIndex(l => l.id === lesson.id);
+                                  if (currentIndex < course.lessons.length - 1) {
+                                    const nextLesson = course.lessons[currentIndex + 1];
+                                    setUnlockedLessons(prev => new Set([...prev, nextLesson.id]));
+                                  }
+                                };
+
+                                const handleMarkIncomplete = () => {
+                                  setManuallyCompleted(prev => {
+                                    const newSet = new Set(prev);
+                                    newSet.delete(lesson.id);
+                                    return newSet;
+                                  });
+                                  setLessonProgress({ ...lessonProgress, [lesson.id]: 0 });
+                                  toast.success(`${lesson.title} marked as incomplete`);
                                 };
 
                                 let lessonIcon;
@@ -380,44 +386,67 @@ const CourseDetail = () => {
                                 }
 
                                 return (
-                                  <div
-                                    key={lesson.id}
-                                    className={`p-3 md:p-4 rounded-lg border-2 transition-all ${
-                                      locked ? 'opacity-60 cursor-not-allowed border-muted' : 'cursor-pointer border-border hover:border-primary'
-                                    } ${
-                                      selectedLesson?.id === lesson.id
-                                        ? 'bg-primary/10 border-primary shadow-md'
-                                        : 'bg-card'
-                                    }`}
-                                    onClick={handleLessonClick}
-                                  >
-                                    <div className="flex items-start md:items-center gap-3 md:gap-4">
-                                      <div className="flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-full bg-primary/10 text-primary font-bold shrink-0 text-sm md:text-base">
-                                        {index + 1}
-                                      </div>
-                                      <div className="flex-1 min-w-0">
-                                        <div className="flex items-center gap-2 mb-1.5 md:mb-2">
-                                          {statusBadge}
-                                        </div>
-                                        <h4 className="font-semibold text-sm md:text-base mb-1.5 md:mb-2 leading-tight">
-                                          {lesson.title}
-                                        </h4>
-                                        <div className="flex flex-wrap items-center gap-1.5 md:gap-2 text-xs md:text-sm text-muted-foreground">
-                                          <div className="flex items-center gap-1 md:gap-1.5">
-                                            {lessonIcon}
-                                            <span>{lessonTypeText}</span>
+                                  <ContextMenu key={lesson.id}>
+                                    <ContextMenuTrigger>
+                                      <div
+                                        className={`p-3 md:p-4 rounded-lg border-2 transition-all ${
+                                          locked ? 'opacity-60 cursor-not-allowed border-muted' : 'cursor-pointer border-border hover:border-primary'
+                                        } ${
+                                          selectedLesson?.id === lesson.id
+                                            ? 'bg-primary/10 border-primary shadow-md'
+                                            : 'bg-card'
+                                        }`}
+                                        onClick={handleLessonClick}
+                                      >
+                                        <div className="flex items-start md:items-center gap-3 md:gap-4">
+                                          <div className="flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-full bg-primary/10 text-primary font-bold shrink-0 text-sm md:text-base">
+                                            {index + 1}
                                           </div>
-                                          <span className="hidden sm:inline">•</span>
-                                          <span>{lesson.duration} min</span>
-                                          <span className="hidden sm:inline">•</span>
-                                          <div className="flex items-center gap-1">
-                                            <Zap className="h-3 w-3 md:h-4 md:w-4 text-accent" />
-                                            <span className="font-medium text-accent">{lesson.xp} XP</span>
+                                          <div className="flex-1 min-w-0">
+                                            <div className="flex items-center gap-2 mb-1.5 md:mb-2">
+                                              {statusBadge}
+                                            </div>
+                                            <h4 className="font-semibold text-sm md:text-base mb-1.5 md:mb-2 leading-tight">
+                                              {lesson.title}
+                                            </h4>
+                                            <div className="flex flex-wrap items-center gap-1.5 md:gap-2 text-xs md:text-sm text-muted-foreground">
+                                              <div className="flex items-center gap-1 md:gap-1.5">
+                                                {lessonIcon}
+                                                <span>{lessonTypeText}</span>
+                                              </div>
+                                              <span className="hidden sm:inline">•</span>
+                                              <span>{lesson.duration} min</span>
+                                              <span className="hidden sm:inline">•</span>
+                                              <div className="flex items-center gap-1">
+                                                <Zap className="h-3 w-3 md:h-4 md:w-4 text-accent" />
+                                                <span className="font-medium text-accent">{lesson.xp} XP</span>
+                                              </div>
+                                            </div>
                                           </div>
                                         </div>
                                       </div>
-                                    </div>
-                                  </div>
+                                    </ContextMenuTrigger>
+                                    <ContextMenuContent>
+                                      {locked && (
+                                        <ContextMenuItem onClick={handleUnlock}>
+                                          <Lock className="h-4 w-4 mr-2" />
+                                          Unlock Lesson
+                                        </ContextMenuItem>
+                                      )}
+                                      {!locked && !isCompleted && (
+                                        <ContextMenuItem onClick={handleMarkComplete}>
+                                          <CheckCircle className="h-4 w-4 mr-2" />
+                                          Mark as Complete
+                                        </ContextMenuItem>
+                                      )}
+                                      {isCompleted && (
+                                        <ContextMenuItem onClick={handleMarkIncomplete}>
+                                          <XCircle className="h-4 w-4 mr-2" />
+                                          Mark as Incomplete
+                                        </ContextMenuItem>
+                                      )}
+                                    </ContextMenuContent>
+                                  </ContextMenu>
                                 );
                               })}
                             </div>

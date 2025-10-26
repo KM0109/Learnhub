@@ -108,25 +108,31 @@ export const levels: UserLevel[] = [
   },
   {
     level: 5,
-    name: "Level 5",
+    name: "Expert Learner",
     minXP: 10000,
     maxXP: 19999,
     color: "bg-orange-500",
     icon: "🏆",
     rewards: [
       {
-        id: "legend-coupon",
+        id: "expert-coupon",
         type: "coupon",
         title: "25% Off Coupon",
-        description: "25% discount on any course",
+        description: "25% discount on your next course purchase",
         value: "25%",
-        code: "LEGEND25"
+        code: "EXPERT25"
       },
       {
-        id: "exclusive-content",
+        id: "exclusive-newsletter",
         type: "feature",
-        title: "Educational Newsletter Access",
-        description: "Access to exclusive educational newsletters and learning resources"
+        title: "Weekly Educational Newsletter",
+        description: "Receive exclusive weekly newsletters with learning tips, industry insights, and curated educational content"
+      },
+      {
+        id: "exclusive-blog",
+        type: "feature",
+        title: "Premium Blog Access",
+        description: "Access to members-only blog posts covering advanced topics and real-world case studies"
       }
     ]
   },

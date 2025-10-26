@@ -48,13 +48,15 @@ const VideoPlayer = ({
   }, [courseId, lessonId]);
 
   useEffect(() => {
-    const tag = document.createElement('script');
-    tag.src = 'https://www.youtube.com/iframe_api';
-    const firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
+    if (!window.YT) {
+      const tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/iframe_api';
+      const firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
+    }
 
-    window.onYouTubeIframeAPIReady = () => {
-      if (playerRef.current) {
+    const initPlayer = () => {
+      if (playerRef.current && window.YT && window.YT.Player) {
         const newPlayer = new window.YT.Player(playerRef.current, {
           videoId: videoId,
           playerVars: {
@@ -69,6 +71,12 @@ const VideoPlayer = ({
         setPlayer(newPlayer);
       }
     };
+
+    if (window.YT && window.YT.Player) {
+      initPlayer();
+    } else {
+      window.onYouTubeIframeAPIReady = initPlayer;
+    }
 
     return () => {
       if (progressIntervalRef.current) {

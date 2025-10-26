@@ -59,7 +59,7 @@ const Dashboard = () => {
                     </div>
                     <div>
                       <h3 className="text-xl font-bold">Level {currentLevel.level}: {currentLevel.name}</h3>
-                      <p className="text-sm text-muted-foreground">{totalXP.toLocaleString()} XP earned</p>
+                      <p className="text-sm text-muted-foreground">Total: {totalXP.toLocaleString()} XP</p>
                     </div>
                   </div>
                   <CollapsibleTrigger asChild>
