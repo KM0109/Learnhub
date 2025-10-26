@@ -7,7 +7,7 @@ export const quizzes: Quiz[] = [
     title: "Python Basics Quiz",
     description: "Test your understanding of Python fundamentals, variables, and functions",
     xp: 150,
-    passingScore: 70,
+    passingScore: 60,
     timeLimit: 5,
     questions: [
       {
@@ -48,7 +48,7 @@ export const quizzes: Quiz[] = [
     title: "Conditionals and Loops Quiz",
     description: "Test your knowledge of if statements, while loops, and for loops",
     xp: 150,
-    passingScore: 70,
+    passingScore: 60,
     timeLimit: 5,
     questions: [
       {
@@ -89,7 +89,7 @@ export const quizzes: Quiz[] = [
     title: "Exceptions and Error Handling Quiz",
     description: "Test your understanding of try-except blocks and error handling",
     xp: 150,
-    passingScore: 70,
+    passingScore: 60,
     timeLimit: 5,
     questions: [
       {

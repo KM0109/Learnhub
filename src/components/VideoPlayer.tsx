@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { CheckCircle } from "lucide-react";
+import { toast } from "sonner";
 
 interface VideoPlayerProps {
   videoId: string;
@@ -154,6 +155,10 @@ const VideoPlayer = ({
     if (onVideoComplete) {
       onVideoComplete(lessonId);
     }
+
+    toast.success("Video completed! XP earned!", {
+      description: "Great job on completing this lesson!",
+    });
   };
 
 
