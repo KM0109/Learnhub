@@ -157,103 +157,77 @@ const CourseDetail = () => {
                   />
                 )}
 
-                {/* What You'll Learn section - Shows above Course Content on mobile */}
-                <Card className="lg:hidden">
+                {/* Course Info Card - Shows above Course Content on mobile */}
+                <Card className="lg:hidden shadow-elegant">
                   <CardContent className="p-6">
-                    <h3 className="text-xl font-semibold mb-4">What You'll Learn</h3>
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <div className="flex gap-3">
-                        <CheckCircle className="h-5 w-5 text-success shrink-0 mt-0.5" />
-                        <p className="text-sm">Master the fundamentals and advanced concepts</p>
+                    <div className="aspect-video rounded-lg overflow-hidden mb-4">
+                      <img src={course.thumbnail} alt={course.title} className="w-full h-full object-cover" />
+                    </div>
+                    <div className="text-center mb-4">
+                      {course.price === 0 ? (
+                        <div>
+                          <span className="text-4xl font-bold text-success">FREE</span>
+                          <p className="text-sm text-muted-foreground mt-1">No payment required</p>
+                        </div>
+                      ) : (
+                        <span className="text-4xl font-bold text-primary">${course.price}</span>
+                      )}
+                    </div>
+                    <Link to={`/enroll/${course.id}`} className="block mb-3">
+                      <Button variant="hero" size="lg" className="w-full">
+                        {course.price === 0 ? "Enroll for Free" : "Enroll Now"}
+                      </Button>
+                    </Link>
+                    <Button
+                      variant="outline"
+                      size="lg"
+                      className="w-full"
+                      onClick={handleWishlistToggle}
+                    >
+                      <Heart
+                        className={`h-5 w-5 mr-2 transition-colors ${
+                          isWishlisted ? "fill-red-500 text-red-500" : ""
+                        }`}
+                      />
+                      {isWishlisted ? "Remove from Wishlist" : "Add to Wishlist"}
+                    </Button>
+                    <Separator className="my-4" />
+                    <div className="space-y-3 text-sm">
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Level</span>
+                        <span className="font-semibold">{course.level}</span>
                       </div>
-                      <div className="flex gap-3">
-                        <CheckCircle className="h-5 w-5 text-success shrink-0 mt-0.5" />
-                        <p className="text-sm">Build real-world projects from scratch</p>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Duration</span>
+                        <span className="font-semibold">{course.duration}</span>
                       </div>
-                      <div className="flex gap-3">
-                        <CheckCircle className="h-5 w-5 text-success shrink-0 mt-0.5" />
-                        <p className="text-sm">Get industry-recognized certification</p>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Lessons</span>
+                        <span className="font-semibold">{course.lessons.length}</span>
                       </div>
-                      <div className="flex gap-3">
-                        <CheckCircle className="h-5 w-5 text-success shrink-0 mt-0.5" />
-                        <p className="text-sm">Learn best practices and current standards</p>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Total XP</span>
+                        <span className="font-semibold flex items-center gap-1">
+                          <Zap className="h-4 w-4 text-accent" />
+                          {course.totalXp}
+                        </span>
                       </div>
                     </div>
-                  </CardContent>
-                </Card>
-
-                {/* What You'll Get section - Shows above Course Content on mobile */}
-                <Card className="lg:hidden">
-                  <CardContent className="p-6">
-                    <h3 className="text-xl font-semibold mb-4">What You'll Get</h3>
-                    <div className="space-y-4">
-                      <div className="flex items-center justify-between p-4 bg-secondary/30 rounded-lg">
-                        <div className="flex items-center gap-3">
-                          <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${
-                            isCourseCompleted ? 'bg-success/10' : 'bg-muted'
-                          }`}>
-                            <FileText className={`h-6 w-6 ${isCourseCompleted ? 'text-success' : 'text-muted-foreground'}`} />
-                          </div>
-                          <div>
-                            <p className="font-semibold">PDF Course Summary</p>
-                            <p className="text-sm text-muted-foreground">Comprehensive course notes and key takeaways</p>
-                          </div>
-                        </div>
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <div>
-                              <Button
-                                variant={isCourseCompleted ? "default" : "secondary"}
-                                size="sm"
-                                onClick={handleDownloadPDF}
-                                disabled={!isCourseCompleted}
-                              >
-                                {isCourseCompleted ? (
-                                  <>
-                                    <Download className="h-4 w-4 mr-2" />
-                                    Download
-                                  </>
-                                ) : (
-                                  <>
-                                    <Lock className="h-4 w-4 mr-2" />
-                                    Locked
-                                  </>
-                                )}
-                              </Button>
-                            </div>
-                          </TooltipTrigger>
-                          {!isCourseCompleted && (
-                            <TooltipContent>
-                              <p>Complete the course to unlock</p>
-                            </TooltipContent>
-                          )}
-                        </Tooltip>
-                      </div>
-
-                      <div className="flex items-center justify-between p-4 bg-secondary/30 rounded-lg">
-                        <div className="flex items-center gap-3">
-                          <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${
-                            isCourseCompleted ? 'bg-accent/10' : 'bg-muted'
-                          }`}>
-                            <Award className={`h-6 w-6 ${isCourseCompleted ? 'text-accent' : 'text-muted-foreground'}`} />
-                          </div>
-                          <div>
-                            <p className="font-semibold">Certificate of Completion</p>
-                            <p className="text-sm text-muted-foreground">Shareable certificate upon course completion</p>
-                          </div>
+                    <Separator className="my-4" />
+                    <div className="space-y-3 text-sm mb-4">
+                      <h4 className="font-semibold text-base">Certificate Status</h4>
+                      <div className="flex items-center justify-between p-3 bg-secondary/50 rounded-lg">
+                        <div className="flex items-center gap-2">
+                          <Award className={`h-5 w-5 ${isCourseCompleted ? 'text-success' : 'text-muted-foreground'}`} />
+                          <span className="font-medium">Certificate</span>
                         </div>
                         {isCourseCompleted ? (
-                          <Link to={`/certificate/${course.id}`}>
-                            <Button variant="default" size="sm">
-                              <Award className="h-4 w-4 mr-2" />
-                              View Certificate
-                            </Button>
-                          </Link>
+                          <Badge className="bg-success text-success-foreground">Unlocked</Badge>
                         ) : (
-                          <Button variant="secondary" size="sm" disabled>
-                            <Lock className="h-4 w-4 mr-2" />
+                          <Badge variant="secondary">
+                            <Lock className="h-3 w-3 mr-1" />
                             Locked
-                          </Button>
+                          </Badge>
                         )}
                       </div>
                     </div>
@@ -265,8 +239,8 @@ const CourseDetail = () => {
                   <Card>
                     <CardContent className="p-6">
                       <Accordion type="single" collapsible className="w-full" defaultValue="lessons">
-                        <AccordionItem value="lessons">
-                          <AccordionTrigger className="text-lg font-semibold">
+                        <AccordionItem value="lessons" className="border-none">
+                          <AccordionTrigger className="text-lg font-semibold hover:no-underline">
                             <div className="flex items-center gap-3">
                               <span>Course Curriculum</span>
                               <Badge variant="outline">{course.lessons.length} lessons</Badge>
@@ -306,18 +280,20 @@ const CourseDetail = () => {
                                         <FileText className={`h-5 w-5 ${locked ? 'text-muted-foreground' : 'text-primary'}`} />
                                       )}
                                       <div className="flex-1">
-                                        <p className="font-medium">{index + 1}. {lesson.title}</p>
+                                        <div className="flex items-center gap-2">
+                                          {progress >= 90 && (
+                                            <Badge className="text-xs bg-success text-success-foreground">
+                                              <CheckCircle className="h-2 w-2 mr-1" />
+                                              Complete
+                                            </Badge>
+                                          )}
+                                          <p className="font-medium">{index + 1}. {lesson.title}</p>
+                                        </div>
                                         <div className="flex items-center gap-2">
                                           <p className="text-xs text-muted-foreground capitalize">{lesson.type}</p>
                                           {progress > 0 && progress < 90 && (
                                             <Badge variant="outline" className="text-xs">
                                               {Math.round(progress)}%
-                                            </Badge>
-                                          )}
-                                          {progress >= 90 && (
-                                            <Badge className="text-xs bg-success text-success-foreground">
-                                              <CheckCircle className="h-2 w-2 mr-1" />
-                                              Complete
                                             </Badge>
                                           )}
                                         </div>
@@ -343,8 +319,8 @@ const CourseDetail = () => {
                     </CardContent>
                   </Card>
 
-                  {/* What You'll Learn section - Hidden on mobile, shown on desktop */}
-                  <Card className="mt-8 hidden lg:block">
+                  {/* What You'll Learn section - Shows after Course Content on mobile, after Course Content on desktop */}
+                  <Card className="mt-8">
                     <CardContent className="p-6">
                       <h3 className="text-xl font-semibold mb-4">What You'll Learn</h3>
                       <div className="grid md:grid-cols-2 gap-4">
@@ -368,8 +344,8 @@ const CourseDetail = () => {
                     </CardContent>
                   </Card>
 
-                  {/* What You'll Get section - Hidden on mobile, shown on desktop */}
-                  <Card className="mt-8 hidden lg:block">
+                  {/* What You'll Get section - Shows after What You'll Learn on all screens */}
+                  <Card className="mt-8">
                     <CardContent className="p-6">
                       <h3 className="text-xl font-semibold mb-4">What You'll Get</h3>
                       <div className="space-y-4">
@@ -448,7 +424,7 @@ const CourseDetail = () => {
                 </div>
               </div>
 
-              <div>
+              <div className="hidden lg:block">
                 <Card className="shadow-elegant sticky top-24">
                   <CardContent className="p-6">
                     <div className="aspect-video rounded-lg overflow-hidden mb-4">
