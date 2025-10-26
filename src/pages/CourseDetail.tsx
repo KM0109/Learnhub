@@ -284,7 +284,7 @@ const CourseDetail = () => {
                     <CardContent className="p-6">
                       <Accordion type="single" collapsible className="w-full" defaultValue="lessons">
                         <AccordionItem value="lessons" className="border-none">
-                          <AccordionTrigger className="text-lg font-semibold hover:no-underline hover:text-purple-600 transition-colors">
+                          <AccordionTrigger className="text-lg font-semibold hover:no-underline hover:text-purple-600 transition-colors pt-2">
                             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3">
                               <span>Course Curriculum</span>
                               <div className="flex items-center gap-2 flex-wrap">
@@ -399,11 +399,11 @@ const CourseDetail = () => {
                                         onClick={handleLessonClick}
                                       >
                                         <div className="flex items-start md:items-center gap-3 md:gap-4">
-                                          <div className="flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-full bg-primary/10 text-primary font-bold shrink-0 text-sm md:text-base">
+                                          <div className="flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-full bg-primary/10 text-primary font-bold shrink-0 text-sm md:text-base mt-1">
                                             {index + 1}
                                           </div>
                                           <div className="flex-1 min-w-0">
-                                            <div className="flex items-center gap-2 mb-1.5 md:mb-2">
+                                            <div className="flex items-center gap-2 mb-2.5 md:mb-3">
                                               {statusBadge}
                                             </div>
                                             <h4 className="font-semibold text-sm md:text-base mb-1.5 md:mb-2 leading-tight">
