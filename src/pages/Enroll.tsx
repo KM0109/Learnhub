@@ -95,7 +95,7 @@ const Enroll = () => {
           </h1>
           
           <div className="grid lg:grid-cols-3 gap-8">
-            <div className="lg:col-span-2">
+            <div className="lg:col-span-2 order-2 lg:order-1">
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
@@ -166,8 +166,8 @@ const Enroll = () => {
               </Card>
             </div>
 
-            <div>
-              <Card className="sticky top-24">
+            <div className="order-1 lg:order-2">
+              <Card className="lg:sticky lg:top-24">
                 <CardHeader>
                   <CardTitle className="text-lg">Order Summary</CardTitle>
                 </CardHeader>

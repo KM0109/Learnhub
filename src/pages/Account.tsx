@@ -50,7 +50,7 @@ const Account = () => {
       <main className="container py-8 max-w-7xl mx-auto">
         {/* Profile Header */}
         <Card className="mb-6 shadow-card animate-fade-in">
-          <CardContent className="p-6">
+          <CardContent className="p-4 sm:p-6">
             <div className="flex flex-col md:flex-row gap-6 items-start md:items-center">
               <div className="relative flex-shrink-0">
                 <div className="w-24 h-24 md:w-32 md:h-32 rounded-full border-4 border-primary shadow-card bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
@@ -79,44 +79,44 @@ const Account = () => {
                 </div>
 
                 <div className="space-y-3">
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                    <div className="flex items-center gap-2 p-3 rounded-lg bg-card border shadow-sm">
-                      <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                        <Flame className="h-4 w-4 text-primary" />
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3">
+                    <div className="flex items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg bg-card border shadow-sm">
+                      <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                        <Flame className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-primary" />
                       </div>
                       <div className="min-w-0">
-                        <p className="text-xl font-bold">{user.streak}</p>
-                        <p className="text-xs text-muted-foreground">Week Streak</p>
+                        <p className="text-lg sm:text-xl font-bold">{user.streak}</p>
+                        <p className="text-[10px] sm:text-xs text-muted-foreground leading-tight">Week Streak</p>
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-2 p-3 rounded-lg bg-card border shadow-sm">
-                      <div className="w-9 h-9 rounded-full bg-success/10 flex items-center justify-center flex-shrink-0">
-                        <Trophy className="h-4 w-4 text-success" />
+                    <div className="flex items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg bg-card border shadow-sm">
+                      <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-success/10 flex items-center justify-center flex-shrink-0">
+                        <Trophy className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-success" />
                       </div>
                       <div className="min-w-0">
-                        <p className="text-xl font-bold">{user.coursesCompleted}</p>
-                        <p className="text-xs text-muted-foreground">Completed</p>
+                        <p className="text-lg sm:text-xl font-bold">{user.coursesCompleted}</p>
+                        <p className="text-[10px] sm:text-xs text-muted-foreground leading-tight">Completed</p>
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-2 p-3 rounded-lg bg-card border shadow-sm">
-                      <div className="w-9 h-9 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
-                        <Award className="h-4 w-4 text-accent" />
+                    <div className="flex items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg bg-card border shadow-sm">
+                      <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
+                        <Award className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-accent" />
                       </div>
                       <div className="min-w-0">
-                        <p className="text-xl font-bold">{earnedBadges.length}</p>
-                        <p className="text-xs text-muted-foreground">Badges</p>
+                        <p className="text-lg sm:text-xl font-bold">{earnedBadges.length}</p>
+                        <p className="text-[10px] sm:text-xs text-muted-foreground leading-tight">Badges</p>
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-2 p-3 rounded-lg bg-card border shadow-sm">
-                      <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                        <Clock className="h-4 w-4 text-primary" />
+                    <div className="flex items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg bg-card border shadow-sm">
+                      <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                        <Clock className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-primary" />
                       </div>
                       <div className="min-w-0">
-                        <p className="text-xl font-bold">{user.hoursLearned}</p>
-                        <p className="text-xs text-muted-foreground">Hours</p>
+                        <p className="text-lg sm:text-xl font-bold">{user.hoursLearned}</p>
+                        <p className="text-[10px] sm:text-xs text-muted-foreground leading-tight">Hours</p>
                       </div>
                     </div>
                   </div>
@@ -128,16 +128,16 @@ const Account = () => {
 
         {/* Level Progression & Rewards Section */}
         <Card className="mb-6 shadow-card">
-          <CardContent className="p-6">
+          <CardContent className="p-4 sm:p-6">
             <Collapsible open={isLevelOpen} onOpenChange={setIsLevelOpen}>
               <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-3">
-                  <div className={`w-12 h-12 rounded-full bg-gradient-to-br from-amber-500 to-yellow-500 flex items-center justify-center`}>
-                    <Star className="w-7 h-7 text-white" />
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-amber-500 to-yellow-500 flex items-center justify-center">
+                    <Star className="w-5 h-5 sm:w-7 sm:h-7 text-white fill-white" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold">Level 6</h3>
-                    <p className="text-sm text-muted-foreground">Total: {totalXP.toLocaleString()} XP</p>
+                    <h3 className="text-lg sm:text-xl font-bold">Level 6</h3>
+                    <p className="text-xs sm:text-sm text-muted-foreground">Total: {totalXP.toLocaleString()} XP</p>
                   </div>
                 </div>
                 <CollapsibleTrigger asChild>
