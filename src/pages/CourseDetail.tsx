@@ -295,7 +295,7 @@ const CourseDetail = () => {
                             </div>
                           </AccordionTrigger>
                           <AccordionContent>
-                            <div className="space-y-3 pt-4">
+                            <div className="pt-4">
                               {course.lessons.map((lesson, index) => {
                                 const locked = isLessonLocked(lesson.id, index);
                                 const progress = lessonProgress[lesson.id] || (lesson.completed ? 100 : 0);
@@ -390,76 +390,81 @@ const CourseDetail = () => {
                                 }
 
                                 return (
-                                  <ContextMenu key={lesson.id}>
-                                    <ContextMenuTrigger>
-                                      <div
-                                        className={`p-4 rounded-lg border transition-all ${
-                                          locked ? 'opacity-60 cursor-not-allowed border-muted bg-muted/20' : 'cursor-pointer border-border hover:border-primary hover:shadow-sm'
-                                        } ${
-                                          selectedLesson?.id === lesson.id || activeQuizId === lesson.id
-                                            ? 'bg-primary/10 border-primary shadow-md'
-                                            : 'bg-card'
-                                        }`}
-                                        onClick={handleLessonClick}
-                                      >
-                                        <div className="flex items-center gap-4">
-                                          <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 text-primary font-bold shrink-0">
-                                            {index + 1}
-                                          </div>
+                                  <>
+                                    <ContextMenu key={lesson.id}>
+                                      <ContextMenuTrigger>
+                                        <div
+                                          className={`p-4 rounded-lg border transition-all ${
+                                            locked ? 'opacity-60 cursor-not-allowed border-muted bg-muted/20' : 'cursor-pointer border-border hover:border-primary hover:shadow-sm'
+                                          } ${
+                                            selectedLesson?.id === lesson.id || activeQuizId === lesson.id
+                                              ? 'bg-primary/10 border-primary shadow-md'
+                                              : 'bg-card'
+                                          }`}
+                                          onClick={handleLessonClick}
+                                        >
+                                          <div className="flex items-start sm:items-center gap-3 sm:gap-4">
+                                            <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 text-primary font-bold shrink-0">
+                                              {index + 1}
+                                            </div>
 
-                                          <div className="flex-1 min-w-0">
-                                            <h4 className="font-semibold text-base mb-2 leading-tight">
-                                              {lesson.title}
-                                            </h4>
-                                            <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
-                                              <div className="flex items-center gap-1.5">
-                                                {lessonIcon}
-                                                <span className="font-medium">{lessonTypeText}</span>
-                                              </div>
-                                              <span>•</span>
-                                              <span>{lesson.duration} min</span>
-                                              <span>•</span>
-                                              <div className="flex items-center gap-1">
-                                                <Zap className="h-4 w-4 text-accent" />
-                                                <span className="font-medium text-accent">{lesson.xp} XP</span>
+                                            <div className="flex-1 min-w-0">
+                                              <h4 className="font-semibold text-sm sm:text-base mb-2 leading-tight">
+                                                {lesson.title}
+                                              </h4>
+                                              <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs sm:text-sm text-muted-foreground">
+                                                <div className="flex items-center gap-1.5">
+                                                  {lessonIcon}
+                                                  <span className="font-medium">{lessonTypeText}</span>
+                                                </div>
+                                                <span className="hidden sm:inline">•</span>
+                                                <span>{lesson.duration} min</span>
+                                                <span className="hidden sm:inline">•</span>
+                                                <div className="flex items-center gap-1">
+                                                  <Zap className="h-3 w-3 sm:h-4 sm:w-4 text-accent" />
+                                                  <span className="font-medium text-accent">{lesson.xp} XP</span>
+                                                </div>
                                               </div>
                                             </div>
-                                          </div>
 
-                                          <div className="shrink-0">
-                                            {statusBadge}
+                                            <div className="shrink-0 self-start sm:self-center">
+                                              {statusBadge}
+                                            </div>
                                           </div>
                                         </div>
-                                      </div>
-                                    </ContextMenuTrigger>
-                                    <ContextMenuContent>
-                                      <ContextMenuItem onClick={handleUnlock}>
-                                        <Lock className="h-4 w-4 mr-2" />
-                                        Mark as Unlocked
-                                      </ContextMenuItem>
-                                      <ContextMenuItem onClick={handleMarkComplete}>
-                                        <CheckCircle className="h-4 w-4 mr-2" />
-                                        Mark as Complete
-                                      </ContextMenuItem>
-                                      <ContextMenuItem onClick={() => {
-                                        setUnlockedLessons(prev => {
-                                          const newSet = new Set(prev);
-                                          newSet.delete(lesson.id);
-                                          return newSet;
-                                        });
-                                        setManuallyCompleted(prev => {
-                                          const newSet = new Set(prev);
-                                          newSet.delete(lesson.id);
-                                          return newSet;
-                                        });
-                                        setLessonProgress({ ...lessonProgress, [lesson.id]: 0 });
-                                        toast.success(`${lesson.title} marked as locked`);
-                                      }}>
-                                        <Lock className="h-4 w-4 mr-2" />
-                                        Mark as Locked
-                                      </ContextMenuItem>
-                                    </ContextMenuContent>
-                                  </ContextMenu>
+                                      </ContextMenuTrigger>
+                                      <ContextMenuContent>
+                                        <ContextMenuItem onClick={handleUnlock}>
+                                          <Lock className="h-4 w-4 mr-2" />
+                                          Mark as Unlocked
+                                        </ContextMenuItem>
+                                        <ContextMenuItem onClick={handleMarkComplete}>
+                                          <CheckCircle className="h-4 w-4 mr-2" />
+                                          Mark as Complete
+                                        </ContextMenuItem>
+                                        <ContextMenuItem onClick={() => {
+                                          setUnlockedLessons(prev => {
+                                            const newSet = new Set(prev);
+                                            newSet.delete(lesson.id);
+                                            return newSet;
+                                          });
+                                          setManuallyCompleted(prev => {
+                                            const newSet = new Set(prev);
+                                            newSet.delete(lesson.id);
+                                            return newSet;
+                                          });
+                                          setLessonProgress({ ...lessonProgress, [lesson.id]: 0 });
+                                          toast.success(`${lesson.title} marked as locked`);
+                                        }}>
+                                          <Lock className="h-4 w-4 mr-2" />
+                                          Mark as Locked
+                                        </ContextMenuItem>
+                                      </ContextMenuContent>
+                                    </ContextMenu>
+                                    {index < course.lessons.length - 1 && (
+                                      <Separator className="my-3" />
+                                    )}
+                                  </>
                                 );
                               })}
                               <Separator className="my-4" />
