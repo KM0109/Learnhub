@@ -289,15 +289,15 @@ const CourseDetail = () => {
                 <div>
                   <h2 className="text-2xl font-bold mb-6">Course Content</h2>
                   <Card>
-                    <CardContent className="p-6">
+                    <CardContent className="p-4 sm:p-6">
                       <Accordion type="single" collapsible className="w-full" defaultValue="lessons">
                         <AccordionItem value="lessons" className="border-none">
-                          <AccordionTrigger className="hover:no-underline hover:text-primary transition-colors pt-2">
-                            <div className="flex flex-col sm:flex-row sm:items-center gap-3 w-full">
-                              <span className="text-lg sm:text-xl font-bold">Course Curriculum</span>
+                          <AccordionTrigger className="hover:no-underline hover:text-primary transition-colors pt-2 pb-1">
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 w-full text-left">
+                              <span className="text-base sm:text-xl font-bold">Course Curriculum</span>
                               <div className="flex items-center gap-2 flex-wrap">
-                                <Badge variant="outline" className="text-sm">{course.lessons.length} lessons</Badge>
-                                <Badge variant="outline" className="flex items-center gap-1 text-sm">
+                                <Badge variant="outline" className="text-xs sm:text-sm">{course.lessons.length} lessons</Badge>
+                                <Badge variant="outline" className="flex items-center gap-1 text-xs sm:text-sm">
                                   <Zap className="h-3 w-3" />
                                   {course.totalXp} XP
                                 </Badge>
@@ -404,7 +404,7 @@ const CourseDetail = () => {
                                     <ContextMenu key={lesson.id}>
                                       <ContextMenuTrigger>
                                         <div
-                                          className={`p-4 sm:p-4 rounded-xl border transition-all ${
+                                          className={`p-3 sm:p-4 rounded-xl border transition-all ${
                                             locked ? 'opacity-60 cursor-not-allowed border-muted bg-muted/20' : 'cursor-pointer border-border hover:border-primary hover:shadow-sm'
                                           } ${
                                             selectedLesson?.id === lesson.id || activeQuizId === lesson.id
@@ -413,26 +413,24 @@ const CourseDetail = () => {
                                           }`}
                                           onClick={handleLessonClick}
                                         >
-                                          <div className="flex gap-4 items-center">
-                                            <div className="flex items-center justify-center min-w-[56px] h-14 sm:min-w-[48px] sm:h-12 rounded-xl bg-primary/10 text-primary font-bold shrink-0 text-xl sm:text-lg">
+                                          <div className="flex gap-2 sm:gap-4 items-start sm:items-center">
+                                            <div className="flex items-center justify-center min-w-[40px] h-10 sm:min-w-[48px] sm:h-12 rounded-lg sm:rounded-xl bg-primary/10 text-primary font-bold shrink-0 text-base sm:text-lg">
                                               {index + 1}
                                             </div>
 
-                                            <div className="flex-1 min-w-0 flex flex-col sm:flex-row sm:items-center gap-3 py-1">
-                                              <div className="flex-1 flex flex-col gap-2">
-                                                <h4 className="font-semibold text-base leading-snug">
+                                            <div className="flex-1 min-w-0 flex flex-col gap-2 sm:gap-3">
+                                              <div className="flex flex-col gap-1.5">
+                                                <h4 className="font-semibold text-sm sm:text-base leading-tight sm:leading-snug">
                                                   {lesson.title}
                                                 </h4>
-                                                <div className="flex items-center gap-2 text-sm flex-wrap sm:flex-nowrap">
-                                                  <div className="flex items-center gap-2">
-                                                    {lessonIcon}
-                                                    <span className="font-medium text-muted-foreground">{lessonTypeText}</span>
-                                                    <span className="text-muted-foreground">•</span>
-                                                    <span className="text-muted-foreground">{lesson.duration} min</span>
-                                                    <span className="text-muted-foreground">•</span>
-                                                    <Zap className="h-4 w-4 text-accent" />
-                                                    <span className="font-bold text-accent text-sm">{lesson.xp} XP</span>
-                                                  </div>
+                                                <div className="flex items-center gap-1.5 text-xs sm:text-sm flex-wrap">
+                                                  {lessonIcon}
+                                                  <span className="font-medium text-muted-foreground">{lessonTypeText}</span>
+                                                  <span className="text-muted-foreground">•</span>
+                                                  <span className="text-muted-foreground">{lesson.duration} min</span>
+                                                  <span className="text-muted-foreground">•</span>
+                                                  <Zap className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-accent" />
+                                                  <span className="font-bold text-accent">{lesson.xp} XP</span>
                                                 </div>
                                               </div>
 
@@ -472,7 +470,7 @@ const CourseDetail = () => {
                                       </ContextMenuContent>
                                     </ContextMenu>
                                     {index < course.lessons.length - 1 && (
-                                      <div className="my-3" />
+                                      <div className="my-2 sm:my-3" />
                                     )}
                                   </>
                                 );
