@@ -285,19 +285,17 @@ const CourseDetail = () => {
                       <Accordion type="single" collapsible className="w-full" defaultValue="lessons">
                         <AccordionItem value="lessons" className="border-none">
                           <AccordionTrigger className="text-lg font-semibold hover:no-underline hover:text-purple-600 transition-colors pt-2">
-                            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3">
+                            <div className="flex items-center gap-3 flex-wrap">
                               <span>Course Curriculum</span>
-                              <div className="flex items-center gap-2 flex-wrap">
-                                <Badge variant="outline">{course.lessons.length} lessons</Badge>
-                                <Badge variant="outline" className="flex items-center gap-1">
-                                  <Zap className="h-3 w-3" />
-                                  {course.totalXp} XP
-                                </Badge>
-                              </div>
+                              <Badge variant="outline">{course.lessons.length} lessons</Badge>
+                              <Badge variant="outline" className="flex items-center gap-1">
+                                <Zap className="h-3 w-3" />
+                                {course.totalXp} XP
+                              </Badge>
                             </div>
                           </AccordionTrigger>
                           <AccordionContent>
-                            <div className="space-y-4 pt-4">
+                            <div className="space-y-3 pt-4">
                               {course.lessons.map((lesson, index) => {
                                 const locked = isLessonLocked(lesson.id, index);
                                 const progress = lessonProgress[lesson.id] || (lesson.completed ? 100 : 0);
@@ -335,7 +333,6 @@ const CourseDetail = () => {
 
                                 const handleLessonClick = () => {
                                   if (locked) {
-                                    toast.info("This lesson is locked. Right-click to unlock it.");
                                     return;
                                   }
 

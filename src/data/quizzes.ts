@@ -8,7 +8,7 @@ export const quizzes: Quiz[] = [
     description: "Test your understanding of Python basics, conditionals, loops, and exceptions",
     xp: 150,
     passingScore: 60,
-    timeLimit: 10,
+    timeLimit: 3,
     questions: [
       {
         id: "q1",
@@ -36,18 +36,8 @@ export const quizzes: Quiz[] = [
         points: 10,
         options: [
           { id: "q3-a", text: "exit", isCorrect: false },
-          { id: "q3-b", text: "stop", isCorrect: false },
-          { id: "q3-c", text: "break", isCorrect: true },
-        ],
-      },
-      {
-        id: "q4",
-        question: "Which keyword is used to handle exceptions in Python?",
-        points: 10,
-        options: [
-          { id: "q4-a", text: "catch", isCorrect: false },
-          { id: "q4-b", text: "except", isCorrect: true },
-          { id: "q4-c", text: "handle", isCorrect: false },
+          { id: "q3-b", text: "break", isCorrect: true },
+          { id: "q3-c", text: "stop", isCorrect: false },
         ],
       },
     ],
