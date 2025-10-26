@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Star, Users, Clock, CirclePlay as PlayCircle, FileText, CircleCheck as CheckCircle, Award, Heart, Zap, Download, Lock, BookOpen, Circle as XCircle } from "lucide-react";
+import { Star, Users, Clock, PlayCircle, FileText, CheckCircle, Award, Heart, Zap, Download, Lock, BookOpen, XCircle } from "lucide-react";
 import { courses } from "@/data/courses";
 import { Progress } from "@/components/ui/progress";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -405,26 +405,27 @@ const CourseDetail = () => {
                                         }`}
                                         onClick={handleLessonClick}
                                       >
-                                        <div className="flex items-center">
-                                          <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 text-primary font-bold shrink-0 mr-4">
+                                        <div className="flex items-center gap-4">
+                                          <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 text-primary font-bold shrink-0">
                                             {index + 1}
                                           </div>
 
-                                          <div className="flex-1 min-w-0 mr-4">
-                                            <h4 className="font-semibold text-base leading-tight">
+                                          <div className="flex-1 min-w-0">
+                                            <h4 className="font-semibold text-base mb-2 leading-tight">
                                               {lesson.title}
                                             </h4>
-                                          </div>
-
-                                          <div className="flex items-center shrink-0 mr-4">
-                                            <div className="flex items-center mr-3">
-                                              {lessonIcon}
-                                              <span className="font-medium text-sm text-muted-foreground ml-1.5">{lessonTypeText}</span>
-                                            </div>
-                                            <span className="text-sm text-muted-foreground mr-3">{lesson.duration} min</span>
-                                            <div className="flex items-center mr-3">
-                                              <Zap className="h-4 w-4 text-accent mr-1" />
-                                              <span className="font-medium text-sm text-accent">{lesson.xp} XP</span>
+                                            <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
+                                              <div className="flex items-center gap-1.5">
+                                                {lessonIcon}
+                                                <span className="font-medium">{lessonTypeText}</span>
+                                              </div>
+                                              <span>•</span>
+                                              <span>{lesson.duration} min</span>
+                                              <span>•</span>
+                                              <div className="flex items-center gap-1">
+                                                <Zap className="h-4 w-4 text-accent" />
+                                                <span className="font-medium text-accent">{lesson.xp} XP</span>
+                                              </div>
                                             </div>
                                           </div>
 
