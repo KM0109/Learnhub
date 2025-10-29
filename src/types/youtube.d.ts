@@ -10,6 +10,12 @@ declare namespace YT {
     destroy(): void;
   }
 
+  interface PlayerConstructor {
+    new (element: HTMLElement | string, options: PlayerOptions): Player;
+  }
+
+  const Player: PlayerConstructor;
+
   interface PlayerOptions {
     height?: string | number;
     width?: string | number;

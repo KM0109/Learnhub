@@ -15,13 +15,6 @@ interface VideoPlayerProps {
   onVideoComplete?: (lessonId: string) => void;
 }
 
-declare global {
-  interface Window {
-    YT: any;
-    onYouTubeIframeAPIReady: () => void;
-  }
-}
-
 const VideoPlayer = ({
   videoId,
   lessonId,
@@ -33,7 +26,7 @@ const VideoPlayer = ({
 }: VideoPlayerProps) => {
   const [watchedSeconds, setWatchedSeconds] = useState(0);
   const [isCompleted, setIsCompleted] = useState(false);
-  const [player, setPlayer] = useState<any>(null);
+  const [player, setPlayer] = useState<YT.Player | null>(null);
   const playerRef = useRef<HTMLDivElement>(null);
   const progressIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
