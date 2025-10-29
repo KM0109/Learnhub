@@ -5,7 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CourseCard from "@/components/CourseCard";
 import { courses } from "@/data/courses";
-import heroImage from "@/assets/hero-image copy.jpeg";
+import heroImage from "@/assets/hero-image copy copy.jpeg";
 import { useState } from "react";
 
 const Index = () => {
