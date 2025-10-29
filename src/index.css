@@ -126,4 +126,66 @@ All colors MUST be HSL.
   body {
     @apply bg-background text-foreground;
   }
+
+  .smart-contrast {
+    filter: contrast(1.2);
+  }
+
+  .pause-animations * {
+    animation-play-state: paused !important;
+    transition: none !important;
+  }
+
+  .contrast-plus {
+    filter: contrast(1.5);
+  }
+
+  .highlight-links a {
+    background-color: hsl(var(--accent) / 0.3);
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 2px;
+  }
+
+  .bigger-text {
+    font-size: 120% !important;
+  }
+
+  .bigger-text * {
+    font-size: inherit !important;
+  }
+
+  .text-spacing * {
+    letter-spacing: 0.12em !important;
+    word-spacing: 0.16em !important;
+  }
+
+  .hide-images img,
+  .hide-images svg:not([role="img"]),
+  .hide-images [style*="background-image"] {
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+
+  .dyslexia-friendly,
+  .dyslexia-friendly * {
+    font-family: 'Comic Sans MS', 'OpenDyslexic', sans-serif !important;
+  }
+
+  .line-height * {
+    line-height: 2 !important;
+  }
+
+  .text-align * {
+    text-align: left !important;
+  }
+
+  @keyframes pulse-cursor {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.5); }
+  }
+
+  .cursor * {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><circle cx="16" cy="16" r="10" fill="black" opacity="0.5"/></svg>') 16 16, auto !important;
+  }
 }
