@@ -128,7 +128,7 @@ All colors MUST be HSL.
   }
 
   .smart-contrast {
-    filter: contrast(1.2);
+    filter: contrast(1.2) brightness(1.05);
   }
 
   .pause-animations * {
@@ -137,18 +137,20 @@ All colors MUST be HSL.
   }
 
   .contrast-plus {
-    filter: contrast(1.5);
+    filter: invert(1) hue-rotate(180deg);
   }
 
   .highlight-links a {
-    background-color: hsl(var(--accent) / 0.3);
+    background-color: hsl(var(--primary) / 0.15);
     text-decoration: underline;
     text-decoration-thickness: 2px;
-    text-underline-offset: 2px;
+    text-underline-offset: 3px;
+    padding: 2px 4px;
+    border-radius: 3px;
   }
 
   .bigger-text {
-    font-size: 120% !important;
+    font-size: 125% !important;
   }
 
   .bigger-text * {
@@ -156,8 +158,8 @@ All colors MUST be HSL.
   }
 
   .text-spacing * {
-    letter-spacing: 0.12em !important;
-    word-spacing: 0.16em !important;
+    letter-spacing: 0.1em !important;
+    word-spacing: 0.2em !important;
   }
 
   .hide-images img,
@@ -169,11 +171,13 @@ All colors MUST be HSL.
 
   .dyslexia-friendly,
   .dyslexia-friendly * {
-    font-family: 'Comic Sans MS', 'OpenDyslexic', sans-serif !important;
+    font-family: 'Arial', 'Helvetica', sans-serif !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.05em !important;
   }
 
   .line-height * {
-    line-height: 2 !important;
+    line-height: 1.8 !important;
   }
 
   .text-align * {
@@ -182,10 +186,41 @@ All colors MUST be HSL.
 
   @keyframes pulse-cursor {
     0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.5); }
+    50% { transform: scale(1.3); }
   }
 
   .cursor * {
-    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><circle cx="16" cy="16" r="10" fill="black" opacity="0.5"/></svg>') 16 16, auto !important;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"><circle cx="20" cy="20" r="12" fill="%23ff0000" opacity="0.6"/><circle cx="20" cy="20" r="6" fill="%23ffffff"/></svg>') 20 20, auto !important;
+  }
+
+  .tooltips [title]:hover::after {
+    content: attr(title);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: hsl(var(--popover));
+    color: hsl(var(--popover-foreground));
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    white-space: nowrap;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 1000;
+    margin-bottom: 8px;
+  }
+
+  .page-structure *:focus {
+    outline: 3px solid hsl(var(--primary)) !important;
+    outline-offset: 2px !important;
+  }
+
+  .screen-reader {
+    speak: always;
+    speak-as: spell-out;
+  }
+
+  .dictionary {
+    user-select: text !important;
   }
 }
