@@ -1,4 +1,5 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
+import React from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -28,6 +29,17 @@ const CourseDetail = () => {
   const [clickCounts, setClickCounts] = useState<Record<string, number>>({});
   const [manuallyCompleted, setManuallyCompleted] = useState<Set<string>>(new Set());
   const [activeQuizId, setActiveQuizId] = useState<string | null>(null);
+
+  // Reset state when course changes
+  useEffect(() => {
+    if (!course) return;
+    
+    setIsWishlisted(course.wishlisted || false);
+    setSelectedLesson(course.lessons.find(l => l.videoId) || null);
+    setClickCounts({});
+    setManuallyCompleted(new Set());
+    setActiveQuizId(null);
+  }, [id, course]);
 
   useEffect(() => {
     if (!course) return;
@@ -65,7 +77,7 @@ const CourseDetail = () => {
 
     setLessonProgress(progressMap);
     setUnlockedLessons(unlocked);
-  }, [course]);
+  }, [id, course]);
 
   const handleProgressUpdate = (progress: number, lessonId: string) => {
     setLessonProgress(prev => ({ ...prev, [lessonId]: progress }));
@@ -400,8 +412,8 @@ const CourseDetail = () => {
                                 }
 
                                 return (
-                                  <>
-                                    <ContextMenu key={lesson.id}>
+                                  <React.Fragment key={lesson.id}>
+                                    <ContextMenu>
                                       <ContextMenuTrigger>
                                         <div
                                           className={`p-3 sm:p-4 rounded-xl border transition-all ${
@@ -472,7 +484,7 @@ const CourseDetail = () => {
                                     {index < course.lessons.length - 1 && (
                                       <div className="my-2 sm:my-3" />
                                     )}
-                                  </>
+                                  </React.Fragment>
                                 );
                               })}
                               <Separator className="my-4" />
