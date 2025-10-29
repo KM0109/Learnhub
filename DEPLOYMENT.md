@@ -4,7 +4,7 @@
 
 1. **Hero Image Issue**: Updated the import to use the correct hero image file (`hero-image copy copy.jpeg`) instead of the empty placeholder files.
 
-2. **Vite Base Path**: Added `base: "/"` to the Vite config to ensure proper asset loading on GitHub Pages.
+2. **Vite Base Path**: Configured `base: "/Learnhub/"` to ensure proper asset loading on GitHub Pages for your repository.
 
 3. **GitHub Actions Workflow**: Created a deployment workflow that automatically builds and deploys the site when you push to the main branch.
 
@@ -28,24 +28,13 @@ To deploy your site to GitHub Pages:
    - The GitHub Action will automatically build and deploy your site
    - Your site will be available at: `https://<username>.github.io/<repository-name>/`
 
-## If Your Repository Name is NOT Your Username
+## Current Configuration
 
-If your GitHub repository is named something other than `<username>.github.io`, you need to update the base path:
+Your site is configured for: `https://learnhub-io.github.io/Learnhub/`
 
-In `vite.config.ts`, change:
-```typescript
-base: "/",
-```
+The base path is set to `/Learnhub/` in `vite.config.ts`.
 
-To:
-```typescript
-base: "/<your-repository-name>/",
-```
-
-For example, if your repo is `my-learning-app`, use:
-```typescript
-base: "/my-learning-app/",
-```
+**Important**: After pushing your code, the GitHub Action will automatically build and deploy. Your site should work at the URL above within a few minutes.
 
 ## Manual Build
 
