@@ -14,16 +14,17 @@ interface ControlCardProps {
   onClick: () => void;
   info?: string;
   badge?: string;
+  subtitle?: string;
 }
 
-function ControlCard({ icon: Icon, title, active, onClick, info, badge }: ControlCardProps) {
+function ControlCard({ icon: Icon, title, active, onClick, info, badge, subtitle }: ControlCardProps) {
   const content = (
     <button
       onClick={onClick}
       className={`p-4 rounded-lg border transition-all text-center ${
         active
-          ? 'bg-primary text-primary-foreground border-primary'
-          : 'bg-card hover:bg-accent'
+          ? 'bg-primary text-primary-foreground border-primary shadow-md'
+          : 'bg-card hover:bg-primary/5 hover:border-primary/20'
       }`}
     >
       <div className="flex justify-center items-center gap-1 mb-2">
@@ -35,6 +36,11 @@ function ControlCard({ icon: Icon, title, active, onClick, info, badge }: Contro
         )}
       </div>
       <div className="text-xs font-medium">{title}</div>
+      {subtitle && (
+        <div className={`text-xs mt-1 ${active ? 'opacity-90' : 'text-muted-foreground'}`}>
+          {subtitle}
+        </div>
+      )}
     </button>
   );
 
@@ -97,6 +103,41 @@ export function AccessibilityControls({ settings, onToggle, onUpdate }: Accessib
     onUpdate('cursorMode', modes[(current + 1) % modes.length]);
   };
 
+  // Helper functions to get display labels
+  const getContrastLabel = () => {
+    const labels = { normal: 'Normal', invert: 'Invert', dark: 'Dark', light: 'Light' };
+    return labels[settings.contrast];
+  };
+
+  const getTextSizeLabel = () => {
+    return settings.textSize === 0 ? 'Normal' : `${1 + settings.textSize * 0.25}x`;
+  };
+
+  const getTextSpacingLabel = () => {
+    const labels = ['Normal', '1.5x', '2x', '2.5x'];
+    return labels[settings.textSpacing];
+  };
+
+  const getLineHeightLabel = () => {
+    const values = [1.5, 1.75, 2, 2.25];
+    return settings.lineHeight === 0 ? 'Normal' : `${values[settings.lineHeight]}x`;
+  };
+
+  const getTextAlignLabel = () => {
+    const labels = { left: 'Left', center: 'Center', right: 'Right' };
+    return labels[settings.textAlign];
+  };
+
+  const getSaturationLabel = () => {
+    const labels = { normal: 'Normal', low: 'Low', high: 'High', desaturate: 'B&W' };
+    return labels[settings.saturation];
+  };
+
+  const getCursorLabel = () => {
+    const labels = { normal: 'Normal', big: 'Big', 'reading-guide': 'Guide', 'reading-mask': 'Mask' };
+    return labels[settings.cursorMode];
+  };
+
   return (
     <div className="space-y-6">
       <div>
@@ -105,6 +146,7 @@ export function AccessibilityControls({ settings, onToggle, onUpdate }: Accessib
           <ControlCard
             icon={Circle}
             title="Contrast+"
+            subtitle={getContrastLabel()}
             active={settings.contrast !== 'normal'}
             onClick={cycleContrast}
             info="Cycle through contrast modes: Invert, Dark, Light"
@@ -120,6 +162,7 @@ export function AccessibilityControls({ settings, onToggle, onUpdate }: Accessib
           <ControlCard
             icon={Type}
             title="Bigger Text"
+            subtitle={getTextSizeLabel()}
             active={settings.textSize > 0}
             onClick={cycleTextSize}
             info="Increase text size (4 levels)"
@@ -127,6 +170,7 @@ export function AccessibilityControls({ settings, onToggle, onUpdate }: Accessib
           <ControlCard
             icon={ArrowsUpFromLine}
             title="Text Spacing"
+            subtitle={getTextSpacingLabel()}
             active={settings.textSpacing > 0}
             onClick={cycleTextSpacing}
             info="Adjust letter spacing (3 levels)"
@@ -134,6 +178,7 @@ export function AccessibilityControls({ settings, onToggle, onUpdate }: Accessib
           <ControlCard
             icon={ArrowsUpFromLine}
             title="Line Height"
+            subtitle={getLineHeightLabel()}
             active={settings.lineHeight > 0}
             onClick={cycleLineHeight}
             info="Adjust line height (3 levels)"
@@ -141,6 +186,7 @@ export function AccessibilityControls({ settings, onToggle, onUpdate }: Accessib
           <ControlCard
             icon={AlignLeft}
             title="Text Align"
+            subtitle={getTextAlignLabel()}
             active={settings.textAlign !== 'left'}
             onClick={cycleTextAlign}
             info="Change text alignment"
@@ -148,6 +194,7 @@ export function AccessibilityControls({ settings, onToggle, onUpdate }: Accessib
           <ControlCard
             icon={Palette}
             title="Saturation"
+            subtitle={getSaturationLabel()}
             active={settings.saturation !== 'normal'}
             onClick={cycleSaturation}
             info="Adjust color saturation"
@@ -189,6 +236,7 @@ export function AccessibilityControls({ settings, onToggle, onUpdate }: Accessib
           <ControlCard
             icon={Mouse}
             title="Cursor Tools"
+            subtitle={getCursorLabel()}
             active={settings.cursorMode !== 'normal'}
             onClick={cycleCursor}
             info="Big cursor, reading guide, or reading mask"

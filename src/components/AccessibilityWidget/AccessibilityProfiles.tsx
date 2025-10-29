@@ -38,8 +38,8 @@ export function AccessibilityProfiles({ activeProfile, onSelectProfile }: Access
                 onClick={() => onSelectProfile(profile.id)}
                 className={`p-3 rounded-lg border transition-all text-left ${
                   activeProfile === profile.id
-                    ? 'bg-primary text-primary-foreground border-primary'
-                    : 'bg-card hover:bg-accent'
+                    ? 'bg-primary text-primary-foreground border-primary shadow-md'
+                    : 'bg-card hover:bg-primary/5 hover:border-primary/20'
                 }`}
               >
                 <Icon className="w-5 h-5 mb-2" />
