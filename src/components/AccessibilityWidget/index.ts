@@ -1,0 +1,1 @@
+export { AccessibilityWidget } from './AccessibilityWidget';

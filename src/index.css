@@ -125,5 +125,85 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-size: calc(1rem * var(--a11y-text-scale, 1));
+    letter-spacing: var(--a11y-letter-spacing, normal);
+    line-height: var(--a11y-line-height, 1.5);
+  }
+
+  /* Accessibility styles */
+  [data-contrast="invert"] {
+    filter: invert(1) hue-rotate(180deg);
+  }
+
+  [data-contrast="dark"] {
+    --background: 230 35% 8%;
+    --foreground: 220 20% 95%;
+  }
+
+  [data-contrast="light"] {
+    --background: 220 25% 98%;
+    --foreground: 230 35% 15%;
+  }
+
+  [data-text-align="center"] * {
+    text-align: center;
+  }
+
+  [data-text-align="right"] * {
+    text-align: right;
+  }
+
+  [data-saturation="low"] {
+    filter: saturate(0.5);
+  }
+
+  [data-saturation="high"] {
+    filter: saturate(1.5);
+  }
+
+  [data-saturation="desaturate"] {
+    filter: grayscale(1);
+  }
+
+  [data-hide-images="true"] img {
+    display: none;
+  }
+
+  [data-highlight-links="true"] a {
+    background-color: hsl(49 98% 51% / 0.3);
+    outline: 2px solid hsl(49 98% 51%);
+  }
+
+  [data-dyslexia-font="true"] * {
+    font-family: 'Comic Sans MS', 'OpenDyslexic', sans-serif !important;
+  }
+
+  [data-cursor-mode="big"] * {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 32 32"><path d="M2 2 L2 28 L10 20 L15 28 L18 27 L13 19 L22 19 Z" fill="white" stroke="black" stroke-width="1"/></svg>') 0 0, auto !important;
+  }
+
+  [data-cursor-mode="reading-guide"] {
+    position: relative;
+  }
+
+  [data-cursor-mode="reading-guide"]::before {
+    content: '';
+    position: fixed;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: hsl(var(--primary));
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  [data-pause-animations="true"] * {
+    animation-play-state: paused !important;
+    transition: none !important;
+  }
+
+  [data-keyboard-nav="true"] *:focus-visible {
+    outline: 3px solid hsl(var(--primary)) !important;
+    outline-offset: 2px;
   }
 }
