@@ -12,9 +12,9 @@ export function AccessibilityButton({ onClick, oversized }: AccessibilityButtonP
       data-a11y-widget="true"
       className={cn(
         "fixed bottom-4 right-4 z-[9998] rounded-full shadow-lg",
-        "bg-blue-600 hover:bg-blue-700 text-white border-4 border-white",
+        "bg-primary hover:bg-primary/90 text-primary-foreground border-4 border-primary-foreground/20",
         "hover:scale-110 hover:shadow-xl transition-all duration-200",
-        "focus-visible:outline focus-visible:outline-4 focus-visible:outline-blue-500 focus-visible:outline-offset-2",
+        "focus-visible:outline focus-visible:outline-4 focus-visible:outline-primary focus-visible:outline-offset-2",
         oversized ? "w-20 h-20" : "w-14 h-14",
         "animate-fade-in"
       )}
