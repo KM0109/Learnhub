@@ -1,12 +1,16 @@
-import { Accessibility, Eye, Brain, Puzzle, ChevronDown, Info } from 'lucide-react';
+import { Accessibility, Eye, Brain, Puzzle, ChevronDown, Info, Glasses, AlertTriangle, Ear } from 'lucide-react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { useState } from 'react';
 
 const profiles = [
   { id: 'motor-impaired', name: 'Motor Impaired', icon: Accessibility, description: 'Keyboard navigation' },
   { id: 'blind', name: 'Blind', icon: Eye, description: 'Screen reader support' },
+  { id: 'color-blind', name: 'Color Blind', icon: Eye, description: 'Enhanced contrast' },
   { id: 'dyslexia', name: 'Dyslexia', icon: Brain, description: 'Readable fonts' },
+  { id: 'visually-impaired', name: 'Visually Impaired', icon: Glasses, description: 'Larger text' },
+  { id: 'adhd', name: 'ADHD', icon: Brain, description: 'Reduced distractions' },
   { id: 'cognitive', name: 'Cognitive & Learning', icon: Puzzle, description: 'Simplified layout' },
+  { id: 'seizure-epileptic', name: 'Seizure & Epileptic', icon: AlertTriangle, description: 'No animations' },
 ];
 
 interface AccessibilityProfilesProps {

@@ -21,7 +21,7 @@ function ControlCard({ icon: Icon, title, active, onClick, info, badge, subtitle
   const content = (
     <button
       onClick={onClick}
-      className={`relative p-4 rounded-lg border transition-all text-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 ${
+      className={`relative p-4 rounded-lg border transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 flex flex-col items-center justify-center min-h-[100px] ${
         active
           ? 'bg-primary text-primary-foreground border-primary shadow-md'
           : 'bg-card hover:bg-primary/5 hover:border-primary/20'
@@ -38,9 +38,9 @@ function ControlCard({ icon: Icon, title, active, onClick, info, badge, subtitle
           </Badge>
         )}
       </div>
-      <div className="text-xs font-medium">{title}</div>
+      <div className="text-xs font-medium text-center">{title}</div>
       {subtitle && (
-        <div className={`text-xs mt-1 ${active ? 'opacity-90' : 'text-muted-foreground'}`}>
+        <div className={`text-xs mt-1 text-center ${active ? 'opacity-90' : 'text-muted-foreground'}`}>
           {subtitle}
         </div>
       )}
@@ -145,7 +145,7 @@ export function AccessibilityControls({ settings, onToggle, onUpdate }: Accessib
     <div className="space-y-6">
       <div>
         <h3 className="text-sm font-semibold mb-3">Visual Adjustments</h3>
-        <div className="grid grid-cols-3 gap-2">
+        <div className="grid grid-cols-3 gap-3">
           <ControlCard
             icon={Circle}
             title="Contrast+"

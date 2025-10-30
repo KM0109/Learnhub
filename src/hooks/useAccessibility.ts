@@ -130,15 +130,34 @@ export function useAccessibility() {
         screenReader: true,
         keyboardNav: true,
       },
+      'color-blind': {
+        smartContrast: true,
+        saturation: 'desaturate',
+        highlightLinks: true,
+      },
       'dyslexia': {
         dyslexiaFont: true,
         textSpacing: 2,
         lineHeight: 2,
       },
+      'visually-impaired': {
+        textSize: 3,
+        lineHeight: 2,
+        contrast: 'dark',
+      },
+      'adhd': {
+        pauseAnimations: true,
+        hideImages: true,
+        pageStructure: true,
+      },
       'cognitive': {
         textSize: 2,
         lineHeight: 2,
         pageStructure: true,
+      },
+      'seizure-epileptic': {
+        pauseAnimations: true,
+        saturation: 'low',
       },
     };
 
