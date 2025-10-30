@@ -130,6 +130,16 @@ All colors MUST be HSL.
     line-height: var(--a11y-line-height, 1.5);
   }
 
+  /* Exclude accessibility widget from accessibility transformations */
+  [data-a11y-widget="true"],
+  [data-a11y-widget="true"] * {
+    font-size: 1rem !important;
+    letter-spacing: normal !important;
+    line-height: 1.5 !important;
+    text-align: left !important;
+    font-family: inherit !important;
+  }
+
   /* Accessibility styles */
   [data-contrast="invert"] {
     filter: invert(1) hue-rotate(180deg);
@@ -145,11 +155,11 @@ All colors MUST be HSL.
     --foreground: 230 35% 15%;
   }
 
-  [data-text-align="center"] * {
+  [data-text-align="center"] *:not([data-a11y-widget="true"]):not([data-a11y-widget="true"] *) {
     text-align: center;
   }
 
-  [data-text-align="right"] * {
+  [data-text-align="right"] *:not([data-a11y-widget="true"]):not([data-a11y-widget="true"] *) {
     text-align: right;
   }
 
@@ -175,7 +185,7 @@ All colors MUST be HSL.
     outline-offset: 2px;
   }
 
-  [data-dyslexia-font="true"] * {
+  [data-dyslexia-font="true"] *:not([data-a11y-widget="true"]):not([data-a11y-widget="true"] *) {
     font-family: 'Comic Sans MS', 'OpenDyslexic', sans-serif !important;
   }
 

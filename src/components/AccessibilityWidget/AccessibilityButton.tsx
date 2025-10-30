@@ -9,6 +9,7 @@ interface AccessibilityButtonProps {
 export function AccessibilityButton({ onClick, oversized }: AccessibilityButtonProps) {
   return (
     <button
+      data-a11y-widget="true"
       className={cn(
         "fixed bottom-4 right-4 z-[9998] rounded-full shadow-lg border-4 border-primary/30",
         "bg-primary text-primary-foreground",

@@ -39,7 +39,7 @@ export function AccessibilityPanel({
       />
 
       {/* Panel */}
-      <div className="fixed bottom-4 right-4 left-4 sm:left-auto w-auto sm:w-full sm:max-w-[440px] h-[85vh] bg-background border rounded-xl z-[9999] animate-slide-in-right shadow-2xl">
+      <div data-a11y-widget="true" className="fixed bottom-4 right-4 left-4 sm:left-auto w-auto sm:w-full sm:max-w-[440px] h-[85vh] bg-background border rounded-xl z-[9999] animate-slide-in-right shadow-2xl">
         <div className="flex flex-col h-full">
           {/* Header */}
           <div className="p-4 border-b flex items-center justify-between">
