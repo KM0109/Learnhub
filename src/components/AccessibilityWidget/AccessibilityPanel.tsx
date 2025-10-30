@@ -39,14 +39,14 @@ export function AccessibilityPanel({
       />
 
       {/* Panel */}
-      <div className="fixed right-0 top-0 h-full w-full sm:w-[400px] bg-background border-l z-50 animate-slide-in-right shadow-2xl">
-        <div className="flex flex-col h-full">
+      <div className="fixed bottom-4 right-4 left-4 sm:left-auto w-auto sm:w-full sm:max-w-[440px] max-h-[85vh] bg-background border rounded-xl z-50 animate-scale-in shadow-2xl">
+        <div className="flex flex-col h-full max-h-[85vh]">
           {/* Header */}
           <div className="p-4 border-b flex items-center justify-between">
             <h2 className="text-lg font-semibold">Accessibility Menu (CTRL+U)</h2>
             <button
               onClick={onClose}
-              className="p-2 hover:bg-accent rounded-lg transition-colors"
+              className="p-2 hover:bg-primary/5 rounded-lg transition-colors"
               aria-label="Close accessibility menu"
             >
               <X className="w-5 h-5" />

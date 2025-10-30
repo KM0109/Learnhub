@@ -1,16 +1,12 @@
-import { Accessibility, Eye, Glasses, Brain, Lightbulb, AlertTriangle, Puzzle, ChevronDown } from 'lucide-react';
+import { Accessibility, Eye, Brain, Puzzle, ChevronDown, Info } from 'lucide-react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { useState } from 'react';
 
 const profiles = [
   { id: 'motor-impaired', name: 'Motor Impaired', icon: Accessibility, description: 'Keyboard navigation' },
   { id: 'blind', name: 'Blind', icon: Eye, description: 'Screen reader support' },
-  { id: 'color-blind', name: 'Color Blind', icon: Eye, description: 'Enhanced contrast' },
-  { id: 'dyslexia', name: 'Dyslexia', icon: Lightbulb, description: 'Readable fonts' },
-  { id: 'visually-impaired', name: 'Visually Impaired', icon: Glasses, description: 'Larger text' },
-  { id: 'adhd', name: 'ADHD', icon: Brain, description: 'Reduced distractions' },
+  { id: 'dyslexia', name: 'Dyslexia', icon: Brain, description: 'Readable fonts' },
   { id: 'cognitive', name: 'Cognitive & Learning', icon: Puzzle, description: 'Simplified layout' },
-  { id: 'seizure', name: 'Seizure & Epileptic', icon: AlertTriangle, description: 'No animations' },
 ];
 
 interface AccessibilityProfilesProps {
@@ -23,8 +19,11 @@ export function AccessibilityProfiles({ activeProfile, onSelectProfile }: Access
 
   return (
     <Collapsible open={isOpen} onOpenChange={setIsOpen}>
-      <CollapsibleTrigger className="flex items-center justify-between w-full p-3 rounded-lg border bg-card hover:bg-accent transition-colors">
-        <span className="font-medium">Accessibility Profiles</span>
+      <CollapsibleTrigger className="flex items-center justify-between w-full p-3 rounded-lg border bg-card hover:bg-primary/5 transition-colors">
+        <div className="flex items-center gap-2">
+          <span className="font-medium">Accessibility Profiles</span>
+          <Info className="w-4 h-4 text-muted-foreground" />
+        </div>
         <ChevronDown className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
       </CollapsibleTrigger>
 

@@ -1,7 +1,7 @@
 import { 
   Circle, Sparkles, Type, ArrowsUpFromLine, AlignLeft, Palette, 
   Link as LinkIcon, ImageOff, Loader, Keyboard, Layers, MessageCircle, 
-  Book, Volume2, Mouse, Info
+  Book, Volume2, Mouse, Info, Check
 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
@@ -21,12 +21,15 @@ function ControlCard({ icon: Icon, title, active, onClick, info, badge, subtitle
   const content = (
     <button
       onClick={onClick}
-      className={`p-4 rounded-lg border transition-all text-center ${
+      className={`relative p-4 rounded-lg border transition-all text-center ${
         active
           ? 'bg-primary text-primary-foreground border-primary shadow-md'
           : 'bg-card hover:bg-primary/5 hover:border-primary/20'
       }`}
     >
+      {active && (
+        <Check className="absolute top-2 right-2 w-4 h-4" />
+      )}
       <div className="flex justify-center items-center gap-1 mb-2">
         <Icon className="w-5 h-5" />
         {badge && (
