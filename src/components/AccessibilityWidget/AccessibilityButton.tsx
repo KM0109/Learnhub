@@ -22,7 +22,7 @@ export function AccessibilityButton({ onClick, oversized }: AccessibilityButtonP
       title="Accessibility Menu (CTRL+U)"
     >
       <img
-        src="/src/assets/Accessibility.svg"
+        src="/src/assets/Accessibility copy.svg"
         alt="Accessibility"
         className={cn("w-full h-full object-contain")}
       />
