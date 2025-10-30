@@ -1,4 +1,4 @@
-import { X, RotateCcw, Move } from 'lucide-react';
+import { X, RotateCcw } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
@@ -54,8 +54,8 @@ export function AccessibilityPanel({
           </div>
 
           {/* Content */}
-          <ScrollArea className="flex-1 p-4">
-            <div className="space-y-6">
+          <ScrollArea className="flex-1">
+            <div className="space-y-6 p-4">
               {/* Language */}
               <div>
                 <h3 className="text-sm font-semibold mb-3">Language</h3>
@@ -107,11 +107,7 @@ export function AccessibilityPanel({
               Reset All Settings
             </Button>
 
-            <div className="flex items-center justify-between text-xs text-muted-foreground">
-              <button className="hover:text-foreground transition-colors flex items-center gap-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 rounded px-2 py-1">
-                <Move className="w-3 h-3" />
-                Move Widget
-              </button>
+            <div className="flex items-center justify-center text-xs text-muted-foreground">
               <a 
                 href="#" 
                 className="hover:text-foreground transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 rounded px-2 py-1"
