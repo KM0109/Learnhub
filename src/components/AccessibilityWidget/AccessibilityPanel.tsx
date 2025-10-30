@@ -39,14 +39,23 @@ export function AccessibilityPanel({
       />
 
       {/* Panel */}
-      <div data-a11y-widget="true" className="fixed bottom-4 right-4 left-4 sm:left-auto w-auto sm:w-full sm:max-w-[440px] h-[85vh] bg-background border rounded-xl z-[9999] animate-slide-in-right shadow-2xl">
+      <div data-a11y-widget="true" className="fixed bottom-4 right-4 left-4 sm:left-auto w-auto sm:w-full sm:max-w-[480px] h-[85vh] bg-background border rounded-2xl z-[9999] animate-slide-in-right shadow-2xl overflow-hidden">
         <div className="flex flex-col h-full">
           {/* Header */}
-          <div className="p-4 border-b flex items-center justify-between">
-            <h2 className="text-lg font-semibold">Accessibility Menu (CTRL+U)</h2>
+          <div className="p-5 border-b flex items-center justify-between bg-gradient-to-r from-[#853DE4] to-[#9b5df0] text-white">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
+                <img
+                  src="/src/assets/Accessibility.svg 1.svg"
+                  alt=""
+                  className="w-5 h-5 brightness-0 invert"
+                />
+              </div>
+              <h2 className="text-lg font-semibold">Accessibility Menu</h2>
+            </div>
             <button
               onClick={onClose}
-              className="p-2 hover:bg-primary/5 rounded-lg transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
+              className="p-2 hover:bg-white/20 rounded-lg transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
               aria-label="Close accessibility menu"
             >
               <X className="w-5 h-5" />
@@ -55,36 +64,40 @@ export function AccessibilityPanel({
 
           {/* Content */}
           <ScrollArea className="flex-1 overflow-auto">
-            <div className="space-y-6 p-4">
+            <div className="space-y-5 p-5">
               {/* Language */}
-              <div>
-                <h3 className="text-sm font-semibold mb-3">Language</h3>
+              <div className="bg-muted/30 rounded-xl p-4">
+                <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
+                  <span className="w-1 h-4 bg-[#853DE4] rounded-full"></span>
+                  Language
+                </h3>
                 <LanguageSelector
                   value={settings.language}
                   onChange={(value) => onUpdate('language', value)}
                 />
               </div>
 
-              <Separator />
-
               {/* Profiles */}
-              <AccessibilityProfiles
-                activeProfile={settings.activeProfile}
-                onSelectProfile={onApplyProfile}
-              />
-
-              <Separator />
-
-              {/* Oversized Widget */}
-              <div className="flex items-center justify-between p-3 rounded-lg border bg-card">
-                <span className="text-sm font-medium">XL Oversized Widget</span>
-                <Switch
-                  checked={settings.oversizedWidget}
-                  onCheckedChange={() => onToggle('oversizedWidget')}
+              <div className="bg-muted/30 rounded-xl p-4">
+                <AccessibilityProfiles
+                  activeProfile={settings.activeProfile}
+                  onSelectProfile={onApplyProfile}
                 />
               </div>
 
-              <Separator />
+              {/* Oversized Widget */}
+              <div className="bg-muted/30 rounded-xl p-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <span className="text-sm font-semibold block">XL Widget Size</span>
+                    <span className="text-xs text-muted-foreground">Increase accessibility button size</span>
+                  </div>
+                  <Switch
+                    checked={settings.oversizedWidget}
+                    onCheckedChange={() => onToggle('oversizedWidget')}
+                  />
+                </div>
+              </div>
 
               {/* Main Controls */}
               <AccessibilityControls
@@ -96,11 +109,11 @@ export function AccessibilityPanel({
           </ScrollArea>
 
           {/* Footer */}
-          <div className="p-4 border-t space-y-3">
+          <div className="p-5 border-t bg-muted/30 space-y-3">
             <Button
               onClick={onReset}
               variant="default"
-              className="w-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
+              className="w-full bg-[#853DE4] hover:bg-[#7532cc] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#853DE4] focus-visible:outline-offset-2"
               size="lg"
             >
               <RotateCcw className="w-4 h-4 mr-2" />
@@ -108,12 +121,14 @@ export function AccessibilityPanel({
             </Button>
 
             <div className="flex items-center justify-center text-xs text-muted-foreground">
-              <a 
-                href="#" 
-                className="hover:text-foreground transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 rounded px-2 py-1"
+              <a
+                href="#"
+                className="hover:text-foreground transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#853DE4] focus-visible:outline-offset-2 rounded px-2 py-1"
               >
                 Accessibility Statement
               </a>
+              <span className="mx-2">•</span>
+              <span>CTRL+U to toggle</span>
             </div>
           </div>
         </div>

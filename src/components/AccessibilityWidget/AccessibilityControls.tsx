@@ -21,19 +21,19 @@ function ControlCard({ icon: Icon, title, active, onClick, info, badge, subtitle
   const content = (
     <button
       onClick={onClick}
-      className={`relative p-3 rounded-lg border transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 flex flex-col items-center justify-center min-h-[90px] w-full ${
+      className={`relative p-3 rounded-lg border transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#853DE4] focus-visible:outline-offset-2 flex flex-col items-center justify-center min-h-[90px] w-full ${
         active
-          ? 'bg-primary text-primary-foreground border-primary shadow-md'
-          : 'bg-card hover:bg-primary/5 hover:border-primary/20'
+          ? 'bg-[#853DE4] text-white border-[#853DE4] shadow-md'
+          : 'bg-background hover:bg-[#853DE4]/5 hover:border-[#853DE4]/30 border-border'
       }`}
     >
       {active && (
-        <Check className="absolute top-1.5 right-1.5 w-3.5 h-3.5" />
+        <Check className="absolute top-2 right-2 w-3.5 h-3.5" />
       )}
       <div className="flex justify-center items-center gap-1 mb-1.5">
         <Icon className="w-5 h-5 flex-shrink-0" />
         {badge && (
-          <Badge variant="secondary" className="text-xs px-1 py-0 h-4">
+          <Badge variant="secondary" className={`text-[10px] px-1.5 py-0 h-4 ${active ? 'bg-white/20 text-white border-0' : ''}`}>
             {badge}
           </Badge>
         )}
@@ -52,8 +52,8 @@ function ControlCard({ icon: Icon, title, active, onClick, info, badge, subtitle
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>{content}</TooltipTrigger>
-          <TooltipContent side="top">
-            <p className="text-xs max-w-xs">{info}</p>
+          <TooltipContent side="top" className="max-w-xs">
+            <p className="text-xs">{info}</p>
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>
@@ -142,9 +142,12 @@ export function AccessibilityControls({ settings, onToggle, onUpdate }: Accessib
   };
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h3 className="text-sm font-semibold mb-3">Visual Adjustments</h3>
+    <div className="space-y-5">
+      <div className="bg-muted/30 rounded-xl p-4">
+        <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
+          <span className="w-1 h-4 bg-[#853DE4] rounded-full"></span>
+          Visual Adjustments
+        </h3>
         <div className="grid grid-cols-3 gap-2.5">
           <ControlCard
             icon={Circle}
@@ -162,6 +165,37 @@ export function AccessibilityControls({ settings, onToggle, onUpdate }: Accessib
             badge="AI"
             info="AI-powered contrast adjustment for WCAG compliance"
           />
+          <ControlCard
+            icon={Palette}
+            title="Saturation"
+            subtitle={getSaturationLabel()}
+            active={settings.saturation !== 'normal'}
+            onClick={cycleSaturation}
+            info="Adjust color saturation"
+          />
+          <ControlCard
+            icon={LinkIcon}
+            title="Highlight Links"
+            active={settings.highlightLinks}
+            onClick={() => onToggle('highlightLinks')}
+            info="Highlight all links on the page"
+          />
+          <ControlCard
+            icon={ImageOff}
+            title="Hide Images"
+            active={settings.hideImages}
+            onClick={() => onToggle('hideImages')}
+            info="Remove all images from view"
+          />
+        </div>
+      </div>
+
+      <div className="bg-muted/30 rounded-xl p-4">
+        <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
+          <span className="w-1 h-4 bg-[#853DE4] rounded-full"></span>
+          Text & Typography
+        </h3>
+        <div className="grid grid-cols-3 gap-2.5">
           <ControlCard
             icon={Type}
             title="Bigger Text"
@@ -195,34 +229,6 @@ export function AccessibilityControls({ settings, onToggle, onUpdate }: Accessib
             info="Change text alignment"
           />
           <ControlCard
-            icon={Palette}
-            title="Saturation"
-            subtitle={getSaturationLabel()}
-            active={settings.saturation !== 'normal'}
-            onClick={cycleSaturation}
-            info="Adjust color saturation"
-          />
-          <ControlCard
-            icon={LinkIcon}
-            title="Highlight Links"
-            active={settings.highlightLinks}
-            onClick={() => onToggle('highlightLinks')}
-            info="Highlight all links on the page"
-          />
-          <ControlCard
-            icon={ImageOff}
-            title="Hide Images"
-            active={settings.hideImages}
-            onClick={() => onToggle('hideImages')}
-            info="Remove all images from view"
-          />
-        </div>
-      </div>
-
-      <div>
-        <h3 className="text-sm font-semibold mb-3">Typography</h3>
-        <div className="grid grid-cols-3 gap-2.5">
-          <ControlCard
             icon={Type}
             title="Dyslexia Friendly"
             active={settings.dyslexiaFont}
@@ -233,8 +239,11 @@ export function AccessibilityControls({ settings, onToggle, onUpdate }: Accessib
         </div>
       </div>
 
-      <div>
-        <h3 className="text-sm font-semibold mb-3">Cursor & Reading</h3>
+      <div className="bg-muted/30 rounded-xl p-4">
+        <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
+          <span className="w-1 h-4 bg-[#853DE4] rounded-full"></span>
+          Cursor & Reading
+        </h3>
         <div className="grid grid-cols-3 gap-2.5">
           <ControlCard
             icon={Mouse}
@@ -262,8 +271,11 @@ export function AccessibilityControls({ settings, onToggle, onUpdate }: Accessib
         </div>
       </div>
 
-      <div>
-        <h3 className="text-sm font-semibold mb-3">Navigation & Structure</h3>
+      <div className="bg-muted/30 rounded-xl p-4">
+        <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
+          <span className="w-1 h-4 bg-[#853DE4] rounded-full"></span>
+          Navigation & Structure
+        </h3>
         <div className="grid grid-cols-3 gap-2.5">
           <ControlCard
             icon={Keyboard}

@@ -1,4 +1,3 @@
-import { User } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface AccessibilityButtonProps {
@@ -12,17 +11,21 @@ export function AccessibilityButton({ onClick, oversized }: AccessibilityButtonP
       data-a11y-widget="true"
       className={cn(
         "fixed bottom-4 right-4 z-[9998] rounded-full shadow-lg",
-        "bg-primary hover:bg-primary/90 text-primary-foreground border-4 border-primary-foreground/20",
+        "bg-[#853DE4] hover:bg-[#7532cc] text-white border-4 border-white/20",
         "hover:scale-110 hover:shadow-xl transition-all duration-200",
-        "focus-visible:outline focus-visible:outline-4 focus-visible:outline-primary focus-visible:outline-offset-2",
-        oversized ? "w-20 h-20" : "w-14 h-14",
-        "animate-fade-in"
+        "focus-visible:outline focus-visible:outline-4 focus-visible:outline-[#853DE4] focus-visible:outline-offset-2",
+        oversized ? "w-20 h-20 p-3" : "w-14 h-14 p-2",
+        "animate-fade-in flex items-center justify-center"
       )}
       onClick={onClick}
       aria-label="Open accessibility menu (CTRL+U)"
       title="Accessibility Menu (CTRL+U)"
     >
-      <User className={cn("mx-auto stroke-[3]", oversized ? "w-10 h-10" : "w-7 h-7")} />
+      <img
+        src="/src/assets/Accessibility.svg 1.svg"
+        alt="Accessibility"
+        className={cn("w-full h-full object-contain brightness-0 invert")}
+      />
     </button>
   );
 }

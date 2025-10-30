@@ -23,31 +23,36 @@ export function AccessibilityProfiles({ activeProfile, onSelectProfile }: Access
 
   return (
     <Collapsible open={isOpen} onOpenChange={setIsOpen}>
-      <CollapsibleTrigger className="flex items-center justify-between w-full p-3 rounded-lg border bg-card hover:bg-primary/5 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2">
+      <CollapsibleTrigger className="flex items-center justify-between w-full group focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#853DE4] focus-visible:outline-offset-2 rounded-lg">
         <div className="flex items-center gap-2">
-          <span className="font-medium">Accessibility Profiles</span>
-          <Info className="w-4 h-4 text-muted-foreground" />
+          <h3 className="text-sm font-semibold flex items-center gap-2">
+            <span className="w-1 h-4 bg-[#853DE4] rounded-full"></span>
+            Accessibility Profiles
+          </h3>
+          <Info className="w-3.5 h-3.5 text-muted-foreground" />
         </div>
-        <ChevronDown className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+        <ChevronDown className={`w-4 h-4 text-muted-foreground transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
       </CollapsibleTrigger>
 
       <CollapsibleContent className="mt-3">
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-2 gap-2.5">
           {profiles.map((profile) => {
             const Icon = profile.icon;
             return (
               <button
                 key={profile.id}
                 onClick={() => onSelectProfile(profile.id)}
-                className={`p-3 rounded-lg border transition-all text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 ${
+                className={`p-3 rounded-lg border transition-all text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#853DE4] focus-visible:outline-offset-2 ${
                   activeProfile === profile.id
-                    ? 'bg-primary text-primary-foreground border-primary shadow-md'
-                    : 'bg-card hover:bg-primary/5 hover:border-primary/20'
+                    ? 'bg-[#853DE4] text-white border-[#853DE4] shadow-md'
+                    : 'bg-background hover:bg-[#853DE4]/5 hover:border-[#853DE4]/30 border-border'
                 }`}
               >
                 <Icon className="w-5 h-5 mb-2" />
-                <div className="text-sm font-medium">{profile.name}</div>
-                <div className="text-xs opacity-80 mt-1">{profile.description}</div>
+                <div className="text-sm font-medium leading-tight">{profile.name}</div>
+                <div className={`text-xs mt-1 leading-tight ${activeProfile === profile.id ? 'opacity-90' : 'text-muted-foreground'}`}>
+                  {profile.description}
+                </div>
               </button>
             );
           })}
