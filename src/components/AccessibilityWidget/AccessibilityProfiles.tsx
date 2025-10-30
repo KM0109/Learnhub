@@ -19,7 +19,7 @@ export function AccessibilityProfiles({ activeProfile, onSelectProfile }: Access
 
   return (
     <Collapsible open={isOpen} onOpenChange={setIsOpen}>
-      <CollapsibleTrigger className="flex items-center justify-between w-full p-3 rounded-lg border bg-card hover:bg-primary/5 transition-colors">
+      <CollapsibleTrigger className="flex items-center justify-between w-full p-3 rounded-lg border bg-card hover:bg-primary/5 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2">
         <div className="flex items-center gap-2">
           <span className="font-medium">Accessibility Profiles</span>
           <Info className="w-4 h-4 text-muted-foreground" />
@@ -35,7 +35,7 @@ export function AccessibilityProfiles({ activeProfile, onSelectProfile }: Access
               <button
                 key={profile.id}
                 onClick={() => onSelectProfile(profile.id)}
-                className={`p-3 rounded-lg border transition-all text-left ${
+                className={`p-3 rounded-lg border transition-all text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 ${
                   activeProfile === profile.id
                     ? 'bg-primary text-primary-foreground border-primary shadow-md'
                     : 'bg-card hover:bg-primary/5 hover:border-primary/20'

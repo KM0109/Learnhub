@@ -21,7 +21,7 @@ function ControlCard({ icon: Icon, title, active, onClick, info, badge, subtitle
   const content = (
     <button
       onClick={onClick}
-      className={`relative p-4 rounded-lg border transition-all text-center ${
+      className={`relative p-4 rounded-lg border transition-all text-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 ${
         active
           ? 'bg-primary text-primary-foreground border-primary shadow-md'
           : 'bg-card hover:bg-primary/5 hover:border-primary/20'

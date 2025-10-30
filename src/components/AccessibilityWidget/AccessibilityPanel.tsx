@@ -33,20 +33,20 @@ export function AccessibilityPanel({
     <>
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-black/50 z-40 animate-fade-in"
+        className="fixed inset-0 bg-black/50 z-[9997] animate-fade-in"
         onClick={onClose}
         aria-hidden="true"
       />
 
       {/* Panel */}
-      <div className="fixed bottom-4 right-4 left-4 sm:left-auto w-auto sm:w-full sm:max-w-[440px] max-h-[85vh] bg-background border rounded-xl z-50 animate-scale-in shadow-2xl">
+      <div className="fixed bottom-4 right-4 left-4 sm:left-auto w-auto sm:w-full sm:max-w-[440px] max-h-[85vh] bg-background border rounded-xl z-[9999] animate-slide-in-right shadow-2xl">
         <div className="flex flex-col h-full max-h-[85vh]">
           {/* Header */}
           <div className="p-4 border-b flex items-center justify-between">
             <h2 className="text-lg font-semibold">Accessibility Menu (CTRL+U)</h2>
             <button
               onClick={onClose}
-              className="p-2 hover:bg-primary/5 rounded-lg transition-colors"
+              className="p-2 hover:bg-primary/5 rounded-lg transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
               aria-label="Close accessibility menu"
             >
               <X className="w-5 h-5" />
@@ -100,7 +100,7 @@ export function AccessibilityPanel({
             <Button
               onClick={onReset}
               variant="default"
-              className="w-full"
+              className="w-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
               size="lg"
             >
               <RotateCcw className="w-4 h-4 mr-2" />
@@ -108,11 +108,14 @@ export function AccessibilityPanel({
             </Button>
 
             <div className="flex items-center justify-between text-xs text-muted-foreground">
-              <button className="hover:text-foreground transition-colors flex items-center gap-1">
+              <button className="hover:text-foreground transition-colors flex items-center gap-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 rounded px-2 py-1">
                 <Move className="w-3 h-3" />
                 Move Widget
               </button>
-              <a href="#" className="hover:text-foreground transition-colors">
+              <a 
+                href="#" 
+                className="hover:text-foreground transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 rounded px-2 py-1"
+              >
                 Accessibility Statement
               </a>
             </div>

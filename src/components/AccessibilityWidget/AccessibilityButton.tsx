@@ -63,10 +63,10 @@ export function AccessibilityButton({ onClick, oversized }: AccessibilityButtonP
   return (
     <button
       className={cn(
-        "fixed z-50 rounded-full shadow-lg border-4 border-primary/30",
+        "fixed z-[9998] rounded-full shadow-lg border-4 border-primary/30",
         "bg-primary text-primary-foreground",
-        "hover:scale-110 hover:shadow-xl transition-all duration-200 cursor-move",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+        "hover:scale-110 hover:shadow-xl hover:border-primary/50 transition-all duration-200 cursor-move",
+        "focus-visible:outline focus-visible:outline-4 focus-visible:outline-primary focus-visible:outline-offset-2",
         oversized ? "w-20 h-20" : "w-14 h-14",
         mounted ? "animate-fade-in" : "opacity-0"
       )}

@@ -37,7 +37,7 @@ export function LanguageSelector({ value, onChange }: LanguageSelectorProps) {
   return (
     <div className="space-y-3">
       <Collapsible open={isOpen} onOpenChange={setIsOpen}>
-        <CollapsibleTrigger className="flex items-center justify-between w-full p-3 rounded-lg border bg-card hover:bg-primary/5 hover:border-primary/20 transition-colors">
+        <CollapsibleTrigger className="flex items-center justify-between w-full p-3 rounded-lg border bg-card hover:bg-primary/5 hover:border-primary/20 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2">
           <div className="flex items-center gap-2">
             <span className="text-2xl">{selectedLang.flag}</span>
             <div className="text-left">
@@ -68,7 +68,7 @@ export function LanguageSelector({ value, onChange }: LanguageSelectorProps) {
                     onChange(lang.code);
                     setIsOpen(false);
                   }}
-                  className="w-full flex items-center justify-between p-2 rounded-md hover:bg-primary/5 transition-colors text-left"
+                  className="w-full flex items-center justify-between p-2 rounded-md hover:bg-primary/5 transition-colors text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
                 >
                   <div className="flex items-center gap-2">
                     <span className="text-xl">{lang.flag}</span>
