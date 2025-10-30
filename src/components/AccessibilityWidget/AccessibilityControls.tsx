@@ -21,38 +21,56 @@ function ControlCard({ icon: Icon, title, active, onClick, info, badge, subtitle
   const content = (
     <button
       onClick={onClick}
-      className={`relative p-3 rounded-lg border transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#853DE4] focus-visible:outline-offset-2 flex flex-col items-center justify-center min-h-[90px] w-full ${
+      className={`group relative p-4 rounded-xl transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#853DE4] focus-visible:outline-offset-2 flex flex-col items-start justify-start min-h-[100px] w-full ${
         active
-          ? 'bg-[#853DE4] text-white border-[#853DE4] shadow-md'
-          : 'bg-background hover:bg-[#853DE4]/5 hover:border-[#853DE4]/30 border-border'
+          ? 'bg-gradient-to-br from-[#853DE4] to-[#9b5df0] text-white shadow-lg shadow-[#853DE4]/20'
+          : 'bg-card hover:bg-card/80 border border-border hover:border-[#853DE4]/40 hover:shadow-md'
       }`}
     >
-      {active && (
-        <Check className="absolute top-2 right-2 w-3.5 h-3.5" />
-      )}
-      <div className="flex justify-center items-center gap-1 mb-1.5">
-        <Icon className="w-5 h-5 flex-shrink-0" />
+      <div className="flex items-start justify-between w-full mb-2">
+        <div className={`p-2 rounded-lg transition-colors ${
+          active
+            ? 'bg-white/20'
+            : 'bg-muted/50 group-hover:bg-[#853DE4]/10'
+        }`}>
+          <Icon className="w-5 h-5 flex-shrink-0" />
+        </div>
         {badge && (
-          <Badge variant="secondary" className={`text-[10px] px-1.5 py-0 h-4 ${active ? 'bg-white/20 text-white border-0' : ''}`}>
+          <Badge variant="secondary" className={`text-[10px] font-semibold px-1.5 py-0.5 h-5 ${
+            active
+              ? 'bg-white/20 text-white border-0'
+              : 'bg-[#853DE4]/10 text-[#853DE4] border-0'
+          }`}>
             {badge}
           </Badge>
         )}
       </div>
-      <div className="text-xs font-medium text-center leading-tight">{title}</div>
-      {subtitle && (
-        <div className={`text-[10px] mt-1 text-center leading-tight ${active ? 'opacity-90' : 'text-muted-foreground'}`}>
-          {subtitle}
+
+      <div className="flex-1 flex flex-col items-start justify-end w-full">
+        <div className={`text-sm font-semibold text-left leading-tight mb-1 ${
+          active ? 'text-white' : 'text-foreground'
+        }`}>
+          {title}
         </div>
-      )}
+        {subtitle && (
+          <div className={`text-xs text-left leading-tight ${
+            active
+              ? 'text-white/90'
+              : 'text-muted-foreground'
+          }`}>
+            {subtitle}
+          </div>
+        )}
+      </div>
     </button>
   );
 
   if (info) {
     return (
       <TooltipProvider>
-        <Tooltip>
+        <Tooltip delayDuration={300}>
           <TooltipTrigger asChild>{content}</TooltipTrigger>
-          <TooltipContent side="top" className="max-w-xs">
+          <TooltipContent side="top" className="max-w-xs bg-popover text-popover-foreground">
             <p className="text-xs">{info}</p>
           </TooltipContent>
         </Tooltip>
@@ -148,7 +166,7 @@ export function AccessibilityControls({ settings, onToggle, onUpdate }: Accessib
           <span className="w-1 h-4 bg-[#853DE4] rounded-full"></span>
           Visual Adjustments
         </h3>
-        <div className="grid grid-cols-3 gap-2.5">
+        <div className="grid grid-cols-2 gap-3">
           <ControlCard
             icon={Circle}
             title="Contrast+"
@@ -195,7 +213,7 @@ export function AccessibilityControls({ settings, onToggle, onUpdate }: Accessib
           <span className="w-1 h-4 bg-[#853DE4] rounded-full"></span>
           Text & Typography
         </h3>
-        <div className="grid grid-cols-3 gap-2.5">
+        <div className="grid grid-cols-2 gap-3">
           <ControlCard
             icon={Type}
             title="Bigger Text"
@@ -244,7 +262,7 @@ export function AccessibilityControls({ settings, onToggle, onUpdate }: Accessib
           <span className="w-1 h-4 bg-[#853DE4] rounded-full"></span>
           Cursor & Reading
         </h3>
-        <div className="grid grid-cols-3 gap-2.5">
+        <div className="grid grid-cols-2 gap-3">
           <ControlCard
             icon={Mouse}
             title="Cursor Tools"
@@ -276,7 +294,7 @@ export function AccessibilityControls({ settings, onToggle, onUpdate }: Accessib
           <span className="w-1 h-4 bg-[#853DE4] rounded-full"></span>
           Navigation & Structure
         </h3>
-        <div className="grid grid-cols-3 gap-2.5">
+        <div className="grid grid-cols-2 gap-3">
           <ControlCard
             icon={Keyboard}
             title="Keyboard Nav"

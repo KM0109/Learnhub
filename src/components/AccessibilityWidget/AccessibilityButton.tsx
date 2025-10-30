@@ -22,9 +22,9 @@ export function AccessibilityButton({ onClick, oversized }: AccessibilityButtonP
       title="Accessibility Menu (CTRL+U)"
     >
       <img
-        src="/src/assets/Accessibility.svg 1.svg"
+        src="/src/assets/Accessibility.svg"
         alt="Accessibility"
-        className={cn("w-full h-full object-contain brightness-0 invert")}
+        className={cn("w-full h-full object-contain")}
       />
     </button>
   );

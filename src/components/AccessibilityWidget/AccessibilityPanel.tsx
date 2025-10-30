@@ -44,11 +44,11 @@ export function AccessibilityPanel({
           {/* Header */}
           <div className="p-5 border-b flex items-center justify-between bg-gradient-to-r from-[#853DE4] to-[#9b5df0] text-white">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
+              <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center p-1">
                 <img
-                  src="/src/assets/Accessibility.svg 1.svg"
+                  src="/src/assets/Accessibility.svg"
                   alt=""
-                  className="w-5 h-5 brightness-0 invert"
+                  className="w-full h-full object-contain"
                 />
               </div>
               <h2 className="text-lg font-semibold">Accessibility Menu</h2>
