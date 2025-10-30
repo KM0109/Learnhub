@@ -39,8 +39,8 @@ export function AccessibilityPanel({
       />
 
       {/* Panel */}
-      <div className="fixed bottom-4 right-4 left-4 sm:left-auto w-auto sm:w-full sm:max-w-[440px] max-h-[85vh] bg-background border rounded-xl z-[9999] animate-slide-in-right shadow-2xl">
-        <div className="flex flex-col h-full max-h-[85vh]">
+      <div className="fixed bottom-4 right-4 left-4 sm:left-auto w-auto sm:w-full sm:max-w-[440px] h-[85vh] bg-background border rounded-xl z-[9999] animate-slide-in-right shadow-2xl">
+        <div className="flex flex-col h-full">
           {/* Header */}
           <div className="p-4 border-b flex items-center justify-between">
             <h2 className="text-lg font-semibold">Accessibility Menu (CTRL+U)</h2>
@@ -54,7 +54,7 @@ export function AccessibilityPanel({
           </div>
 
           {/* Content */}
-          <ScrollArea className="flex-1">
+          <ScrollArea className="flex-1 overflow-auto">
             <div className="space-y-6 p-4">
               {/* Language */}
               <div>
