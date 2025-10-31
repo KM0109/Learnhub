@@ -75,21 +75,21 @@ const Index = () => {
               <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4">
                 <GraduationCap className="h-8 w-8 text-primary" />
               </div>
-              <h3 className="text-3xl font-bold mb-2">500+</h3>
+              <h3 className="text-3xl font-bold mb-2">15+</h3>
               <p className="text-muted-foreground">Expert Courses</p>
             </div>
             <div className="text-center animate-fade-in" style={{ animationDelay: '0.1s' }}>
               <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4">
                 <TrendingUp className="h-8 w-8 text-primary" />
               </div>
-              <h3 className="text-3xl font-bold mb-2">50K+</h3>
+              <h3 className="text-3xl font-bold mb-2">5k+</h3>
               <p className="text-muted-foreground">Active Students</p>
             </div>
             <div className="text-center animate-fade-in" style={{ animationDelay: '0.2s' }}>
               <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4">
                 <Award className="h-8 w-8 text-primary" />
               </div>
-              <h3 className="text-3xl font-bold mb-2">25K+</h3>
+              <h3 className="text-3xl font-bold mb-2">1k+</h3>
               <p className="text-muted-foreground">Certificates Earned</p>
             </div>
           </div>
