@@ -189,15 +189,15 @@ All colors MUST be HSL.
     font-family: 'Comic Sans MS', 'OpenDyslexic', sans-serif !important;
   }
 
-  [data-cursor-mode="big"] * {
+  [data-cursor-mode="big"] *:not([data-a11y-widget="true"]):not([data-a11y-widget="true"] *) {
     cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 32 32"><path d="M2 2 L2 28 L10 20 L15 28 L18 27 L13 19 L22 19 Z" fill="white" stroke="black" stroke-width="1"/></svg>') 0 0, auto !important;
   }
 
-  [data-cursor-mode="reading-guide"] {
+  [data-cursor-mode="reading-guide"]:not([data-a11y-widget="true"]) {
     position: relative;
   }
 
-  [data-cursor-mode="reading-guide"]::before {
+  [data-cursor-mode="reading-guide"]:not([data-a11y-widget="true"])::before {
     content: '';
     position: fixed;
     left: 0;
@@ -205,10 +205,10 @@ All colors MUST be HSL.
     height: 2px;
     background: hsl(var(--primary));
     pointer-events: none;
-    z-index: 9999;
+    z-index: 9998;
   }
 
-  [data-pause-animations="true"] * {
+  [data-pause-animations="true"] *:not([data-a11y-widget="true"]):not([data-a11y-widget="true"] *) {
     animation-play-state: paused !important;
     transition: none !important;
   }
