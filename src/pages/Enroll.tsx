@@ -182,18 +182,18 @@ const Enroll = () => {
                   <div className="space-y-2">
                     <div className="flex justify-between text-sm">
                       <span className="text-muted-foreground">Course Price</span>
-                      <span>{isFree ? "FREE" : `$${course.price}`}</span>
+                      <span>{isFree ? "FREE" : `₹${course.price}`}</span>
                     </div>
                     {!isFree && appliedCoupon && (
                       <div className="flex justify-between text-sm text-success">
                         <span>Discount ({appliedCoupon.discount}%)</span>
-                        <span>-${((course.price * appliedCoupon.discount) / 100).toFixed(2)}</span>
+                        <span>-₹{((course.price * appliedCoupon.discount) / 100).toFixed(2)}</span>
                       </div>
                     )}
                     {!isFree && (
                       <div className="flex justify-between text-sm">
                         <span className="text-muted-foreground">Tax</span>
-                        <span>$0.00</span>
+                        <span>₹0.00</span>
                       </div>
                     )}
                   </div>
@@ -202,7 +202,7 @@ const Enroll = () => {
 
                   <div className="flex justify-between font-bold text-lg">
                     <span>Total</span>
-                    <span className="text-primary">{isFree ? "FREE" : `$${calculateTotal().toFixed(2)}`}</span>
+                    <span className="text-primary">{isFree ? "FREE" : `₹${calculateTotal().toFixed(2)}`}</span>
                   </div>
 
                   {!isFree && (
