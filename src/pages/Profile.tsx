@@ -40,9 +40,9 @@ const Profile = () => {
       <main className="container py-8 max-w-4xl mx-auto">
         <div className="mb-6">
           <Link to="/account">
-            <Button variant="ghost" size="sm" className="mb-4">
+            <Button variant="ghost" size="sm" className="mb-4 -ml-2 hover:bg-primary/10 hover:text-foreground">
               <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Account
+              Back
             </Button>
           </Link>
           <h1 className="text-3xl font-bold">Edit Profile</h1>
