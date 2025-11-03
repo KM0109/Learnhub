@@ -1,7 +1,7 @@
-import { 
-  Circle, Sparkles, Type, ArrowsUpFromLine, AlignLeft, Palette, 
-  Link as LinkIcon, ImageOff, Loader, Keyboard, Layers, MessageCircle, 
-  Book, Volume2, Mouse, Info, Check
+import {
+  Circle, Sparkles, Type, ArrowsUpFromLine, AlignLeft, Palette,
+  Link as LinkIcon, ImageOff, Loader, Keyboard, Layers, MessageCircle,
+  Book, Volume2, Mouse, Info, Check, Eye
 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
@@ -204,6 +204,13 @@ export function AccessibilityControls({ settings, onToggle, onUpdate }: Accessib
             active={settings.hideImages}
             onClick={() => onToggle('hideImages')}
             info="Remove all images from view"
+          />
+          <ControlCard
+            icon={Eye}
+            title="Show Alt Text"
+            active={settings.showAltText}
+            onClick={() => onToggle('showAltText')}
+            info="Display image alt text as overlay (Screen reader mode)"
           />
         </div>
       </div>

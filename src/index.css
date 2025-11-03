@@ -179,6 +179,26 @@ All colors MUST be HSL.
     display: none;
   }
 
+  [data-show-alt-text="true"] img {
+    position: relative;
+  }
+
+  [data-show-alt-text="true"] img::after {
+    content: attr(alt);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    padding: 8px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    word-wrap: break-word;
+    border-radius: 4px;
+    z-index: 10;
+  }
+
   [data-highlight-links="true"] a {
     background-color: hsl(var(--primary) / 0.15);
     outline: 2px solid hsl(var(--primary));

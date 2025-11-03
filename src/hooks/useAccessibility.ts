@@ -11,6 +11,7 @@ export interface AccessibilitySettings {
   saturation: 'normal' | 'low' | 'high' | 'desaturate';
   highlightLinks: boolean;
   hideImages: boolean;
+  showAltText: boolean;
   dyslexiaFont: boolean;
   dyslexiaFontType: 1 | 2;
   cursorMode: 'normal' | 'big' | 'reading-guide' | 'reading-mask';
@@ -36,6 +37,7 @@ const defaultSettings: AccessibilitySettings = {
   saturation: 'normal',
   highlightLinks: false,
   hideImages: false,
+  showAltText: false,
   dyslexiaFont: false,
   dyslexiaFontType: 1,
   cursorMode: 'normal',
@@ -87,7 +89,10 @@ export function useAccessibility() {
     
     // Hide images
     root.setAttribute('data-hide-images', settings.hideImages.toString());
-    
+
+    // Show alt text
+    root.setAttribute('data-show-alt-text', settings.showAltText.toString());
+
     // Highlight links
     root.setAttribute('data-highlight-links', settings.highlightLinks.toString());
     
@@ -128,6 +133,7 @@ export function useAccessibility() {
       },
       'blind': {
         screenReader: true,
+        showAltText: true,
         keyboardNav: true,
       },
       'color-blind': {
