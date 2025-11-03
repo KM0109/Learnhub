@@ -5,7 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CourseCard from "@/components/CourseCard";
 import { courses } from "@/data/courses";
-import heroImage from "@/assets/hero-image-new.jpeg";
+import heroImage from "@/assets/hero-image-new.svg";
 import { useState } from "react";
 import AccessibleImage from "@/components/AccessibleImage";
 
