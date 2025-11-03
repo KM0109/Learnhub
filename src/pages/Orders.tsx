@@ -34,7 +34,7 @@ const Orders = () => {
             <div>
               <h1 className="text-4xl font-bold">My Orders</h1>
               <p className="text-lg text-muted-foreground mt-2">
-                {purchasedCourses.length} {purchasedCourses.length === 1 ? 'order' : 'orders'} • Total spent: ${totalSpent.toFixed(2)}
+                {purchasedCourses.length} {purchasedCourses.length === 1 ? 'order' : 'orders'} • Total spent: ₹{totalSpent.toFixed(2)}
               </p>
             </div>
           </div>
@@ -84,7 +84,7 @@ const Orders = () => {
                               <span>{course.duration}</span>
                             </div>
                             <div className="flex items-center gap-2">
-                              <p className="text-xl font-bold text-primary">${course.price}</p>
+                              <p className="text-xl font-bold text-primary">₹{course.price}</p>
                               <ChevronRight className="h-5 w-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
                             </div>
                           </div>
