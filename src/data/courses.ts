@@ -1,4 +1,11 @@
 import { Course } from "@/types/course";
+import cs50Python from "@/assets/cs50-introduction-to-python.svg";
+import webDevBootcamp from "@/assets/complete-web-development-bootcamp.svg";
+import pythonDataScience from "@/assets/python-for-data-science.svg";
+import uiUxMasterclass from "@/assets/ui-ux-design-masterclass.svg";
+import digitalMarketing from "@/assets/digital-marketing-fundamentals.svg";
+import reactNative from "@/assets/mobile-app-development-with-react-native.svg";
+import machineLearning from "@/assets/machine-learning-a-z.svg";
 
 export const courses: Course[] = [
   {
@@ -12,7 +19,7 @@ export const courses: Course[] = [
     duration: "40 hours",
     level: "Beginner",
     category: "Programming",
-    thumbnail: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4",
+    thumbnail: cs50Python,
     enrolled: true,
     purchased: true,
     progress: 38,
@@ -44,7 +51,7 @@ export const courses: Course[] = [
     duration: "52 hours",
     level: "Beginner",
     category: "Web Development",
-    thumbnail: "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
+    thumbnail: webDevBootcamp,
     enrolled: true,
     purchased: true,
     progress: 100,
@@ -76,7 +83,7 @@ export const courses: Course[] = [
     duration: "38 hours",
     level: "Intermediate",
     category: "Data Science",
-    thumbnail: "https://images.unsplash.com/photo-1526379095098-d400fd0bf935",
+    thumbnail: pythonDataScience,
     enrolled: true,
     purchased: true,
     progress: 65,
@@ -105,7 +112,7 @@ export const courses: Course[] = [
     duration: "32 hours",
     level: "Beginner",
     category: "Design",
-    thumbnail: "https://images.unsplash.com/photo-1561070791-2526d30994b5",
+    thumbnail: uiUxMasterclass,
     enrolled: true,
     purchased: true,
     progress: 100,
@@ -137,7 +144,7 @@ export const courses: Course[] = [
     duration: "28 hours",
     level: "Beginner",
     category: "Marketing",
-    thumbnail: "https://images.unsplash.com/photo-1460925895917-afdab827c52f",
+    thumbnail: digitalMarketing,
     enrolled: true,
     purchased: true,
     progress: 40,
@@ -167,7 +174,7 @@ export const courses: Course[] = [
     duration: "45 hours",
     level: "Advanced",
     category: "Mobile Development",
-    thumbnail: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c",
+    thumbnail: reactNative,
     enrolled: false,
     purchased: false,
     progress: 0,
@@ -200,7 +207,7 @@ export const courses: Course[] = [
     duration: "58 hours",
     level: "Advanced",
     category: "Artificial Intelligence",
-    thumbnail: "https://images.unsplash.com/photo-1555255707-c07966088b7b",
+    thumbnail: machineLearning,
     enrolled: true,
     purchased: true,
     progress: 100,
