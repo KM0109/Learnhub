@@ -7,6 +7,7 @@ import CourseCard from "@/components/CourseCard";
 import { courses } from "@/data/courses";
 import heroImage from "@/assets/hero-image-new.jpeg";
 import { useState } from "react";
+import AccessibleImage from "@/components/AccessibleImage";
 
 const Index = () => {
   const featuredCourses = courses.slice(0, 3);
@@ -47,9 +48,9 @@ const Index = () => {
             </div>
             <div className="animate-scale-in lg:block">
               {!imageError ? (
-                <img
+                <AccessibleImage
                   src={heroImage}
-                  alt="People learning online"
+                  alt="Online learning environment showcasing students and instructors collaborating in a digital classroom"
                   className="rounded-2xl shadow-elegant w-full object-cover aspect-video"
                   onError={() => setImageError(true)}
                 />

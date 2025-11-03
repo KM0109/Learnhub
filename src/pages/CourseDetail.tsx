@@ -17,6 +17,7 @@ import VideoPlayer from "@/components/VideoPlayer";
 import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "@/components/ui/context-menu";
 import InlineQuiz from "@/components/InlineQuiz";
 import { getQuizById } from "@/data/quizzes";
+import AccessibleImage from "@/components/AccessibleImage";
 
 const CourseDetail = () => {
   const { id } = useParams();
@@ -206,7 +207,7 @@ const CourseDetail = () => {
                 <Card className="lg:hidden shadow-elegant">
                   <CardContent className="p-6">
                     <div className="aspect-video rounded-lg overflow-hidden mb-4">
-                      <img src={course.thumbnail} alt={course.title} className="w-full h-full object-cover" />
+                      <AccessibleImage src={course.thumbnail} alt={course.title} className="w-full h-full object-cover" />
                     </div>
                     <div className="text-center mb-4">
                       {course.price === 0 ? (
@@ -607,7 +608,7 @@ const CourseDetail = () => {
                 <Card className="shadow-elegant sticky top-24">
                   <CardContent className="p-6">
                     <div className="aspect-video rounded-lg overflow-hidden mb-4">
-                      <img src={course.thumbnail} alt={course.title} className="w-full h-full object-cover" />
+                      <AccessibleImage src={course.thumbnail} alt={course.title} className="w-full h-full object-cover" />
                     </div>
                     <div className="text-center mb-4">
                       {course.price === 0 ? (

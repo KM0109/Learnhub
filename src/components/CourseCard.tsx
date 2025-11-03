@@ -7,6 +7,7 @@ import { Course } from "@/types/course";
 import { Progress } from "@/components/ui/progress";
 import { toast } from "sonner";
 import { useState } from "react";
+import AccessibleImage from "@/components/AccessibleImage";
 
 interface CourseCardProps {
   course: Course;
@@ -27,7 +28,7 @@ const CourseCard = ({ course, showProgress = false }: CourseCardProps) => {
     <Link to={`/course/${course.id}`}>
       <Card className="group overflow-hidden transition-all hover:shadow-elegant animate-fade-in cursor-pointer h-full flex flex-col">
         <div className="aspect-video overflow-hidden relative flex-shrink-0">
-          <img
+          <AccessibleImage
             src={course.thumbnail}
             alt={course.title}
             className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
