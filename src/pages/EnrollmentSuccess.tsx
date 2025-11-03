@@ -83,16 +83,16 @@ const EnrollmentSuccess = () => {
               <div className="space-y-3">
                 <div className="flex justify-between text-sm">
                   <span className="text-muted-foreground">Course Price</span>
-                  <span>${course.price}</span>
+                  <span>₹{course.price}</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-muted-foreground">Tax</span>
-                  <span>$0.00</span>
+                  <span>₹0.00</span>
                 </div>
                 <Separator />
                 <div className="flex justify-between font-bold text-lg">
                   <span>Total Paid</span>
-                  <span className="text-primary">${course.price}</span>
+                  <span className="text-primary">₹{course.price}</span>
                 </div>
               </div>
             </CardContent>
