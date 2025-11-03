@@ -179,11 +179,11 @@ All colors MUST be HSL.
     display: none;
   }
 
-  [data-show-alt-text="true"] img {
+  [data-screen-reader-images="true"] img {
     position: relative;
   }
 
-  [data-show-alt-text="true"] img::after {
+  [data-screen-reader-images="true"] img::after {
     content: attr(alt);
     position: absolute;
     bottom: 0;
