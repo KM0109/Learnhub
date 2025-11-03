@@ -3,7 +3,7 @@ import cs50Python from "@/assets/cs50-introduction-to-python.svg";
 import webDevBootcamp from "@/assets/complete-web-development-bootcamp.svg";
 import pythonDataScience from "@/assets/python-for-data-science.svg";
 import uiUxMasterclass from "@/assets/ui-ux-design-masterclass.svg";
-import digitalMarketing from "@/assets/Digital-Marketing-Fundamentals.svg";
+import digitalMarketing from "@/assets/digital-marketing-fundamentals.svg";
 import reactNative from "@/assets/mobile-app-development-with-react-native.svg";
 import machineLearning from "@/assets/machine-learning-a-z.svg";
 
