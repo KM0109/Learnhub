@@ -1,4 +1,5 @@
 import { Course } from "@/types/course";
+import CourseWebDevImage from './src/assets/Course Image SVG/complete-web-development-bootcamp.svg';
 
 export const courses: Course[] = [
   {
@@ -12,7 +13,7 @@ export const courses: Course[] = [
     duration: "40 hours",
     level: "Beginner",
     category: "Programming",
-    thumbnail: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4",
+    thumbnail: CourseWebDevImage,
     enrolled: true,
     purchased: true,
     progress: 38,
