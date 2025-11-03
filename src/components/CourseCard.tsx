@@ -33,8 +33,7 @@ const CourseCard = ({ course, showProgress = false }: CourseCardProps) => {
             alt={course.title}
             className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
           />
-          <Badge className="absolute top-3 right-3 bg-primary/90 text-primary-foreground backdrop-blur shadow-card">
-            {course.level}
+          <Badge className="absolute top-3 right-3 bg-card/95 text-foreground border-2 border-primary/30 backdrop-blur shadow-card transition-transform duration-200 hover:scale-105">            {course.level}
           </Badge>
           <Button
             variant="ghost"
@@ -91,7 +90,7 @@ const CourseCard = ({ course, showProgress = false }: CourseCardProps) => {
           {course.price === 0 ? (
             <p className="font-bold text-lg text-success">FREE</p>
           ) : (
-            <p className="font-bold text-lg text-primary">${course.price}</p>
+            <p className="font-bold text-lg text-primary">₹{course.price}</p>
           )}
         </CardFooter>
       </Card>
