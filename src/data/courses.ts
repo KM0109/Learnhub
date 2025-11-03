@@ -1,4 +1,5 @@
 import { Course } from "@/types/course";
+import cs50Image from "@/assets/CS50P_pll copy copy.png";
 
 export const courses: Course[] = [
   {
