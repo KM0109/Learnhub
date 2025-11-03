@@ -216,7 +216,7 @@ const CourseDetail = () => {
                           <p className="text-sm text-muted-foreground mt-1">No payment required</p>
                         </div>
                       ) : (
-                        <span className="text-4xl font-bold text-primary">${course.price}</span>
+                        <span className="text-4xl font-bold text-primary">₹{course.price}</span>
                       )}
                     </div>
                     <Link to={`/enroll/${course.id}`} className="block mb-3">
@@ -617,7 +617,7 @@ const CourseDetail = () => {
                           <p className="text-sm text-muted-foreground mt-1">No payment required</p>
                         </div>
                       ) : (
-                        <span className="text-4xl font-bold text-primary">${course.price}</span>
+                        <span className="text-4xl font-bold text-primary">₹{course.price}</span>
                       )}
                     </div>
                     <Link to={`/enroll/${course.id}`} className="block mb-3">
