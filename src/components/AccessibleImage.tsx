@@ -18,7 +18,9 @@ const AccessibleImage = ({ src, alt, className, ...props }: AccessibleImageProps
     setContextMenu({ x: e.clientX, y: e.clientY });
   };
 
-  const handleToggle = () => {
+  const handleToggle = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
     setShowAlt(!showAlt);
     setContextMenu(null);
   };
@@ -67,6 +69,7 @@ const AccessibleImage = ({ src, alt, className, ...props }: AccessibleImageProps
         >
           <button
             onClick={handleToggle}
+            onMouseDown={(e) => e.preventDefault()}
             className="w-full px-4 py-2 text-sm flex items-center gap-2 hover:bg-secondary text-foreground first:rounded-t-lg last:rounded-b-lg transition-colors"
           >
             {showAlt ? (

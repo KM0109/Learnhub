@@ -179,6 +179,7 @@ export const courses: Course[] = [
     purchased: false,
     progress: 0,
     totalXp: 4200,
+    wishlisted: true,
     lessons: [
       { id: "5-1", title: "Introduction to React Native", duration: 90, type: "video", completed: false, xp: 200, videoId: "rn1" },
       { id: "5-2", title: "Environment Setup and Configuration", duration: 120, type: "video", completed: false, xp: 250, videoId: "rn2" },
