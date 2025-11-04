@@ -48,7 +48,7 @@ const CourseCard = ({ course, showProgress = false, layout = "grid" }: CourseCar
                     by {course.instructor}
                   </p>
                 </div>
-                <Badge className="bg-card/95 text-foreground border-2 border-primary/30 backdrop-blur shadow-card">
+                <Badge className="bg-card/95 text-foreground border-2 border-primary/30 backdrop-blur shadow-card hover:bg-card/95">
                   {course.level}
                 </Badge>
               </div>
@@ -98,7 +98,7 @@ const CourseCard = ({ course, showProgress = false, layout = "grid" }: CourseCar
             alt={course.title}
             className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
           />
-          <Badge className="absolute top-3 right-3 bg-card/95 text-foreground border-2 border-primary/30 backdrop-blur shadow-card transition-transform duration-200">
+          <Badge className="absolute top-3 right-3 bg-card/95 text-foreground border-2 border-primary/30 backdrop-blur shadow-card transition-transform duration-200 hover:bg-card/95">
             {course.level}
           </Badge>
           <Button
