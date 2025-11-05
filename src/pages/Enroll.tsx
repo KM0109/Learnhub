@@ -159,7 +159,7 @@ const Enroll = () => {
                       className="w-full"
                       disabled={isProcessing}
                     >
-                      {isProcessing ? "Processing..." : isFree ? "Enroll for Free" : `Pay $${calculateTotal().toFixed(2)} & Enroll`}
+                      {isProcessing ? "Processing..." : isFree ? "Enroll for Free" : `Pay ₹${calculateTotal().toFixed(2)} & Enroll`}
                     </Button>
                   </form>
                 </CardContent>
