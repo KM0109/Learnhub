@@ -5,6 +5,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { ThemeProvider } from "@/components/theme-provider";
 import { AccessibilityWidget } from "@/components/AccessibilityWidget";
+import { AccessibilityProvider } from "@/context/AccessibilityContext";
+import { useAccessibility } from "@/hooks/useAccessibility";
 import { useEffect } from "react";
 import Index from "./pages/Index";
 import Courses from "./pages/Courses";
@@ -36,36 +38,46 @@ const ScrollToTop = () => {
   return null;
 };
 
+const AppContent = () => {
+  const { settings } = useAccessibility();
+
+  return (
+    <AccessibilityProvider settings={settings}>
+      <BrowserRouter>
+        <ScrollToTop />
+        <AccessibilityWidget />
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/courses" element={<Courses />} />
+          <Route path="/course/:id" element={<CourseDetail />} />
+          <Route path="/course/:courseId/quiz/:quizId" element={<Quiz />} />
+          <Route path="/enroll/:id" element={<Enroll />} />
+          <Route path="/enrollment-success/:id" element={<EnrollmentSuccess />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/certificate/:id" element={<Certificate />} />
+          <Route path="/certificates" element={<Certificates />} />
+          <Route path="/account" element={<Account />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/wishlist" element={<Wishlist />} />
+          <Route path="/orders" element={<Orders />} />
+          <Route path="/order/:orderId" element={<OrderDetail />} />
+          <Route path="/support" element={<Support />} />
+          <Route path="/about" element={<AboutUs />} />
+          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </AccessibilityProvider>
+  );
+};
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <ThemeProvider defaultTheme="dark" storageKey="learnhub-theme">
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <BrowserRouter>
-          <ScrollToTop />
-          <AccessibilityWidget />
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/courses" element={<Courses />} />
-            <Route path="/course/:id" element={<CourseDetail />} />
-            <Route path="/course/:courseId/quiz/:quizId" element={<Quiz />} />
-            <Route path="/enroll/:id" element={<Enroll />} />
-            <Route path="/enrollment-success/:id" element={<EnrollmentSuccess />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/certificate/:id" element={<Certificate />} />
-            <Route path="/certificates" element={<Certificates />} />
-            <Route path="/account" element={<Account />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/wishlist" element={<Wishlist />} />
-            <Route path="/orders" element={<Orders />} />
-            <Route path="/order/:orderId" element={<OrderDetail />} />
-            <Route path="/support" element={<Support />} />
-            <Route path="/about" element={<AboutUs />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
+        <AppContent />
       </TooltipProvider>
     </ThemeProvider>
   </QueryClientProvider>

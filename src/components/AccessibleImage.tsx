@@ -1,5 +1,6 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Eye, EyeOff } from "lucide-react";
+import { useAccessibilityContext } from "@/context/AccessibilityContext";
 
 interface AccessibleImageProps {
   src: string;
@@ -9,9 +10,14 @@ interface AccessibleImageProps {
 }
 
 const AccessibleImage = ({ src, alt, className, ...props }: AccessibleImageProps) => {
+  const { settings } = useAccessibilityContext();
   const [showAlt, setShowAlt] = useState(false);
   const [contextMenu, setContextMenu] = useState<{ x: number; y: number } | null>(null);
   const contextMenuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setShowAlt(settings.screenReader);
+  }, [settings.screenReader]);
 
   const handleContextMenu = (e: React.MouseEvent) => {
     e.preventDefault();
