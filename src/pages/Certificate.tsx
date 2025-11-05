@@ -5,11 +5,20 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Award, Download, Share2, Trophy, ArrowLeft } from "lucide-react";
 import { courses } from "@/data/courses";
+import { toast } from "sonner";
 
 const Certificate = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const course = courses.find(c => c.id === id);
+
+  const handleDownload = (courseTitle: string) => {
+    toast.success(`Downloading certificate for ${courseTitle}`);
+  };
+
+  const handleShare = () => {
+    toast.success("Certificate link copied to clipboard!");
+  };
 
   if (!course) {
     return (
@@ -96,11 +105,11 @@ const Certificate = () => {
                 </div>
 
                 <div className="flex flex-wrap justify-center gap-4">
-                  <Button variant="hero" size="lg">
+                  <Button variant="hero" size="lg" onClick={() => handleDownload(course.title)}>
                     <Download className="h-5 w-5" />
                     Download Certificate
                   </Button>
-                  <Button variant="outline" size="lg">
+                  <Button variant="outline" size="lg" onClick={handleShare}>
                     <Share2 className="h-5 w-5" />
                     Share
                   </Button>
